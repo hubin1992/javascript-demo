@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f92c51f-6cdc-4c85-bf42-623c8c683605" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/3、数据类型.html" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/2、操作语句.html" afterPath="$PROJECT_DIR$/2、操作语句.html" />
+      <change beforePath="$PROJECT_DIR$/3、数据类型.html" afterPath="$PROJECT_DIR$/3、数据类型.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,18 +19,18 @@
       <file leaf-file-name="1、js的基础语法.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/1、js的基础语法.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
+            <state relative-caret-position="-1572">
               <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2、操作语句.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/2、操作语句.html">
+      <file leaf-file-name="3、数据类型.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/3、数据类型.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+            <state relative-caret-position="581">
+              <caret line="32" column="8" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -56,8 +53,8 @@
       <list>
         <option value="$PROJECT_DIR$/js的基础语法.html" />
         <option value="$PROJECT_DIR$/1、js的基础语法.html" />
-        <option value="$PROJECT_DIR$/3、数据类型.html" />
         <option value="$PROJECT_DIR$/2、操作语句.html" />
+        <option value="$PROJECT_DIR$/3、数据类型.html" />
       </list>
     </option>
   </component>
@@ -146,12 +143,12 @@
       <updated>1515738748515</updated>
       <workItem from="1515738749665" duration="1146000" />
       <workItem from="1516094770281" duration="178000" />
-      <workItem from="1516153410782" duration="10748000" />
+      <workItem from="1516153410782" duration="12340000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12072000" />
+    <option name="totallyTimeSpent" value="13664000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -211,26 +208,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/3、数据类型.html">
+    <entry file="file://$PROJECT_DIR$/2、操作语句.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="11" lean-forward="false" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+        <state relative-caret-position="390">
+          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/1、js的基础语法.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
+        <state relative-caret-position="-1572">
           <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/2、操作语句.html">
+    <entry file="file://$PROJECT_DIR$/3、数据类型.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+        <state relative-caret-position="581">
+          <caret line="32" column="8" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
           <folding />
         </state>
       </provider>
