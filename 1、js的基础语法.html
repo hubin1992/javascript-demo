@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //js基本的知识
+    //js的组成部分---基础语法，数据类型，操作语句，DOM,BOM
+    //知识分解--基础语法
+    /*
+    * 1、js中的命名规范
+    *   1）遵循驼峰命名法（大驼峰和小驼峰）
+    *       例如：wrapContent(小驼峰)WrapContent(大驼峰)
+    *   2）可以是数字字母下划线，但是不能以数字开头
+    *   3）不能是关键字和保留字
+    *   4）严格区分大小写
+    *
+    * 2、变量
+    *   1）变量的命名
+    *       var message
+    *       let a
+    *       const b
+    *   2）全局变量和局部变量
+    *       1）var的情况下
+    *       var a=1; 这就是全局变量
+    *       function fn(){
+    *           var a=1 这是局部变量
+    *       }
+    *       2）let 和 const
+    *       他们两个都属于局部变量，如果在代码块外调用会报错
+    *        {
+                let a = 1;
+                const b=2;
+             }
+             console.log(a,b) ;// a is not undefined
+
+
+         3)变量的提升
+            1）var 命名的变量，存在变量提升的问题
+            2）let和const 不存在变量提升的问题
+
+            console.log(a); //undefined
+            var a;
+            console.log(b); //报错
+            let b
+            console.log(c);
+            const c //语法错误，因为const必须是固定的地址
+
+
+        4）let和const的补充
+            关于let的补充
+                1）for循环的特别特殊
+                for (let i = 0;i<2;i++){
+                        //单独看称了一个代码块，如果我们里面定义了，那么就以里面的为主
+                        //let  i = 1;
+                        //当我们把里面定义的let i = 1;  注释之后那么就可以和var 一样正常输出括号里面的值了
+                        console.log(i)
+                    }
+
+                2）暂时性死区
+                   在统一区域块中，如果用let 来命名变量，只要出现变量提升的写法，那么就会出现暂时性死区，报错
+                   例如：
+                    // let tmp = 1
+                    // if(true){
+                    //     //报错，暂时性死区
+                    //     console.log(tmp);
+                    //     let tmp
+                    // }
+
+                    // function fn(x = y, y = 2) {
+                    //     return {x,y}
+                    //     //y is not undefined
+                    // }
+                    // fn()
+                    //修改一下
+                    // function fn(x = 2, y = x) {// 这样修改的就可以执行的原因，是因为函数有一个预解释的机制，当我们与解释的时候先进行行参复制，也相当于变量的声明，所以他不会报错
+                    //     return {x,y}
+                    // }
+                    // console.log(fn())
+
+
+                 3) 不允许重复声明，重复声明会报错
+
+                    function fn(a){
+                        var a = 2
+                        console.log(a) //2
+                    }
+
+                    function fn(b){
+                        let b //报错
+                    }
+
+                    function fn(b){
+                    // 利用块级作用域来规避这个错误就好
+                        {
+                            let b
+                        }
+                    }
+
+
+            关于const的补充
+                1、const 声明变量后必须赋值，不然会报错
+                2、const 关于值的问题
+                    1）值类型，普通的数据类型，他就是一个固定的值
+                           例如：const a = 1, a = 2  那就报错
+                    2）地址类型 var foo = {}; foo.name = 'haha' 不会报错，因为他固定的是引用的地址
+
+                3、除了这两条特殊的，别的都和let 一样；
+
+    *
+    *
+    *
+    *
+    * */
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
