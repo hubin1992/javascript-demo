@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //引用数据类型
+        //1、object
+            //1.创建方式
+            var obj={name:"haha",age:19};//..字面量创建方式
+            var obj1=new Object();//实例的方式
+            obj1.name="嘻嘻"
+            obj1['age']=18;
+            console.log(obj.name,obj1.age)
+
+            //增加（如果之前有就是修改，没有就是增加）
+            obj1.parent='ahah'
+            obj.name = 'xiuxiux'
+
+            //删除（真删除/假删除）
+            obj.name=null;//假删除
+            delete obj1.parent;//真删除
+        //2、math数学函数
+            // console.log(Math.max(12,12,13,0,1));//取最大值
+            // console.log(Math.min(12,12,2,0,1));//取最小值
+            // console.log(Math.abs(-1));//取绝对值
+            // console.log(Math.round(1.1));//四舍五入
+            // console.log(Math.random());//0-1之间的小数
+            // console.log(Math.round(Math.random()*(10-5)+5));//取5到10之间的整数
+            // console.log(Math.ceil(12.5));//向上取整
+            // console.log(Math.floor(12.5));//向下取整
+
+        //3、date函数
+            //1、获取当前自己的时间
+            var time =  new Date();//Sun Jan 21 2018 21:14:59 GMT+0800 (CST)属于对象数据类型
+            //console.log(time)
+            //console.log(time.getFullYear());//获取年2018
+            //console.log(time.getMonth());//0-11获取的
+            //console.log(time.getDate()); //0-6 获取的星期
+            // console.log(time.getHours());//获取小时
+            // console.log(time.getMinutes());//获取分钟
+            // console.log(time.getSeconds());//获取秒
+            // console.log(time.getMilliseconds());//获取毫秒
+
+    </script>
+</body>
+</html>
