@@ -11,32 +11,70 @@
     <script>
         //1.数据类型的检测 typeof
         //typeof检测的时候，转换后都是string
-        console.log(typeof (typeof 1)); //string
-        var a;
-        console.log(typeof a); //'undefined'
-        a = 1;
-        console.log(typeof a); //'number'
-        a = '1';
-        console.log(typeof a); //'string'
-        a = false;
-        console.log(typeof a); // 'boolean'
-        a = null;
-        console.log(typeof a); //'object'
-        a = function () {};
-        console.log(typeof a); //'function'
-        a = {};
-        console.log(typeof a); //'object'
-        //2.基本的数据类型
+        // console.log(typeof (typeof 1));//string
+        // var a ;
+        // console.log(typeof a);//'undefined'
+        // a = 1;
+        // console.log(typeof a);//'number'
+        // a = '1';
+        // console.log(typeof a);//'string'
+        // a = false;
+        // console.log(typeof a);// 'boolean'
+        // a = null;
+        // console.log(typeof a);//'object'
+        // a=function () {};
+        // console.log(typeof a);//'function'
+        // a = {};
+        // console.log(typeof a);//'object'
+    //2.基本的数据类型
         //1)null, 当我们定义控对象的时候，我们可以用null来定义
         //2)undefined, 声明来没赋值，函数中有行参但是没有传递参数，return 没有返回值；
         //3)boolean, 这个数据类型只有两个值，true和false
-        //以下情况是false,其余的都为true
-        // 0, '',NaN, null, undefined
+            //以下情况是false,其余的都为true
+            // 0, '',NaN, null, undefined
         //4)number数据类型
-        //1.转换为Number() 强制转换为number数据类型
-        //2.parseInt()  转换为number数据类型，但是只保留整数部分
-        //3.parseFloat() 转换为number数据类型，可以保留小数点后一位
-    </script>
+            //1.转换为Number() 强制转换为number数据类型
+             var str = '1111.11111';
+             var str1='hh';
+            // console.log(typeof Number(str));//number
+            // console.log( Number(str1));//NaN
+            //NaN 属于number类型，但是他不是一个有效数字，我们可以isNaN()来检测是否为一个有效数字
+            // 同时NaN 和 NaN 永远不会相等
+            //2.parseInt()  转换为number数据类型，但是只保留整数部分
+            // console.log(parseInt(str));//111
+            // console.log(parseInt(str1));//NaN
+            //3.parseFloat() 转换为number数据类型，可以保留小数点后多位
+            //console.log(typeof parseFloat(str));
+
+        //5)string---字符串
+            //字符串中常用的方法
+            var str = "good good study day day up"
+            //1)length(); 获取字符的个数
+            console.log(str.length);//26，里面包含了空格
+            //2)charAt()根据索引获取字符/charCodeAt()获取字符的code值
+            console.log(str.charAt(2));//o
+            console.log(str.charCodeAt("o"));//103
+            //3)字符串的截取
+                //1.substr(index,length)
+                console.log(str.substr(0));//从开始截取到最后
+                console.log(str.substr(0,4));//从开始截取4个字符   
+                //2.substring(startindex,endindex)
+                console.log(str.substr(1,4));//不包含结束的索引；
+                //3.slice(startindex,endindex)-->支持负数，负数慎用
+                console.log(str.substr(-3,1));//p
+            //4)获取字符串的索引值indexof／lastindexof
+                // 注意
+                //1)如果存在这个字符，那么会返回字符对应的索引，如果不存在，那么将会返回-1
+                //2)indexof从索引0往后面寻找， lastindexof，从最后一个索引往前寻找 
+            
+
+
+
+
+
+
+
+</script>
 </body>
 
 </html>
