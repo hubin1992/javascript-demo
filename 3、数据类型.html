@@ -1,45 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
     <title>数据类型</title>
 </head>
+
 <body>
-<script>
-    //1.数据类型的检测 typeof
+    <script>
+        //1.数据类型的检测 typeof
         //typeof检测的时候，转换后都是string
-        console.log(typeof (typeof 1));//string
-        var a ;
-        console.log(typeof a);//'undefined'
+        console.log(typeof (typeof 1)); //string
+        var a;
+        console.log(typeof a); //'undefined'
         a = 1;
-        console.log(typeof a);//'number'
+        console.log(typeof a); //'number'
         a = '1';
-        console.log(typeof a);//'string'
+        console.log(typeof a); //'string'
         a = false;
-        console.log(typeof a);// 'boolean'
+        console.log(typeof a); // 'boolean'
         a = null;
-        console.log(typeof a);//'object'
-        a=function () {};
-        console.log(typeof a);//'function'
+        console.log(typeof a); //'object'
+        a = function () {};
+        console.log(typeof a); //'function'
         a = {};
-        console.log(typeof a);//'object'
-    //2.基本的数据类型
+        console.log(typeof a); //'object'
+        //2.基本的数据类型
         //1)null, 当我们定义控对象的时候，我们可以用null来定义
         //2)undefined, 声明来没赋值，函数中有行参但是没有传递参数，return 没有返回值；
         //3)boolean, 这个数据类型只有两个值，true和false
-            //以下情况是false,其余的都为true
-            // 0, '',NaN, null, undefined
-          //4)number数据类型
-            //1.转换为Number() 强制转换为number数据类型
-            //2.parseInt()  转换为number数据类型，但是只保留整数部分
-            //3.parseFloat() 转换为number数据类型，可以保留小数点后一位
-        
-
-
-
-
-
-</script>
+        //以下情况是false,其余的都为true
+        // 0, '',NaN, null, undefined
+        //4)number数据类型
+        //1.转换为Number() 强制转换为number数据类型
+        //2.parseInt()  转换为number数据类型，但是只保留整数部分
+        //3.parseFloat() 转换为number数据类型，可以保留小数点后一位
+    </script>
 </body>
+
 </html>
