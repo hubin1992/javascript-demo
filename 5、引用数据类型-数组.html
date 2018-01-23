@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
         //数据的的基础语法
         // var ary = [12,23,34]
@@ -76,6 +77,74 @@
             // console.log(arr);//原有数组发生改变
             // function sortNumber(a,b){return a-b};
             // console.log(arr.sort(sortNumber));//这样就可以了；
+
+        //join() 把数组中的每一项按照指定的分隔符，拼接成字符串；
+        // var str = arr.join(" ")
+        // console.log(str);//返回的是改变后的字符串
+        // console.log(arr);//原有的数组不发生改变
+
+        //////////////////////////////有兼容性问题
+
+        //indexof/lastIndexOf---》此方法在ie8及其以下不兼容
+        //1)注意，此处的返回结果和string一样的，如果有返回的是索引，没有返回的是负一
+        // console.log(arr.indexOf(1));//0 
+        // console.log(arr.indexOf(12));//-1 
+        //2)indexof会进行隐式的转换，因为他用的是=== 所以要注意格式
+        var arr1 = ['1','2016'];
+        //console.log(arr.indexOf(1));//0
+        //3) indexof 只会按照每一个小组去获取，不会单个获取
+        // console.log(arr1.indexOf("2"));//-1
+        // console.log(arr1.indexOf("2016"));//1
+
+        //4)在ie8及其以下的兼容性的解决
+            //1、我们重新书写indexof方法
+            if (!Array.indexof){// 判断浏览器是否支持indexof的方法
+                Array.prototype.indexOf=function(el){//在原型上重新定义了indexof方法
+                    for (var i = 0; i < this.length;i++){//我们去循环，Array的一个实例
+                        if(this[i] === el){// 如果这个实例中有和我们indexof中的参数一样的那么返回索引
+                            return i
+                        }
+                    }
+                    return -1;// 如果没有返回 -1
+                }
+            }
+            //2、我们利用jq自带的工具去解决这个问题$.inArrary(i,ary);
+            console.log($.inArray(2,[1,2,3,4]));//1
+            console.log($.inArray("2",[1,2,3,4]));//-1
+        //forEach---循环数组中的每一个选项
+        //使用 arr.forEach(callback(当前项的值，索引，操作的数组),callback的this)
+            //callback的this 默认的是undefined
+                //例如：打印一个一个数组的值
+                function fn(ele,index,arr){
+                    console.log(index+" "+ele)
+                }
+                arr.forEach(fn)
+        // 兼容性，只兼容ie9及其以上；
+            //手写的解决方式
+                Array.prototype.forEach=function(callback,context){
+                    //仅仅是为了支持写的一个判断
+                    // if(context==="undefined"){
+                    //     context=window
+                    // }
+                    context == 'undefined'?context=window:null;
+                    if("forEach" in Array.prototype){//如果在原型上有这个方法
+                        this.forEach(callback,context)//那么就用这个
+                        return;
+                    }
+                    
+                    //如果不支持
+                    for(var i=0;i<this.length;i++){//for循环的作用，只是为了提供i，和this[i].value
+                        if(typeof callback == "function"){
+                            callback.call(context,this[i],i,this)//改变callback的关键字，并且让其执行
+                        }
+                    }
+                }
+            //利用jq中each()方法来替代
+            
+
+
+        //map
+
     </script>
 </body>
 </html>
