@@ -36,6 +36,10 @@
         //3、date函数
             //1、获取当前自己的时间
             var time =  new Date();//Sun Jan 21 2018 21:14:59 GMT+0800 (CST)属于对象数据类型
+
+            //目标时间注意时间格式
+            //new Date 支持的时间格式
+            var targetTime = new Date ('2018-1-24-11:02:30')
             //console.log(time)
             //console.log(time.getFullYear());//获取年2018
             //console.log(time.getMonth());//0-11获取的
@@ -44,6 +48,10 @@
             // console.log(time.getMinutes());//获取分钟
             // console.log(time.getSeconds());//获取秒
             // console.log(time.getMilliseconds());//获取毫秒
+
+            //2、获取毫秒数 time.getTime 距离1970年1月1日的毫秒数
+            console.log(time.getTime());
+            console.log(targetTime.getTime())
 
     </script>
 </body>
