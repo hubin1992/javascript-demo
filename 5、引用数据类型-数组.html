@@ -4,9 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        ul,li{
+            margin: 0;
+            padding: 0;
+            list-style: none
+        }
+        .test{
+            width: 990px;
+            margin: 0 auto;
+        }
+        .test li{
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background: #ddffdd;
+            margin-bottom: 4px;
+        }
+    
+    </style>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $(".test > li").each(function (i,item) {
+                $(this).click(function () {
+                        console.log(i,item)
+                  })
+              })
+
+          })
+    
+    </script>
 </head>
 <body>
-    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <ul class="test">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    
     <script>
         //数据的的基础语法
         // var ary = [12,23,34]
@@ -109,16 +145,16 @@
                 }
             }
             //2、我们利用jq自带的工具去解决这个问题$.inArrary(i,ary);
-            console.log($.inArray(2,[1,2,3,4]));//1
-            console.log($.inArray("2",[1,2,3,4]));//-1
-        //forEach---循环数组中的每一个选项
+        //     console.log($.inArray(2,[1,2,3,4]));//1
+        //     console.log($.inArray("2",[1,2,3,4]));//-1
+        // //forEach---循环数组中的每一个选项
         //使用 arr.forEach(callback(当前项的值，索引，操作的数组),callback的this)
             //callback的this 默认的是undefined
                 //例如：打印一个一个数组的值
-                function fn(ele,index,arr){
-                    console.log(index+" "+ele)
-                }
-                arr.forEach(fn)
+                // function fn(ele,index,arr){
+                //     console.log(index+" "+ele)
+                // }
+                // arr.forEach(fn)
         // 兼容性，只兼容ie9及其以上；
             //手写的解决方式
                 Array.prototype.forEach=function(callback,context){
@@ -139,12 +175,14 @@
                         }
                     }
                 }
-            //利用jq中each()方法来替代
-            
-
-
-        //map
-
+            //利用jq中$.each()方法来替代
+            //1.这个方法操作数组，或者对象比较方便
+            $.each(arr,function (index,value) {//index--索引值   value--值
+                   console.log(index)
+              })
+            //2.这个方法操作dom元素比较方便
+            $().each(function () {  })
+    
     </script>
 </body>
 </html>
