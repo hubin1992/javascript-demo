@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #code {
+            width: 100px;
+            height: 50px;
+            border: 1px solid red;
+            line-height: 50px;
+            text-align: center;
+            margin: 50px auto;
+            letter-spacing: 2px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="code">获取验证码</div>
+</body>
+<script>
+    //验证码思路
+    //1、首先我们要设计获取范围
+    //2、我们如果i重复了，那么让i+1；
+    //用charAt(math.random())获取str，
+    let code = document.getElementById("code")
+    let str = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    //console.log(str.length);62
+
+
+    //获取索引
+    function codeStr(n, m) {
+        let a = Number(n);
+        let b = Number(m);
+        let index = Math.round(Math.random() * (m-n) + n)
+        if (isNaN(n) || isNaN(m)) {
+            alert('请输入数字')
+        }
+        if (a > b) {
+            let tmp = null;
+            tem = a;
+            a = b;
+            b = tmp;
+        }
+        return str.charAt(index)
+    }
+
+    function getCon() {
+        let con = "";
+        for (let i = 0; i < 4; i++) {   
+            con += codeStr(61,0)
+        }
+        code.innerHTML=con
+    }
+    code.onclick=getCon;
+</script>
+
+</html>
