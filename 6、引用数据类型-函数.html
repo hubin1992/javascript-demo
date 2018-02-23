@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1、基础知识
+            //普通的函数分为两个部分，定义和执行
+            //例如：函数的定义的部分
+            function fn(a, b) { //这仅仅是定义了一个函数,a和b是行参，形参相当于入口；
+                var total = null;
+                total = a + b;
+                return total;//return 是返回值，是一个出口，如果我们没有return那么我们外部就拿不到total值
+            }
+            //函数执行的部分
+            fn();
+
+        //2、函数的内置接受参数arguments(用来接受多个参数值)
+            //实例：任意数求和
+            //思路：首先我们要确定他是一个数字，然后因为传递的参数可能很多，我们只能arguments来接受
+            function sum(){
+                var total = null;
+                for(var i=0;i<arguments.length;i++){
+                    if(!isNaN(arguments[i])){
+                        total+=arguments[i]
+                    }
+                }
+                return total;
+            }
+            console.log(sum(1,2,3,4,'hah'))
+
+        //3、匿名函数 || 自执行函数
+        (function(){})()
+        ~function(){}
+
+
+    </script>
+</body>
+
+</html>
