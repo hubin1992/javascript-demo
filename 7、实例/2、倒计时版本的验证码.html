@@ -34,6 +34,7 @@
                 ele.removeAttribute("disabled")
                 ele.value = "获取验证码"
                 clearTimeout(timer);
+                //注意：我们在这里清楚了定时器，但是他的返回值不会清楚掉，和银行排号是一个道理；
                 targetTime = 10;
             } else {
                 ele.setAttribute("disabled", true)
