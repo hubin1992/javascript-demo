@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        input {
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    验证码:
+    <input type="text" name="tel" placeholder="请输入验证码" maxlength="6" required>
+    <input type="submit" name="ver" value="获取验证码" id="Verification">
+    <script>
+        //思路分析
+        //1首先我们要点击获取验证码的时候，应该向后台发送一个请求，然后告诉后台给手机号发送，然后前台应该变成倒计时;60s,当60s结束后我们应该出现，重新发送的字样
+        //2、具体功能分析，我们点击的时候，首先要进行判断，时间是60，那么我们要减去时间，因此这里我们用递归的思想处理屌，如果是0那么我们就要改变倒计时的字样，并把时间调节成60，方便下一次继续用
+        let ver = document.getElementById("Verification");
+        let targetTime = 10;
+        let timer = null;
+        function settime(ele) {
+            if (targetTime == 0) {
+                ele.removeAttribute("disabled")
+                ele.value = "获取验证码"
+                clearTimeout(timer);
+                targetTime = 10;
+            } else {
+                ele.setAttribute("disabled", true)
+                ele.value = targetTime + "s"
+                targetTime--;
+                timer=window.setTimeout(function () {
+                    settime(ele)
+                }, 1000)
+            }
+
+        }
+        ver.onclick = function () {
+            settime(this)
+        }
+    </script>
+</body>
+
+</html>
