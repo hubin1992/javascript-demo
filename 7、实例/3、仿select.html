@@ -68,12 +68,12 @@
     </style>
     <script>
         window.onload = function () {
-            var listWarp = document.getElementById("list-warp");
-            var show = listWarp.getElementsByTagName("h2")[0];
-            var oUl = listWarp.getElementsByTagName("ul")[0];
-            var aLi = oUl.getElementsByTagName("li");
-            var oSpan = listWarp.getElementsByTagName("span")[0];
-            var onoff = true;
+            let listWarp = document.getElementById("list-warp");
+            let show = listWarp.getElementsByTagName("h2")[0];
+            let oUl = listWarp.getElementsByTagName("ul")[0];
+            let aLi = oUl.getElementsByTagName("li");
+            let oSpan = listWarp.getElementsByTagName("span")[0];
+            let onoff = true;
             show.onclick = function () {
                 if (onoff) {
                     oUl.style.display = "block";
@@ -85,7 +85,7 @@
                 onoff = !onoff
             }
 
-            for (var i = 0; i < aLi.length; i++) {
+            for (let i = 0; i < aLi.length; i++) {
                 aLi[i].index = i;
                 aLi[i].onclick = function () {
                     show.innerHTML = aLi[this.index].innerHTML;
