@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div,
+        input,
+        p,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        li {
+            list-style: none;
+        }
+
+        input {
+            outline: none;
+            background: none;
+        }
+
+        .wrap {
+            width: 500px;
+            border: 1px solid red;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .wrap .btn {
+            margin-top: 4px;
+        }
+
+        .wrap .btn input {
+            font-size: 12px;
+            padding: 2px;
+            border-radius: 4px;
+
+        }
+
+        .wrap .exp {
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .wrap .content {
+            position: relative;
+        }
+
+        .wrap .content a {
+            display: block;
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .wrap .content a img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrap .content .page,
+        .wrap .content .show-text {
+            position: absolute;
+            width: 100%;
+            right: 0;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: rgba(0, 0, 0, .6);
+            color: #ccc;
+        }
+
+        .wrap .content .page {
+            top: 0;
+        }
+
+        .wrap .content .show-text {
+            bottom: 0;
+        }
+
+        .wrap .left,
+        .wrap .right {
+            position: absolute;
+            top: 175px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 18px;
+            color: #fff;
+            background: rgba(255, 2555, 255, .6);
+            cursor: pointer;
+        }
+
+        .wrap .left {
+            left: 10px;
+        }
+
+        .wrap .right {
+            right: 10px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            let wrap = document.getElementById("wrap");
+            let input = wrap.getElementsByTagName("input");
+            let exp = document.getElementById("exp");
+            let left = document.getElementById("left");
+            let right = document.getElementById("right");
+            let show = document.getElementById("show");
+            let page = document.getElementById("page");
+            let showText = document.getElementById("show-text");
+            console.log(showText)
+            let onOff = true;
+            let num = 0;
+            var aImg = ['img/first.jpg', 'img/two.jpg', 'img/three.jpeg', 'img/four.jpg']
+            var aText = ['文字1', '文字2', '文字3', '文字4']
+            // 点击切换说明
+            for (var i = 0; i < input.length; i++) {
+                input[i].index = i;
+                input[i].onclick = function () {
+                    if (this.index == 0) {
+                        exp.innerHTML = '无限循环，无限播放';
+                        onOff = true;
+                    } else {
+                        exp.innerHTML = '有限循环，有头有尾';
+                        onOff = false;
+                    }
+                }
+                //数据初始化
+                show.innerHTML = "<li><a href='#'><img src=" + aImg[0] + "></a></li>"
+                page.innerHTML = 1 + "/" + aImg.length;
+                showText.innerHTML = aText[0]
+                //点击实现图片的切换
+                right.onclick = function () {
+                    if (onOff) {
+                        num++;
+                        if (num >= 4) {
+                            num = 0;
+                        }
+                        show.innerHTML = "<li><a href='#'><img src=" + aImg[num] + "></a></li>"
+                        page.innerHTML = num +1+ "/" + aImg.length;
+                        showText.innerHTML = aText[num]
+                    } else {
+                        num++;
+                        if (num >= 4) {
+                            num = 3;
+                            alert("这是最后一张了")
+                        }
+                        show.innerHTML = "<li><a href='#'><img src=" + aImg[num] + "></a></li>"
+                        page.innerHTML = num + 1+"/" + aImg.length;
+                        showText.innerHTML = aText[num]
+                    }
+                }
+
+
+
+
+
+
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrap" id="wrap">
+        <div class="wrap-top">
+            <div class="btn">
+                <input type="button" value="循环切换" class="changeo">
+                <input type="button" value="顺序切换" class="changet">
+            </div>
+            <p class="exp" id="exp">循环播放，无限循环</p>
+        </div>
+        <div class="content">
+            <span class="page" id="page"></span>
+            <span class="show-text" id="show-text"></span>
+            <ul class="show" id="show">
+                <li>
+                    <a href="#">
+                        <img src="img/first.jpg" alt="">
+                    </a>
+                </li>
+            </ul>
+            <span class="left" id="left"> &lt; </span>
+            <span class="right" id="right"> &gt; </span>
+
+        </div>
+    </div>
+</body>
+
+</html>
