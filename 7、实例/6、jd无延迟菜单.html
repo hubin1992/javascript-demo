@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .wrap {
+            position: relative;
+            width: 200px;
+        }
+
+        .wrap ul {
+            padding: 0 15px;
+            background: #fefefe;
+            color: #636363;
+            box-shadow: 0, 0, 0, rgba(0, 0, 0, .5)
+        }
+
+        .wrap ul li {
+            padding-left: 14px;
+            height: 28px;
+            line-height: 28px;
+        }
+
+        .wrap ul li a {
+            font-size: 14px;
+            color: #626262;
+            text-decoration: none;
+        }
+
+        #sub {
+            width: 600px;
+            min-height: 270px;
+            position: absolute;
+            border: 1px solid #f7f7f7;
+            background: #f7f7f7;
+            box-shadow: 0, 0, 0, .5;
+            left: 200px;
+            top: 0;
+            padding: 10px;
+        }
+
+        .sub_content a {
+            font-size: 12px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .sub_content dd a {
+            border-left: 1px solid #e0e0e0;
+            padding: 0 10px;
+            margin: 4px 0;
+        }
+
+        .sub_content dl {
+            overflow: hidden;
+        }
+
+        .sub_content dt {
+            float: left;
+            width: 70px;
+            clear: left;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .sub_content dd {
+            float: left;
+            margin-left: 5px;
+            border-top: 1px solid #eee;
+            margin-bottom: 5px;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .active {
+            background: #ccc;
+        }
+
+        .wrap li a:hover {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 
+        知识点总结：
+            1，事件的委托
+            2，mouseenter和mouseover的区别
+            enter他的触发是自己的身上，没有冒泡
+            over她有冒泡，可以沿用到父级
+            3，jq中data的用法
+            $(ele).data("id"),可以找多对应的id的元素
+            4，on绑定的时候参数的问题
+            on("event","ele",fn)
+
+
+
+     -->
+    <div class="wrap" id="wrap">
+        <ul>
+            <li data-id="a">
+                <a href="#">家用电器</a>
+            </li>
+            <li data-id="b">
+                <a href="#">手机／运营商／数码</a>
+            </li>
+            <li data-id="c">
+                <a href="#">电脑／办公</a>
+            </li>
+        </ul>
+        <div id="sub" class="none">
+            <div id="a" class="sub_content none">
+                <dl>
+                    <dt>
+                        <a href="#"> 二级菜单1 </a>
+                    </dt>
+                    <dd>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        <a href="#"> 二级菜单1 </a>
+                    </dt>
+                    <dd>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                    </dd>
+                </dl>
+            </div>
+            <div id="b" class="sub_content none">
+                <dl>
+                    <dt>
+                        <a href="#"> 二级菜单2 </a>
+                    </dt>
+                    <dd>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                    </dd>
+                </dl>
+
+            </div>
+            <div id="c" class="sub_content none">
+                <dl>
+                    <dt>
+                        <a href="#"> 二级菜单3 </a>
+                    </dt>
+                    <dd>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                        <a href="#"> 三级菜单 </a>
+                    </dd>
+                </dl>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var sub = $("#sub"); //子菜单的包裹层；
+            var activeRow,
+                activeMeau;
+            var timer = null;
+            var subStatu = false;
+
+            //判断是不是在二级的菜单上面
+            sub.on("mouseenter", function () {
+                subStatu = true;
+            }).on("mouseleave", function () {
+                subStatu = false;
+            })
+
+            //当我们划过wrap的时候，先让二级菜单的包裹层显示；
+            $("#wrap").on("mouseenter", function () {
+                sub.removeClass("none")
+            }).on("mouseleave", function () {
+                sub.addClass("none")
+                if (activeRow) {
+                    activeRow.removeClass("active");
+                    activeRow = null;
+                }
+                if (activeMeau) {
+                    activeMeau.addClass("none");
+                    activeMeau = null;
+                }
+            }).on("mouseenter", "li", function (e) { //此处如果划过的li
+                if (!activeRow) {
+                    activeRow = $(e.target).addClass("active");
+                    activeMeau = $("#" + activeRow.data("id"));
+                    activeMeau.removeClass("none")
+                    return
+                }
+                //如果有激活的我们需要先还原,然后对当前划过的进行加效果；这样实现有bug，如果我们想去🎧菜单里面点击，会出现bug，所以我们需要用一个定时器来实现
+                // activeRow.removeClass("active");
+                // activeMeau.addClass("none");
+
+                // activeRow = $(e.target).addClass("active");
+                // activeMeau = $("#" + activeRow.data("id"));
+                // activeMeau.removeClass("none")
+                // return
+
+
+                //加上定时器改良版本,我们这里还有一个判断，就是如果我们滑动在子菜单上，那么就不需要切换
+                // timer = setTimeout(function () {
+                //     if(subStatu){//如果我们这时候是划到二级菜单中，他是不会去切换菜单；
+                //         return
+                //     }
+                //     activeRow.removeClass("active");
+                //     activeMeau.addClass("none");
+
+                //     activeRow = $(e.target).addClass("active");
+                //     activeMeau = $("#" + activeRow.data("id"));
+                //     activeMeau.removeClass("none")
+                //     return
+                // }, 300)
+                //继续改良，用户体验的角度来说，如果我们一次划过多个，那么我们最好是只显示最后一个
+
+                timer = setTimeout(function () {
+                    if (subStatu) { //如果我们这时候是划到二级菜单中，他是不会去切换菜单；
+                        return
+                    }
+                    if (timer) { //当我们的延迟函数还没执行的时候就清除掉，只去执行最后一个
+                        clearTimeout(timer);
+                    }
+                    activeRow.removeClass("active");
+                    activeMeau.addClass("none");
+
+                    activeRow = $(e.target).addClass("active");
+                    activeMeau = $("#" + activeRow.data("id"));
+                    activeMeau.removeClass("none")
+                    timer = null;
+                }, 300)
+
+
+                //还存在一个问题就是我们平滑的时候，因为加了延迟，所以感觉很肉，这个我们可以用数学的思维来解决，未完待续
+            })
+        })
+    </script>
+</body>
+
+</html>
