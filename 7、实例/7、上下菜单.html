@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .div,
+        ul,
+        li,
+        ol {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .clear:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .wrap {
+            width: 990px;
+            margin: 100px auto;
+            background: #ccc;
+            overflow: hidden;
+        }
+
+        .wrap ul {
+            width: 1000px;
+        }
+
+        .wrap ul li {
+            float: left;
+            width: 110px;
+            background: #000;
+            border-right: 1px solid #ccc;
+        }
+
+        .wrap ul li.active {
+            background: red;
+        }
+
+        .wrap ul li a {
+            display: block;
+            height: 30px;
+            text-align: center;
+            color: #fff;
+            font: "Microsoft yahei" 14px/30px;
+            line-height: 30px;
+        }
+
+        .wrap ul li a:hover {
+            background: red;
+        }
+
+        .wrap ol li {
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 30px;
+        }
+
+        .wrap ol li a {
+            display: block;
+            line-height: 50px;
+        }
+
+        .wrap ol li.active {
+            background: red;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var meau = document.getElementById("meau");
+            var sub = document.getElementById("sub");
+            var mLi = meau.getElementsByTagName("li");
+            var sLi = sub.getElementsByTagName("li");
+            //初始化
+            mLi[0].className = "active";
+            for (let i = 0; i < sLi.length; i++) {
+                sLi[i].className = "none"
+            }
+
+
+            //划动实现
+            // for (var i = 0; i < mLi.length; i++) {
+            //     mLi[i].index = i
+            //     mLi[i].onmouseenter = function () {
+            //         mLi[0].className = ""
+            //         this.className = "active"
+            //         sLi[this.index].className="";
+            //     }
+            //     mLi[i].onmouseleave = function () {
+            //         this.className = ""
+            //         sLi[this.index].className="none";
+            //     }
+            // }
+
+
+
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrap" id="wrap">
+        <ul class="meau clear" id="meau">
+            <li>
+                <a href="#">首页</a>
+            </li>
+            <li>
+                <a href="#">服饰</a>
+            </li>
+            <li>
+                <a href="#">美容</a>
+            </li>
+            <li>
+                <a href="#">偶像</a>
+            </li>
+            <li>
+                <a href="#">乐活</a>
+            </li>
+            <li>
+                <a href="#">男士</a>
+            </li>
+            <li>
+                <a href="#">健康</a>
+            </li>
+            <li>
+                <a href="#">视觉</a>
+            </li>
+            <li>
+                <a href="#">视频</a>
+            </li>
+        </ul>
+        <div class="sub" id="sub">
+            <ol>
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li>
+                    <a href="#">4</a>
+                </li>
+                <li>
+                    <a href="#">5</a>
+                </li>
+                <li>
+                    <a href="#">6</a>
+                </li>
+                <li>
+                    <a href="#">7</a>
+                </li>
+                <li>
+                    <a href="#">8</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+</body>
+
+</html>
