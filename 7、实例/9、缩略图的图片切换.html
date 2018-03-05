@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 600px;
+            height: 360px;
+            margin: 100px auto;
+            border: 1px solid greenyellow;
+            overflow: hidden;
+            position: relative;
+
+        }
+
+        .wrap img {
+            width: 600px;
+            height: 360px;
+        }
+
+        .wrap span {
+            position: absolute;
+            top: 155px;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, .6);
+            font-size: 22px;
+            line-height: 50px;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .wrap .left {
+            left: 10px;
+        }
+
+        .wrap .right {
+            right: 10px;
+        }
+
+        .wrap .btn {
+            position: absolute;
+            bottom: 10px;
+            left: 260px;
+            padding-left: 6px;
+            width: 106px;
+            height: 20px;
+        }
+
+        .wrap .btn a {
+            float: left;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 4px;
+            background: rgba(0, 0, 0, .6);
+            position: relative;
+        }
+
+        .wrap .btn a.active {
+            background: orange;
+        }
+
+        .clear:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .wrap .btn span {
+            display: none;
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: -54px;
+            left: -10px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var wrap = document.getElementById("wrap");
+            var btn = document.getElementById("btn");
+            var as = btn.getElementsByTagName("a");
+            var oImg = document.getElementById("img");
+            var oSpan = btn.getElementsByTagName("span");
+            var left = document.getElementById("left");
+            var right = document.getElementById("right");
+            var num = 0;
+
+            var str = "";
+            var arr = ['img/home1.jpeg', 'img/home2.jpeg', 'img/home3.jpeg', 'img/home4.jpeg'];
+
+            //数据初始化
+
+            function init() {
+                for (var i = 0; i < arr.length; i++) {
+                    str += "<a href='javascript:;'><span></span></a>"
+                }
+                btn.innerHTML = str;
+                oImg.src = arr[0];
+                as[0].className = "active"
+
+            }
+            init();
+
+            //整合函数
+
+            function setClass() {
+                for (var i = 0; i < as.length; i++) {
+                    as[i].className = ""
+                }
+                as[num].className = "active"
+                oImg.src = arr[num]
+            }
+
+
+
+            //划动显示缩略图
+
+            for (var i = 0; i < arr.length; i++) {
+                as[i].index = i
+                as[i].onmouseover = function () {
+                    oSpan[this.index].style.display = "block"
+                    oSpan[this.index].style.background = 'url(' + arr[this.index] + ')'
+                    oSpan[this.index].style.backgroundSize = 'cover'
+                }
+                as[i].onmouseleave = function () {
+                    oSpan[this.index].style.display = "none"
+                }
+                as[i].onclick = function () {
+                    num = this.index;
+                    setClass()
+                }
+            }
+            right.onclick = function () {
+                num++;
+                if (num > 3) {
+                    num = 0
+                }
+                setClass()
+            }
+            left.onclick = function () {
+                num--;
+                if (num < 0) {
+                    num = 3
+                }
+                setClass()
+            }
+
+        }
+    </script>
+
+
+</head>
+
+<body>
+    <div class="wrap">
+        <img src="img/home1.jpeg" alt="" id="img">
+        <span class="left" id="left">&lt;</span>
+        <span class="right" id="right">&gt;</span>
+        <div class="btn clear" id="btn">
+
+        </div>
+    </div>
+</body>
+
+</html>
