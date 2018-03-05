@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            user-select: none;
+        }
+
+        div,
+        ul,
+        h2 {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .content {
+            width: 280px;
+            margin: 20px auto;
+            background: #ccc;
+            overflow: hidden;
+        }
+
+        .content .list {}
+
+        .content .list h2 {
+            cursor: pointer;
+            padding: 4px;
+            background: forestgreen;
+        }
+
+        .content .list ul {
+            display: none;
+        }
+
+        .content .list ul li {
+            text-indent: 1em;
+            border: 1px solid rosybrown;
+            margin-top: -1px;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .content .list .active {
+            background: yellow;
+        }
+
+        .content .list .select {
+            background: turquoise;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var content = document.getElementById("content");
+            var list = content.getElementsByTagName("ul")[0];
+            var aUl = list.getElementsByTagName("ul");
+            var aH2 = list.getElementsByTagName("h2");
+
+
+
+            //1.点击的时候，自己子菜单展开，自身bg变了
+            //2.当点击其他选择的时候，只有当前显示，其他的隐藏
+            for (var i = 0; i < aH2.length; i++) {
+                aH2[i].index = i;
+                aH2[i].onOff = true;
+                aH2[i].onclick = function () {
+                    for (var i = 0; i < aH2.length; i++) {//实现2
+                        if (i != this.index) {
+                            aUl[i].style.display = "none";
+                            aH2[i].className = "";
+                            aH2[i].onOff = true;
+                        }
+                    }
+                    if (this.onOff) {//实现1
+                        aUl[this.index].style.display = "block"
+                        this.className = "active"
+                    } else {
+                        aUl[this.index].style.display = "none"
+                        this.className = ""
+                    }
+                    this.onOff = !this.onOff
+                }
+            }
+
+
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="content" id="content">
+        <ul class="list">
+            <li>
+                <h2>我的好友</h2>
+                <ul>
+                    <li>嘻嘻</li>
+                    <li>嘿嘿</li>
+                    <li>哈哈</li>
+                </ul>
+            </li>
+            <li>
+                <h2>我的损友</h2>
+                <ul>
+                    <li>小黑</li>
+                    <li>小白</li>
+                    <li>小黄</li>
+                </ul>
+            </li>
+            <li>
+                <h2>黑名单</h2>
+                <ul>
+                    <li>黑白子</li>
+                    <li>白黑子</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
