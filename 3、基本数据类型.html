@@ -48,11 +48,20 @@
             // console.log( Number(str1));//NaN
             //NaN 属于number类型，但是他不是一个有效数字，我们可以isNaN()来检测是否为一个有效数字
             // 同时NaN 和 NaN 永远不会相等
-            //2.parseInt()  转换为number数据类型，但是只保留整数部分
-            // console.log(parseInt(str));//111
+            //2.parseInt()  转换为number数据类型，但是只保留整数部分，只能转换整形的数字，或者是带字符串的数字；
+            var num = "12.34px"
+            // console.log(parseInt(num));//12
             // console.log(parseInt(str1));//NaN
             //3.parseFloat() 转换为number数据类型，可以保留小数点后多位
-            //console.log(typeof parseFloat(str));
+            //console.log(parseFloat(num));//12.34
+
+            //实例：如何判断这个数是小数，还是整数
+            if(parseInt(num) == parseFloat(num)){
+                alert("整数")
+            }else{
+                alert("小数")
+            }
+
 
         //5)string---字符串
             //字符串中常用的方法
