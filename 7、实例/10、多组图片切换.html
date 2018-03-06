@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .wrap {
+            width: 1020px;
+            margin: 100px auto;
+            border: 1px solid red;
+        }
+
+        .wrap .left,
+        .wrap .right {
+            float: left;
+            height: 360px;
+        }
+
+        .wrap .pic {
+            margin-top: 10px;
+            height: 360px;
+        }
+
+
+        .wrap .left {
+            width: 600px;
+            margin-right: 20px;
+        }
+
+        .wrap .right {
+            width: 400px;
+        }
+
+        .wrap img {
+            width: 100%;
+            height: 100%;
+        }
+
+        clear:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var wrap = document.getElementById("warp");
+            var pic = document.getElementById("pic");
+            var oImg = pic.getElementsByTagName("img");
+            var next = document.getElementById("next");
+            var prev = document.getElementById("prev");
+
+            var arr1 = ["img/first.jpg", "img/two.jpg", "img/three.jpeg", "img/four.jpg"]
+            var arr2 = ["img/home1.jpeg", "img/home2.jpeg", "img/home3.jpeg"]
+
+            oImg[0].index = 0
+            oImg[1].index = 0
+
+            function tabchange1(){
+                oImg[0].index++;
+                if (oImg[0].index >= arr1.length) {
+                    oImg[0].index = 0
+                }
+                oImg[0].src = arr1[oImg[0].index]
+            }
+
+            function tabchange2(){
+                oImg[1].index++;
+                if (oImg[1].index >= arr2.length) {
+                    oImg[1].index = 0
+                }
+                oImg[1].src = arr2[oImg[1].index]
+            }
+            oImg[0].onclick = tabchange1;
+            oImg[1].onclick = tabchange2;
+            next.onclick=function(){
+                tabchange1()
+                tabchange2()
+            }
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="wrap" id="wrap">
+        <div class="btn">
+            <input type="button" value="上一组" id="prev">
+            <input type="button" value="下一组" id="next">
+        </div>
+        <div class="pic" id="pic">
+            <a href="#" class="left">
+                <img src="img/first.jpg" alt="">
+            </a>
+            <a href="#" class="right">
+                <img src="img/home1.jpeg" alt="">
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
