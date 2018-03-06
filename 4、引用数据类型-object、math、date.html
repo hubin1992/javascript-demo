@@ -24,7 +24,11 @@
             obj.name=null;//假删除
             delete obj1.parent;//真删除
         //2、math数学函数
-            // console.log(Math.max(12,12,13,0,1));//取最大值
+            // console.log(Math.max(12,12,13,0,1));//取最大值，如果是数组，那么我们需要借助apply方法 
+                //例如：
+                    var num = [1,2,3,4]
+                    Math.max(num);//NaN
+                    Math.max(null,num);//4
             // console.log(Math.min(12,12,2,0,1));//取最小值
             // console.log(Math.abs(-1));//取绝对值
             // console.log(Math.round(1.1));//四舍五入
