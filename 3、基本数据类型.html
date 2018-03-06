@@ -35,7 +35,15 @@
         //4)number数据类型
             //1.转换为Number() 强制转换为number数据类型
              var str = '1111.11111';
-             var str1='hh';
+             var a=''; //0
+             var b = true;//1
+             var c = null;//0
+             var d =undefined;//NaN
+             var obj ={};//NaN
+             var arr = [];//0
+             var fn1 = function(){};//NaN
+             var arr1 = [1111]//1111
+             var arr2 = [1111,222];//NaN
             // console.log(typeof Number(str));//number
             // console.log( Number(str1));//NaN
             //NaN 属于number类型，但是他不是一个有效数字，我们可以isNaN()来检测是否为一个有效数字
