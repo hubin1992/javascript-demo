@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var wrap = document.getElementById("wrap");
+            var aLi = wrap.getElementsByTagName("li");
+            var quantittySide = wrap.getElementsByTagName("strong");
+            var sum_ttotal = wrap.getElementsByTagName("span");
+            var priceSide = wrap.getElementsByTagName("em");
+
+            var content = document.getElementById("content");
+            var sum = content.getElementsByTagName("span");
+
+            for (var i = 0; i < aLi.length; i++) {
+                computer(aLi[i])
+            }
+
+            function item_total(ele) {
+                var total = 0;
+                for (var i = 0; i < quantittySide.length; i++) {
+                    sum[0].innerHTML = total += parseFloat(quantittySide[i].innerHTML)
+                }
+            }
+
+            function item_total2() {
+                var total = 0;
+                for (var i = 0; i < quantittySide.length; i++) {
+                    sum[1].innerHTML = total += parseFloat(sum_ttotal[i].innerHTML)
+                }
+            }
+
+            function getMax() {
+                var arr = [];
+                for (var i = 0; i < quantittySide.length; i++) {
+                    if (Number(quantittySide[i].innerHTML) > 0) {
+                        arr.push(parseFloat(priceSide[i].innerHTML))
+                    }
+                }
+                var max = Math.max.apply(null, arr)
+                sum[2].innerHTML = max;
+            }
+
+            function computer(ele) {
+                var preduce = ele.getElementsByTagName("input")[0];
+                var add = ele.getElementsByTagName("input")[1];
+                var quantitty = ele.getElementsByTagName("strong")[0];
+                var price = ele.getElementsByTagName("em")[0];
+                var sum_total = ele.getElementsByTagName("span")[0];
+                preduce.onclick = function () {
+                    if (quantitty.innerHTML <= 0) {
+                        quantitty.innerHTML = "1"
+                    }
+                    quantitty.innerHTML--;
+                    sum_total.innerHTML = parseFloat(price.innerHTML) * Number(quantitty.innerHTML) + "元";
+                    item_total()
+                    item_total2()
+                    getMax()
+
+                }
+                add.onclick = function () {
+                    quantitty.innerHTML++;
+                    sum_total.innerHTML = parseFloat(price.innerHTML) * Number(quantitty.innerHTML) + "元";
+                    item_total()
+                    item_total2()
+                    getMax()
+                }
+
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+
+    <ul id="wrap">
+        <li>
+            <input type="button" value="-">
+            <strong>0</strong>
+            <input type="button" value="+"> 单价：
+            <em>12.5元</em>
+            小计：
+            <span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-">
+            <strong>0</strong>
+            <input type="button" value="+"> 单价：
+            <em>1.5元</em>
+            小计：
+            <span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-">
+            <strong>0</strong>
+            <input type="button" value="+"> 单价：
+            <em>13.5元</em>
+            小计：
+            <span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-">
+            <strong>0</strong>
+            <input type="button" value="+"> 单价：
+            <em>5元</em>
+            小计：
+            <span>0元</span>
+        </li>
+    </ul>
+    <p id="content">商品合计
+        <span>0</span>件,共花费了
+        <span>0</span>元
+        <br>其中最贵的是
+        <span>0</span>元</p>
+</body>
+
+</html>
