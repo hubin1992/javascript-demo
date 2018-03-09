@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,
+        li,
+        div,
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .clear:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .new_list {
+            width: 504px;
+            margin: 100px auto;
+            padding: 0 14px;
+            background: #e1e7e7;
+        }
+
+        .new_list li {
+            padding: 16px 0;
+            background: #e1e7e7;
+            border-bottom: 1px dashed #fff;
+        }
+
+        .new_list .labal {
+            width: 36px;
+            height: 26px;
+            line-height: 26px;
+            background: #35658d;
+            margin-right: 25px;
+            text-align: center;
+            float: left;
+            color: #fff;
+        }
+
+        .new_list .oneline {
+            display: block;
+            font-size: 14px;
+            color: #000;
+            height: 26px;
+            line-height: 26px;
+            margin-left: 10px;
+        }
+
+        .new_list .content {
+            float: left;
+            width: 400px;
+        }
+
+        .new_list .pic {
+            display: none;
+            margin-right: 10px;
+        }
+
+        .new_list .content img {
+            width: 164px;
+            height: 126px;
+        }
+
+        .new_list .play {
+            width: 36px;
+            height: 26px;
+            float: right;
+            background: #35658d;
+            display: none;
+            font-style: normal;
+            text-align: center;
+            color: #fff;
+        }
+
+        .new_list .active {
+            background: #fff;
+        }
+        .new_list .active .oneline{
+            width:190px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+
+            var arrText = ["习近平寄语新时代的“半边天", "代表委员审议讨论宪法修正案草案 聚焦2018全国两会",
+                "2018代表(委员)之声  2018部长发声", "再减贫1000万，如何啃下脱贫攻坚“硬骨头”", '人大代表：中国火箭技术可1次发射10多辆特斯拉',
+                "全球女富豪榜出炉：女人比男人要成功一倍"
+            ]
+
+            var arrImg = ["img/first.jpg", "img/two.jpg", "img/three.jpeg", "img/four.jpg", "img/home1.jpeg",
+                "img/home2.jpeg", "img/home3.jpeg", "img/home4.jpeg"
+            ]
+
+
+            var newList = document.getElementById("new_list");
+            var aLi = newList.getElementsByTagName("li");
+            var em = newList.getElementsByTagName("em");
+            var aa = newList.getElementsByTagName("a");
+
+            //数据初始化
+
+            function init() {
+                var str = ""
+                for (var i = 0; i < arrText.length; i++) {
+                    str += "<li class='clear'>"
+                    str += "<div class='labal'>" + i + "</div>"
+                    str += "<p class='content clear'>"
+                    str += "<a href='#' class='fl pic'>"
+                    str += "<img src='" + arrImg[i] + "'>"
+                    str += "</a>"
+                    str += "<span class='oneline fl'>" + arrText[i] + "</span>"
+                    str += "</p>"
+                    str += "<em class='play'>播放</em>"
+                    str += "</li>"
+                }
+                newList.innerHTML = str;
+            }
+            init()
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].index = i;
+                aLi[i].onmouseover = function () {
+                    this.className = "active clear";
+                    em[this.index]["style"].display = "block";
+                    aa[this.index]["style"].display = "block";
+
+                }
+
+                aLi[i].onmouseout = function () {
+                    this.className = "clear";
+                    em[this.index]["style"].display = "none";
+                    aa[this.index]["style"].display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <ul class="new_list" id="new_list">
+        <li class="clear">
+            <div class="labal">1</div>
+            <p class="content clear">
+                <a href="#" class="fl pic">
+                    <img src="img/1.jpg" alt="">
+                </a>
+                <span class="oneline fl">习近平寄语新时代的“半边天</span>
+            </p>
+            <div class="play">播放</div>
+        </li>
+    </ul>
+</body>
+
+</html>
