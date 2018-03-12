@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,
+        li {
+            list-style: none;
+        }
+
+        li {
+            height: 30px;
+            margin-top: 10px;
+            border-bottom: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="点击">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        // 逻辑或|| ， 逻辑与&& ， 取余% ， == ，==== ， ！ ， !!  
+
+        // var a = 1 || 2;
+        // console.log(a);// 1
+        // a = 1>2 || 2;//2
+        // console.log(a);
+
+
+        // var b = 1>2 && 1;
+        // console.log(b);//false
+        // b = 1<2 && 2;
+        // console.log(b);//2
+
+
+        //取余应用
+        //应用1
+        // var oInput = document.getElementsByTagName("input")[0];
+        // var num = 0;
+        // oInput.onclick=function(){
+        //     num ++;
+        //     num=num%4
+        //     alert(num);
+        // }
+
+
+        //应用2--隔行变色
+        var arr = ["yellow", "blue", "pink","green"]
+        var aLi = document.getElementsByTagName("li");
+        var str = "";
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].style.background = arr[i % arr.length];
+            aLi[i].index = i;
+            aLi[i].onOff = true;
+            aLi[i].onmouseover = function () {
+                str = this.style.background
+                this.style.background = "gray"
+            }
+            //两种思路
+            //一种就是做标记
+            //用自己定义属性的方法，在每个元素上�加一个index值，然后我们运用取模的方式在实现
+            //二就是记录划过的时候颜色
+            //定义一个变量，用来保存花进来之前的颜色
+
+            aLi[i].onmouseout = function () { //离开的时候，显示原来的颜色
+                //this.style.background=arr[this.index%arr.length]
+                this.style.background = str;
+            }
+
+            aLi[i].onclick = function () {
+                for (var i = 0; i < aLi.length; i++) {
+                    aLi[i].style.background = arr[i % arr.length];
+                    aLi[i].onmouseout = function () { //离开的时候，显示原来的颜色
+                        //this.style.background=arr[this.index%arr.length]
+                        this.style.background = str;
+                    }
+                }
+                this.style.background = "gray"
+                this.onmouseout = null;
+            }
+        }
+    </script>
+</body>
+
+</html>
