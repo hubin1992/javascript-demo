@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        li {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            margin-right: 20px;
+            float: left;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //最重要的思路：就是我们click点击后，会消失，out事件，所以我们需要房子，over里面重新触发一下；
+            var starWrap = document.getElementById("star-wrap");
+            var aLi = starWrap.getElementsByTagName("li");
+            var len = null;
+
+            function clearStyle(ele){
+                for(var i= 0;i<ele.length;i++){
+                        ele[i].style.background = "";
+                    }
+            }
+
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].index = i;
+                aLi[i].onmouseover = function () {
+                    len = this.index;
+                    clearStyle(aLi)
+                    for (var i = 0; i <= len; i++) {
+                        aLi[i].style.background = "red";
+                    }
+                    this.onmouseout = function () {
+                        clearStyle(aLi)
+                        len = null;
+                    }
+                }
+                aLi[i].onclick = function () {
+                    this.onmouseout = null;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <ul id="star-wrap">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+
+</body>
+
+</html>
