@@ -1,5 +1,12 @@
 {
     "editor.fontSize": 17,
     "editor.wordWrap": "on",
-    "jsFileHeader.Author": "hubin"
+    "jsFileHeader.Author": "hubin",
+    "editor.parameterHints": true,
+    "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+}
+
 }
