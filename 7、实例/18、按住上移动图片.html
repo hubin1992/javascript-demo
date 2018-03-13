@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 400px;
+            height: 800px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wrap span {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            background: #ccc;
+            left: 0;
+            z-index: 2;
+        }
+
+        .wrap .top {
+            top: 0;
+        }
+
+        .wrap .bottom {
+            bottom: 0;
+        }
+
+        .content {
+            background: url("img/home1.jpeg");
+            background-size: 100% 100%;
+            height: 1000px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+    </style>
+    <script src="../util.js"></script>
+    <script>
+        window.onload = function () {
+            //思路分析
+            //1、我们首先要判断出两个临界点
+            //2、自动设置一个步数
+            //3、临界点判断，如果到了就取消定时器，不到就执行定时器，走步数
+            var wrap = document.getElementById("wrap");
+            var aSpan = wrap.getElementsByTagName("span");
+            var content = wrap.getElementsByTagName("div")[0];
+            var curHei = util.getStyle(content, "top")
+            var timer = null;
+            var step = 10;
+            aSpan[0].onmousedown = function () {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    if (curHei <= -200) {
+                        clearInterval(timer);
+                        content.style.top = -200 + "px"
+                    } else {
+                        curHei -= 10;
+                        content.style.top = curHei + "px"
+                    }
+
+                }, 100)
+            }
+
+            aSpan[1].onmousedown = function () {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    if (curHei >=0 ) {
+                        clearInterval(timer);
+                        content.style.top = 0 + "px"
+                    } else {
+                        curHei += 10;
+                        content.style.top = curHei + "px"
+                    }
+
+                }, 100)
+            }
+
+            aSpan[0].onmouseup=cleartimer;
+            aSpan[1].onmouseup=cleartimer;
+            function cleartimer(){
+                clearInterval(timer)
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrap" id="wrap">
+        <span class="top"></span>
+        <div class="content"></div>
+        <span class="bottom"></span>
+    </div>
+</body>
+
+</html>
