@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #qq{
+            width: 300px;
+            height: 800px;
+            background: wheat
+        }
+        #title{
+            width: 200px;
+            height: 200px;
+            background: greenyellow;
+            position: absolute;
+            top: 10px;
+            left: 320px;
+            display: none;
+        }
+    
+    </style>
+    <script>
+        window.onload=function(){
+            //思路分析：
+            //利用settimout的延迟的远离，当我们滑动到title的时候，让title显示，并且清除没有执行的qq的离开事件
+
+            var qq =document.getElementById("qq");
+            var title = document.getElementById("title");
+
+            var timer = null;
+
+            qq.onmouseover=show;
+            qq.onmouseout=hide;
+            title.onmouseover=show;
+            title.onmouseout=hide;
+            function show(){
+                clearTimeout(timer);
+                title.style.display="block"
+            }
+            
+            function hide(){
+                timer=setTimeout(function(){
+                    title.style.display="none"
+                },200)
+            }
+            
+        }
+    </script>
+</head>
+<body>
+    <div id="qq"></div>
+    <div id="title"></div>
+</body>
+</html>
