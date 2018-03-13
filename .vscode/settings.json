@@ -1,4 +1,5 @@
 {
     "editor.fontSize": 17,
     "editor.wordWrap": "on",
+    "jsFileHeader.Author": "hubin"
 }
