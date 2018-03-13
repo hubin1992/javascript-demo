@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,
+        li,
+        h3,
+        p,
+        input {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .clear:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .content {
+            width: 400px;
+            border: 1px dashed yellowgreen;
+            margin: 100px auto;
+            background: #fff;
+            padding-bottom: 4px;
+
+        }
+
+        .content ul {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 4px;
+        }
+
+        .content li {
+            padding: 6px;
+            margin-top: 2px;
+        }
+
+        .content li input,
+        .content li h3 {
+            float: left;
+            font-size: 14px;
+        }
+
+        .content li input {
+            margin-top: 5px;
+            margin-right: 10px;
+        }
+
+        .content li p {
+            float: right;
+        }
+
+        .content .seleAll {
+            margin-left: 6px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var content = document.getElementById("content");
+            var oUl = content.getElementsByTagName("ul")[0];
+            var oInput = oUl.getElementsByTagName("input");
+            var seleAll = document.getElementById("seleAll");
+
+            var arr = [{
+                "sing": "私奔",
+                "name": "梁博"
+            }, {
+                "sing": "啊叼",
+                "name": "张韶涵"
+            }, {
+                "sing": "我们的时光",
+                "name": "赵雷"
+            }, {
+                "sing": "河流",
+                "name": "汪峰"
+            }, {
+                "sing": "牧马城市",
+                "name": "毛不易"
+            }, {
+                "sing": "前世情人",
+                "name": "周杰伦"
+            }]
+
+            //数据初始化
+
+            function init() {
+                var str = ""
+                for (var i = 0, len = arr.length; i < len; i++) {
+                    str += "<li class='clear'>"
+                    str += "<input type='checkbox' />"
+                    str += "<h3>" + arr[i]['sing'] + "</h3>"
+                    str += "<p>" + arr[i]['name'] + "</p>"
+                    str += "</li>"
+                }
+                oUl.innerHTML = str
+            }
+            init();
+
+            seleAll.onclick = function () {
+                for (var i = 0; i < oInput.length; i++) { //实现全选或者非全选
+                    oInput[i].checked = this.checked;
+                }
+            }
+
+
+
+            for (var i = 0; i < oInput.length; i++) {
+                oInput[i].onclick = function () {
+                    var onoff = true;//放在这里面定义，是为了，重制onoff的值，不然有了一次判断后，他永远是false；
+                    for (var i = 0; i < oInput.length; i++) {
+                        if (!oInput[i].checked) {
+                            onoff = false;
+                            break;
+                        }
+                    }
+                    seleAll.checked = onoff
+                }
+            }
+
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="content" class="content">
+        <ul>
+        </ul>
+        <input type="checkbox" class="seleAll" id="seleAll"> 全选
+    </div>
+</body>
+
+</html>
