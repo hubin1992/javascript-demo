@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 50px;
+            height: 50px;
+            background: red;
+            position: absolute;
+            top: 20px;
+        }
+    </style>
+    <script src="../util.js"></script>
+    <script>
+        window.onload = function () {
+            //思路：首先我们要考虑的是先实现一个，然后利用定时器的间隔时间，我们让其他的开始往下掉
+            var aDiv = document.getElementsByTagName("div");
+            var str = "";
+            var num = 0;
+            var timer = null;
+            var onoff = true;
+            for (var i = 0; i < 20; i++) {
+                str += "<div style='left:" + 60 * i + "px'></div>"
+            }
+            document.body.innerHTML = str;
+
+            document.onclick = function () {
+                clearInterval(timer)
+                if (onoff) {
+                    timer = setInterval(function () {
+                        util.doMove(aDiv[num], 400, "top", 13, 20)
+                        num++;
+                        if (num == aDiv.length) {
+                            clearInterval(timer)
+                            num = 0
+                            onoff=!onoff
+                        }
+                    }, 100)
+                }else{
+                    timer = setInterval(function () {
+                        util.doMove(aDiv[num], 20, "top", 13, 20)
+                        num++;
+                        if (num == aDiv.length) {
+                            clearInterval(timer)
+                            onoff=!onoff
+                            num=0
+                        }
+                    }, 100)
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+
+</body>
+
+</html>
