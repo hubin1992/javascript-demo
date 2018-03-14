@@ -15,56 +15,47 @@
             background-color: red;
         }
     </style>
+    <script src="../util.js"></script>
     <script>
         window.onload = function () {
-            var btn1 = $("btn1");
-            var btn2 = $("btn2");
-            var box1 = $("box1");
-            var step = 10;
-            var target = 800;
-            //获取id
-            function $(id) {
-                return document.getElementById(id)
-            }
-            //获取样式
-            function getStyle(obj, attr) {
-                return window.getComputedStyle ? parseFloat(getComputedStyle(obj, null)[attr]) : parseFloat(obj.currentStyle[
-                    attr]);
-            }
+            var btn1 = util.$("btn1");
+            var btn2 = util.$("btn2");
+            var box1 = util.$("box1");
+
             ///////////////////////////////////////////////////
             btn1.onclick = function () {
-                domove(box1, 800, "left", 12)
+                util.doMove(box1, 800, "left", 12, 20)
             }
 
             btn2.onclick = function () {
-                domove(box1, 0, "left", 12)
+                util.doMove(box1, 0, "left", 12, 10)
             }
 
             /* 
               target  方向  元素  步数  
              */
             //函数封装 
-            function domove(obj, target, dir, step, callback) {
-                step = getStyle(obj, dir) <= target ? step : -step;//用来判断step的正负值的；
-                clearInterval(obj.timer); //timer 要用一个timer的名字，不然容易抖动
-            d    obj.timer = setInterval(function () { //放到里面来，是为了每次都获取pos，这样pos就成了动态的了
-                    var pos = getStyle(obj, dir)
-                    //二合一，充分利用运算符
-                    if (step > 0 && pos >= target || step < 0 && pos <= target) { //判断是否到头，如果到头，那么清楚定时器
-                        //加上step的作用，是为了判断是左还是右面
-                        obj.style[dir] = target + "px"
-                        clearInterval(obj.timer)
-                        callback && callback(); //回调判断，如果是个函数，那么执行
-                        return; //防止点击的时候再次移动
-                    }
-                    // if(step < 0 && pos <= target){
-                    //     box1.style.left = target+"px"
-                    //     clearInterval(obj.timer)
-                    //     return;//防止点击的时候再次移动
-                    // }
-                    obj.style[dir] = pos + step + "px"
-                }, 20)
-            }
+            // function domove(obj, target, dir, step, callback) {
+            //     step = getStyle(obj, dir) <= target ? step : -step;//用来判断step的正负值的；
+            //     clearInterval(obj.timer); //timer 要用一个timer的名字，不然容易抖动
+            //     obj.timer = setInterval(function () { //放到里面来，是为了每次都获取pos，这样pos就成了动态的了
+            //         var pos = getStyle(obj, dir)
+            //         //二合一，充分利用运算符
+            //         if (step > 0 && pos >= target || step < 0 && pos <= target) { //判断是否到头，如果到头，那么清楚定时器
+            //             //加上step的作用，是为了判断是左还是右面
+            //             obj.style[dir] = target + "px"
+            //             clearInterval(obj.timer)
+            //             callback && callback(); //回调判断，如果是个函数，那么执行
+            //             return; //防止点击的时候再次移动
+            //         }
+            //         // if(step < 0 && pos <= target){
+            //         //     box1.style.left = target+"px"
+            //         //     clearInterval(obj.timer)
+            //         //     return;//防止点击的时候再次移动
+            //         // }
+            //         obj.style[dir] = pos + step + "px"
+            //     }, 20)
+            // }
         }
     </script>
 </head>
