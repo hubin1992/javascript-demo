@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            width: 200px;
+            position: absolute;
+            left: 200px;
+            top: 200px;
+        }
+    </style>
+    <script src="../util.js"></script>
+    <script>
+        //思路：我们需要造一个抖动的数组  20，-20，18，-18……………………0,然后我们根据这个数组里的数据，来左右的移动位置，一直到零的时候，结束；抖动结束
+        window.onload = function () {
+            var aImg = document.getElementsByTagName("img");
+
+            var str = "";
+            var aImgUrl = ['img/home1.jpeg', 'img/home2.jpeg', 'img/home3.jpeg', 'img/home4.jpeg']
+
+            //数据初始化
+            for (var i = 0; i < aImgUrl.length; i++) {
+                str += "<img src ='" + aImgUrl[i] + "' style='left:" + i * 210 + "px;'>"
+            }
+            document.body.innerHTML = str;
+
+            for (var i = 0; i < aImg.length; i++) {
+                aImg[i].index = i
+                aImg[i].onmouseover = function () {
+                    shake(aImg[this.index], "top")
+                }
+            }
+
+
+            function shake(obj, attr, callback) {
+                if(obj.onoff){return}
+                obj.onoff=true;//很巧妙的思维，如果不到num===arr.length中，不回执行第二次
+                var pos = util.getStyle(obj, attr);//抖动的函数，不需要实时获取位置,不像domove那样，来实时获取
+                var num = 0;//num放到里面来，是为了，多个效果执行的时候，都不影响；
+                var arr = [];
+                //制造数据
+                for (var i = 20; i > 0; i -= 2) {
+                    arr.push(i, -i)
+                    arr.push(0)
+                }
+                clearInterval(obj.shake);
+                obj.shake = setInterval(function () {
+                    obj.style[attr] = pos + arr[num] + "px";
+                    num++;
+                    if (num == arr.length) {
+                        clearInterval(obj.shake);
+                        callback && callback()
+                        num = 0;
+                        obj.onoff=false;
+                    }
+                }, 50)
+            }
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
