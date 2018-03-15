@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #show {
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            border: 1px solid red;
+            margin: 100px auto;
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+        
+            var show = document.getElementById("show")
+            //第一思路
+            // var day = Math.floor(changeTime / (24 * 60 * 60 * 1000));
+            // var hours = Math.floor(changeTime / (60 * 60 * 1000));
+            // var minu = Math.floor((changeTime-hours*60*60*1000) / ( 60 * 1000));
+            // var sec = Math.floor((changeTime-hours*60*60*1000-minu*60*1000)/1000)
+
+            //console.log(day, hours, minu, sec)
+
+            //第二种思路
+
+            // var newDay = Math.floor(changeTime / 86400000)
+            // var newHours = Math.floor(changeTime % 86400000 / 3600000)
+            // var newMinu = Math.floor(changeTime % 86400000 % 3600000 / 60000)
+            // var newSec = Math.floor(changeTime % 86400000 % 3600000 % 60000 / 1000)
+
+            function addZero(ele) {
+                return ele < 10 ? "0" + ele : ele;
+            }
+
+            function getTime() {
+                var nowdate = new Date().getTime();
+                var tardate = new Date('2018/3/15 19:00').getTime();
+                var changeTime = tardate - nowdate
+                var newDay = Math.floor(changeTime / 86400000)
+                var newHours = Math.floor(changeTime % 86400000 / 3600000)
+                var newMinu = Math.floor(changeTime % 86400000 % 3600000 / 60000)
+                var newSec = Math.floor(changeTime % 86400000 % 3600000 % 60000 / 1000)
+
+                show.innerHTML=addZero(newDay)+"天"+addZero(newHours)+"时"+addZero(newMinu)+"分"+addZero(newSec)+"秒"
+            }
+            getTime()
+            var timer = setInterval(function(){
+                getTime()
+            },1000)
+
+            
+
+
+
+
+
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <p id="show"></p>
+</body>
+
+</html>
