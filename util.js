@@ -4,7 +4,7 @@
  * @author hubin
  *
  * Created at     : 2018-03-13 14:24:55 
- * Last modified  : 2018-03-14 14:37:36
+ * Last modified  : 2018-03-15 10:50:25
  */
 
 var util = {
@@ -27,19 +27,49 @@ var util = {
     doMove: function (obj, target, dir, step, duration, callback) {
         var _this = this
         step = this.getStyle(obj, dir) <= target ? step : -step;
-        clearInterval(obj.timer); 
-        obj.timer = setInterval(function () { 
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
             var pos = _this.getStyle(obj, dir)
-            if (step > 0 && pos+step >= target || step < 0 && pos+step <= target) { 
+            if (step > 0 && pos + step >= target || step < 0 && pos + step <= target) {
                 obj.style[dir] = target + "px"
                 clearInterval(obj.timer)
-                callback && callback(); 
-                return; 
+                callback && callback();
+                return;
             }
             obj.style[dir] = pos + step + "px"
         }, duration)
 
+    },
+
+    //抖动函数的封装
+
+    shake: function () {
+        if (obj.onoff) {
+            return
+        }
+        obj.onoff = true; //很巧妙的思维，如果不到num===arr.length中，不回执行第二次
+        var pos = this.getStyle(obj, attr); //抖动的函数，不需要实时获取位置,不像domove那样，来实时获取
+        var num = 0; //num放到里面来，是为了，多个效果执行的时候，都不影响；
+        var arr = [];
+        //制造数据
+        for (var i = 20; i > 0; i -= 2) {
+            arr.push(i, -i)
+            arr.push(0)
+        }
+        clearInterval(obj.shake);
+        obj.shake = setInterval(function () {
+            obj.style[attr] = pos + arr[num] + "px";
+            num++;
+            if (num == arr.length) {
+                clearInterval(obj.shake);
+                callback && callback()
+                num = 0;
+                obj.onoff = false;
+            }
+        }, 20)
     }
+
+
 
 
 };
