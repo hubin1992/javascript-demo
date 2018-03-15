@@ -4,7 +4,7 @@
  * @author hubin
  *
  * Created at     : 2018-03-13 14:24:55 
- * Last modified  : 2018-03-15 10:50:25
+ * Last modified  : 2018-03-15 15:27:56
  */
 
 var util = {
@@ -23,7 +23,7 @@ var util = {
         return window.getComputedStyle ? parseFloat(getComputedStyle(ele)[attr]) : parseFloat(ele.currentStyle[attr])
     },
 
-    //物体运动小动画封装
+    //物体运动小动画封装---》getstyle的问题
     doMove: function (obj, target, dir, step, duration, callback) {
         var _this = this
         step = this.getStyle(obj, dir) <= target ? step : -step;
