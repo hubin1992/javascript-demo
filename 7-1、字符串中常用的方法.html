@@ -126,16 +126,13 @@
         // console.log(str.split());//['hubin']
         // console.log(str.split(""));//["/","h", "u", "b", "i", "n","/"]
         //console.log(str.split("/"));//["", "hubin", ""]-->分割符不会放到数组中
-        //console.log(str.split("/",2));//["", "hubin"]-->分割符不会放到数组中
-        
+        //console.log(str.split("/",2));//["", "hubin"]-->分割符不会放到数组中  
         //实例---(实现查找和替换)
         //查找的思路，我们用字符串转换为数组的特性，查找的字符标志，会删掉，然后在用join的特性，以字符为间隔转换为字符串。这样即实现了
         var op = document.getElementsByTagName("p")[0];
         var text1 = document.getElementById("text1");
         var text2 = document.getElementById("text2");
         var btn = document.getElementById("btn")
-
-
         btn.onclick=function(){
             var str = text1.value;//查找的字符断
             var newStr = text2.value;
@@ -146,6 +143,11 @@
             op.innerHTML=context.split(str).join('<span>'+newStr+'</span>')
 
         }
+
+
+        //8、字符串的比较:只会取字符串的第一个值，根据asc编码值进行比较；
+        console.log('10000'<"2");//true
+        console.log('12000'<"2");//true
 
 
     </script>
