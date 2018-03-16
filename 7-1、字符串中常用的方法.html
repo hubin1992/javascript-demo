@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #wrap {
+            width: 500px;
+            border: 1px solid red;
+            margin: 0 auto;
+        }
+        span{
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <p id="wrap" onclick="alert(this.innerHTML)">
+        <span>胡滨以后是个技术大牛啊拉家带口弗拉索夫极乐世界发牢骚地方搭上了飞机索科洛夫技术房贷失联飞机的酸辣粉苏打绿飞机上的浪费到了附近的索科洛夫撒放进冷冻室开发舒服收到了房间看电视里放几点看法角度看减肥啦的发送到房间里的水分水淀粉但是房贷舒服萨芬啊爽</span>……
+        <a href="javscript:;" id="btn">收起</a>
+    </p> -->
+    <!-- <input type="text" id="text">
+    <input type="button" id="btn" value="检测"> -->
+    <p>胡滨山东分局对斯洛伐克觉得舒服的是非得失发生的，胡滨法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代胡滨</p>
+    <input type="text" id="text1">
+    <input type="text" id="text2">
+    <input type="button" id="btn" value="替换">
+
+    <script>
+        // var str = '根据索引值获取字符串的内容'
+        //1、charAt() 根据索引值获取字符串的内容
+        //console.log(str.charAt(1)); //据
+
+        // var str = '0123456789'
+        //2、charCodeAt() 根据索引值获取字符的charcode值
+        // console.log(str.charCodeAt(0)) //48~57为数字  空格的code是32
+        //实例--->判断输入的是否是个数字
+        // window.onload = function () {
+        //     var text = document.getElementById("text");
+        //     var btn = document.getElementById("btn");
+        //     btn.onclick = function () {
+        //         if (!testNum(text.value)) {
+        //             text.value=""
+        //             alert("请输入数字")              
+        //         }
+        //     }
+        //     function testNum(str) {
+        //         var n = null; //字符太长用来接受的
+        //         for (var i = 0; i < str.length; i++) {
+        //             // if(isNaN(str[i])){//检测不到空格
+        //             //     return false;
+        //             // }
+        //             n = str.charCodeAt(i)
+        //             if (n < 48 || n > 57) { //48~57为数字
+        //                 return false
+        //             }
+        //         }
+        //         return true
+        //     }
+        // }
+
+
+        //3、indexof("查找的字符",开始的索引),lastindexof("查找的字符",开始的索引)
+        //indexof从前往后查找，lastindexof，从后往前查找
+        //这两种方式都只会找一个就结束
+        //如果能找到返回的是索引值，如果找不到返回的-1
+        //实例
+        // var str = "good good study day day up "
+        // console.log(str.indexOf("d",0));//3
+        // console.log(str.indexOf("d",4));//8
+        // console.log(str.lastIndexOf("d"));//20
+        //查找字符串索引的封装
+        // function seachStr(str,word){
+        //     var i = 0;
+        //     while(str.indexOf(word,i)!=-1){
+        //         alert(str.indexOf(word,i))
+        //         i = str.indexOf(word,i)+word.length;
+        //     }
+        // }
+        // var str ="aafdlfjkdlsjfsflsdaaafdsfsdfdaa";
+        // var word ="aa";
+        // seachStr(str,word)
+
+        //4、字符串的截取substring(开始的索引，结束的索引),slice(开始的索引，结束的索引)
+        //注意包含开始的索引，但是不包含结束的索引
+        // var str = '好好学习，天天向上，啊哈哈哈地方爽肤水的老骥伏枥加夫里什多福多寿'
+        // console.log(str.substring(0, 4)); //好好学习
+        // console.log(str.substring(-1, 4)); //负数默认从0开始，不支持
+        // console.log(str.substring(4, -1)); //实际上和上面一样
+        // console.log(str.substring(0)); //复制整个字符串
+
+        // console.log(str.slice(0, 4)); //和substing一样
+        // console.log(str.slice(4, 0)); //返回的是空，不回自己比较大小，进行切换
+        // console.log(str.slice(-5, -1)); //返回的是什多福多
+        // //实例--》利用字符串的截取，我们控制字符的多少，来实现，多行超出显示省略号的效果；
+        // var op = document.getElementById("wrap");
+        // var oSpan = op.getElementsByTagName("span")[0];
+        // var oa = op.getElementsByTagName("a")[0];
+        // var text = oSpan.innerHTML;
+        // var onOff = true;
+        // oa.onclick = function () {//思路：利用字符串截取的技术，我们想要多少截取多少
+        //     if (onOff) {
+        //         oSpan.innerHTML = text.substring(0, 10);
+        //         oa.innerHTML = "打开"
+        //     } else {
+        //         oSpan.innerHTML = text.substring(0);
+        //         oa.innerHTML = "收起"
+        //     }
+        //     onOff = !onOff
+        // }
+
+
+        //6、str.toUpperCase() str.toLowerCase() 把字符转换为大小写
+        // var str = 'whaklkjfsfjsfklsffsdfds';
+        // var str1 = 'ADFJDFKDFJDFLKFJDSFS'
+        // console.log(str.toLocaleUpperCase());
+        // console.log(str1.toLocaleLowerCase());
+
+
+        //7、split(分隔符,"显示几个")  将字符串转换为数组
+        //var str = '/hubin/';
+        // console.log(str.split());//['hubin']
+        // console.log(str.split(""));//["/","h", "u", "b", "i", "n","/"]
+        //console.log(str.split("/"));//["", "hubin", ""]-->分割符不会放到数组中
+        //console.log(str.split("/",2));//["", "hubin"]-->分割符不会放到数组中
+        
+        //实例---(实现查找和替换)
+        //查找的思路，我们用字符串转换为数组的特性，查找的字符标志，会删掉，然后在用join的特性，以字符为间隔转换为字符串。这样即实现了
+        var op = document.getElementsByTagName("p")[0];
+        var text1 = document.getElementById("text1");
+        var text2 = document.getElementById("text2");
+        var btn = document.getElementById("btn")
+
+
+        btn.onclick=function(){
+            var str = text1.value;//查找的字符断
+            var newStr = text2.value;
+            var context = op.innerHTML;//查找的范围
+            //console.log(context.split(str));//["", "山东分局对斯洛伐克觉得舒服的是非得失发生的，", "法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代", ""]
+            console.log(context.split(str).join('<span>'+str+'</span>'));//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
+            
+            op.innerHTML=context.split(str).join('<span>'+newStr+'</span>')
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
