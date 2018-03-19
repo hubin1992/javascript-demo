@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div,
+        ul,
+        li,
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .clear:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .outwrap {
+            width: 500px;
+            height: 360px;
+            border: 1px solid red;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .outwrap ul {
+            position: absolute;
+            height: 360px;
+        }
+
+        .outwrap ul li {
+            float: left;
+            width: 500px;
+            position: relative;
+        }
+
+        .outwrap ul li .context {
+            height: 60px;
+            line-height: 60px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .5);
+            text-align: center;
+            color: #fff;
+        }
+
+        .outwrap ul a {
+            display: block;
+            height: 360px;
+        }
+
+        .outwrap ul a img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="../util.js"></script>
+    <script>
+        window.onload = function () {
+            var outwrap = document.getElementById("outwrap")
+            var innerwrap = document.getElementById("innerwrap");
+            var num = 0;
+            var timer = null;
+
+            var arrImgUrl = ['img/home1.jpeg', 'img/home2.jpeg', 'img/home3.jpeg', 'img/home4.jpeg',
+                'img/home1.jpeg'
+            ];
+            var arrText = ["这里是第一份描述文字", "这里是第二份描述文字", "这里是第三份描述文字", "这里是第四份描述文字", "这里是第一份描述文字"]
+            var str = "";
+            var oWidth = util.getStyle(outwrap, "width");
+
+            function init() {
+                for (var i = 0; i < arrImgUrl.length; i++) {
+                    str += "<li>"
+                    str += "<a href='javascript:;'><img src = '" + arrImgUrl[i] + "'></a>"
+                    str += "<p class='context'>" + arrText[i] + "</p>"
+                    str += "</li>"
+                }
+                innerwrap.innerHTML = str;
+            }
+            init()
+            innerwrap.style.width = (arrText.length) * oWidth + "px"
+
+            function auto() {
+                // 问题就是出在，我们成为0了以后domove还在执行；
+                num++;
+                util.doMove(innerwrap, -oWidth * num, "left", 20, 20);
+                alert(num)
+                alert(-oWidth * num)
+                if (num >= arrImgUrl.length) {  
+                    alert("end"+num)
+                    alert(-oWidth*num+"end")
+                    clearInterval(timer);
+                    innerwrap.style.left = 0 + "px"
+                    num = 0;
+                }
+            }
+
+            timer = setInterval(function () {
+                auto()
+            }, 5000)
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="outwrap" id="outwrap">
+        <ul id="innerwrap" class="clear">
+            <li>
+                <a href="javascript:;">
+                    <img src="img/home1.jpeg" alt="">
+                </a>
+                <p class="context">这里是第一份描述文字</p>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
