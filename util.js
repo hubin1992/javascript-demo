@@ -4,7 +4,7 @@
  * @author hubin
  *
  * Created at     : 2018-03-13 14:24:55 
- * Last modified  : 2018-03-15 15:27:56
+ * Last modified  : 2018-03-15 21:49:48
  */
 
 var util = {
@@ -67,7 +67,23 @@ var util = {
                 obj.onoff = false;
             }
         }, 20)
+    },
+
+    //检测数字的函数
+    testNum:function (str) {
+        var n = null;
+        for (var i = 0; i < str.length; i++) {
+            // if(isNaN(str[i])){//检测不到空格
+            //     return false;
+            // }
+            n = str.charCodeAt(i)
+            if (n < 48 || n > 57) { //48~57为数字
+                return false
+            }
+        }
+        return true
     }
+
 
 
 
