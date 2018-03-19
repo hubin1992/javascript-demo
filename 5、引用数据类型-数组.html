@@ -114,10 +114,14 @@
             // function sortNumber(a,b){return a-b};
             // console.log(arr.sort(sortNumber));//这样就可以了；
 
-        //join() 把数组中的每一项按照指定的分隔符，拼接成字符串；
-        // var str = arr.join(" ")
-        // console.log(str);//返回的是改变后的字符串
-        // console.log(arr);//原有的数组不发生改变
+        //join(分隔符) 把数组中的每一项按照指定的分隔符，拼接成字符串；
+            
+            console.log(arr.join());//'1,2,3,4,5,0,11,22,33,10'
+            console.log(arr.join(""));//12345011223310
+            console.log(arr.join(","));//'1,2,3,4,5,0,11,22,33,10'
+            // var str = arr.join(" ")
+            // console.log(str);//返回的是改变后的字符串
+            // console.log(arr);//原有的数组不发生改变
 
         //////////////////////////////有兼容性问题
 
