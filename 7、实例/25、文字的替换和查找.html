@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div,
+        p,
+        ul,
+        li,
+        input {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .clear:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .wrap {
+            width: 600px;
+            height: 400px;
+            background: #FAFAD2;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        .content {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 360px;
+            height: 200px;
+            background: #fff;
+            padding: 10px;
+        }
+
+        .content span {
+            background: yellowgreen;
+        }
+
+        .slide {
+            position: absolute;
+            right: 10px;
+            top: 40px;
+            width: 80px;
+        }
+
+        .slide div {
+            cursor: pointer;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            background: #ccc;
+            color: #fff;
+        }
+
+        .slide div.active {
+            background: orange;
+        }
+
+        .slide .show-down {
+            display: none;
+        }
+
+        .text-border {
+            display: none;
+            position: absolute;
+            bottom: 10px;
+            left: 30px;
+            width: 400px;
+            height: 100px;
+            background: brown;
+        }
+
+        .wrap .btn {
+            width: 400px;
+            border-bottom: 1px solid red;
+        }
+
+        .wrap .btn li {
+            padding: 10px 0;
+            float: left;
+            width: 80px;
+            margin-right: 6px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .text-border div {
+            margin-top: 17px;
+            padding-left: 10px;
+            display: none;
+        }
+
+        .btn li.active {
+            background: red;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var wrap = document.getElementById("wrap");
+            var textBorder = document.getElementById("text-border");
+            var oUl = textBorder.getElementsByTagName("ul")[0];
+            var aLi = oUl.getElementsByTagName("li");
+            var aDiv = textBorder.getElementsByTagName("div");
+            var content = wrap.getElementsByTagName("p")[0];
+
+            var slide = document.getElementById("slide");
+            var sDiv = slide.getElementsByTagName("div");
+
+            var showDown = document.getElementById("show-down");
+            var showDownDiv = showDown.getElementsByTagName("div");
+
+            //查找和替换的功能
+            var inpSearch = document.getElementsByName("search")[0];
+            var inpChange = document.getElementsByName("change")[0];
+            var inputOne = aDiv[0].getElementsByTagName("input")
+            var inputTwo = aDiv[1].getElementsByTagName("input")
+
+
+
+            //slide
+            var onOff = true;
+            sDiv[0].onclick = function () {
+                if (onOff) {
+                    sDiv[1].style.display = "block"
+                } else {
+                    sDiv[1].style.display = "none"
+                }
+                onOff = !onOff
+            }
+            //滑动slide
+            for (var i = 0; i < showDownDiv.length; i++) {
+                showDownDiv[i].onmouseover = function () {
+                    this.className = "active";
+                }
+                showDownDiv[i].onmouseout = function () {
+                    this.className = "";
+                }
+
+                showDownDiv[i].index = i;
+                showDownDiv[i].onclick = function () {
+                    this.parentNode.style.display = "none";
+                    onOff = true;
+                    textBorder.style.display = "block";
+                    for (var i = 0; i < aLi.length; i++) {
+                        aLi[i].className = ""
+                        aDiv[i].style.display = "none"
+                    }
+                    aLi[this.index].className = "active";
+                    aDiv[this.index].style.display = "block"
+                    searchChange()
+                }
+            }
+
+            //查找的选项卡
+            function searchChange() {
+                for (var i = 0; i < aLi.length; i++) {
+                    aLi[i].index = i;
+                    aLi[i].onclick = function () {
+                        for (var i = 0; i < aLi.length; i++) {
+                            aLi[i].className = ""
+                            aDiv[i].style.display = "none"
+                        }
+                        aLi[this.index].className = "active"
+                        aDiv[this.index].style.display = "block"
+                    }
+                }
+            }
+            //实现查找的功能
+            inpSearch.onclick = function () {
+                searAndChan(inputOne)
+            }
+            inpChange.onclick=function(){
+                searAndChan(inputTwo)
+            }
+            //实现替换的功能
+            function searAndChan(arrE) {
+                var value = arrE[0].value;
+                var newValue = arrE[1].value
+                var text = content.innerHTML;
+                var inHTML = "";
+                arrE.length == 2 ? inHTML = text.split(value).join("<span>" + value + "</span>") : inHTML = text.split(
+                    value).join("<span>" + newValue + "</span>")
+                if (value == "" || newValue == "") {
+                    alert("请输入内容")
+                } else if (inHTML == text) {
+                    alert('没有找到此内容')
+                } else {
+                    content.innerHTML = inHTML;
+                }
+                if (arrE.length == 2) {
+                    inputOne[0].value = ""
+                } else {
+                    inputTwo[0].value = ""
+                    inputTwo[1].value = ""
+                }
+            }
+
+        }
+    </script>
+
+
+</head>
+
+<body>
+    <div class="wrap" id="wrap">
+        <p class="content">【TechWeb报道】3月16日消息，去年315，《网络购买商品七日无理由退货暂行办法》正式实施，但是在一年的时间里，依旧有很多电商平台不履行七日无理由退货义务。对此，国家工商行政管理总局局长周石平表示，发现经营者存在拒不履行七日无理由退货义务，侵害消费者合法权益行为的，将依法进行查处，同时将相关处罚信息计入信用档案，向社会公布。</p>
+        <div class="text-border" id="text-border">
+            <ul class="btn clear">
+                <li>查找</li>
+                <li>替换</li>
+            </ul>
+            <div class="search">
+                <input type="text">
+                <input type="button" value="查找" name="search">
+            </div>
+            <div class="repacle">
+                <input type="text">
+                <input type="text">
+                <input type="button" value="替换" name="change">
+            </div>
+        </div>
+        <div class="slide" id="slide">
+            <div class="show">展开</div>
+            <div class="show-down" id="show-down">
+                <div>查找</div>
+                <div>替换</div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>
