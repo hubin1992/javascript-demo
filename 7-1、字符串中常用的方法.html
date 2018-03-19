@@ -137,8 +137,10 @@
             var str = text1.value;//查找的字符断
             var newStr = text2.value;
             var context = op.innerHTML;//查找的范围
-            //console.log(context.split(str));//["", "山东分局对斯洛伐克觉得舒服的是非得失发生的，", "法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代", ""]
+            console.log(str);
+            console.log(context.split(str));//["", "山东分局对斯洛伐克觉得舒服的是非得失发生的，", "法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代", ""]
             console.log(context.split(str).join('<span>'+str+'</span>'));//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
+            console.log(context.split(str).join('<span>'+str+'</span>')== context);//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
             
             op.innerHTML=context.split(str).join('<span>'+newStr+'</span>')
 
