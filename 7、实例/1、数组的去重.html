@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var arr = [1, 2, 3, 4, 555, 3, 4, 5, 12, 34]
+        // //思路：创建一个空对象，然后把第一项，把数组里的每一项，和对象的每一项进行比较，
+        // function clearRepalc(arr) {
+        //     var obj = {};
+        //     for (var i = 0; i < arr.length; i++) {
+        //         var cur = arr[i]
+        //         if (obj[cur] == cur) { //判断，数组的这一项是否在对象中，对象中的查找机制，就是你给我一个名字，我在整个对象中找
+        //             arr[i] = arr[arr.length - 1]
+        //             arr.length -= 1;
+        //         }
+        //         obj[cur] = cur
+        //     }
+        //     obj = null; //垃圾回收，提高内存利用率
+        // }
+        // clearRepalc(arr)
+        // console.log(arr);
+
+
+        //数组的排序---->固定方法
+        // arr.sort(function(a,b){
+        //     return a-b
+        // })
+        // console.log(arr)
+
+        //数组的冒泡排序
+        var arr = [1, 23, 43, 54, 4, 5, 6, 33, 34, 56, 2, 67, 9]
+        //思路：我们当arr[0]的时候，不用和自己比较，只需和比他大进行不觉，如果arr[0]>arr[1],那么我们就调换位置；
+        // for (var i = 0; i < arr.length - 1; i++) {; //减去1的原因，就是我们第一次排序就能确定下最大的一个，所有最后一个就不用和前面的比较了
+        //     for (var j = i+1;j<arr.length;j++) {
+        //         if (arr[i] > arr[j]) {
+        //             var temp = null;
+        //             temp = arr[i];
+        //             arr[i] = arr[j];
+        //             arr[j] = temp;
+        //         }
+        //     }
+
+        // }
+        // console.log(arr)
+
+        //数组快速排序
+        //思路：我们选取一个中间数，然后创建两个数组，把大于平均数的放在右面，小于平均数的放左面，一直循环，然后无限递归，直至实现排序完事
+
+        function quickSort(arr){
+            //如果传递过来的数组只有一项来，就不需要快速的思想拆来，直接一项数组返回
+            if(arr.length<=1){return arr};
+            var leftArray =[];
+            var rightArray =[];
+            var middleNum = Math.floor(arr.length/2);
+            var middleArr = arr.splice(middleNum,1)[0];//选择中间数字，然后将其与原先的数组分离
+            for(var i = 0;i<arr.length;i++){
+                arr[i] < middleArr?leftArray.push(arr[i]):rightArray.push(arr[i])
+            }
+            // console.log(middleArr);
+            // console.log(leftArray)
+            // console.log(rightArray)
+            // console.log(arr)
+            //左边排好序 + 分离出去的 + 右边排好序的
+            return quickSort(leftArray).concat([middleArr],quickSort(rightArray))
+
+        }
+        quickSort(arr)
+
+    </script>
+</body>
+
+</html>
