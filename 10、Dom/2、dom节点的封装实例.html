@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        var list = document.getElementById("list");
+        var aLi = list.getElementsByTagName("li");
+
+        /* 
+          @pre:获取上一个哥哥元素节点
+          @parameter:
+                ele:我们要操作的元素
+          @return:返回的是我们获取到的元素
+          by: 胡滨 2018/3/15 
+        */
+
+        //获取上一个元素节点
+        function pre(ele) {
+            var pre = ele.previousSibling;
+            while (pre && pre.nodeType != 1) {
+                pre = pre.previousSibling
+            }
+            return pre
+        }
+
+        //获取所有的哥哥节点
+        function preAll(ele) {
+            var pre = ele.previousSibling,arr=[];
+            while (pre) {
+                if(pre.nodeType === 1){//判断的是pre的nodetype因为传递进来的就用一次就好
+                    arr.unshift(pre)
+                }
+                pre = pre.previousSibling
+            }
+            return arr
+        }
+        //获取下一个弟弟节点
+        function next(ele){
+            var nex = ele.nextSibling
+            while(nex && nex.nodeType!=1){
+                nex = nex.nextSibling
+            }
+            return nex
+        }
+        //获取所有的弟弟节点
+        function nextAll(ele){
+            var nex = ele.nextSibling,arr=[];
+            while(nex){
+                if(nex.nodeType === 1){
+                    arr.push(nex)
+                }
+                nex = nex.nextSibling
+            }
+            return arr
+        }
+        //获取所有的兄弟元素节点
+        function siblings(ele){
+            return preAll(ele).concat(nextAll(ele))
+        }
+
+    </script>
+</body>
+
+</html>
