@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div class="box">
+        <div></div>
+    </div> -->
+    <script>
+    //DOM  Document object model---->描述页面关系的节点
+
+        //获取页面中元素的方法
+        //1、document.getElementById
+        /* 
+           1）如果id重复了之选择第一个
+           2）ie6～7下面会把表单的name属性当作id来使用
+           3）ie6～7下不区分id的大小写
+           4）如果获取不到返回的是null
+        */
+        //2、context.getElementsByTagName 获取context下所有元素的标签名字---》类数组
+        //3、context.getElementsByName 这个只是适于用获取表单元素
+        //4、context.getElementsByClassName ie6~8下不兼容---》需要手写来保证兼容性；
+        //5、获取当前屏幕的高度和宽度(兼容所有的浏览器)
+        // console.log(document.documentElement.clientWidth||document.body.clientWidth,
+        // document.documentElement.clientHeight||document.body.clientHeight)
+        //6、移动端使用方便(ie6~8下不兼容)--->这个的上下文只能是doucument
+        // document.querySelector();
+        // document.querySelectorAll();
+        // console.log(document.querySelector(".box > div"))
+        
+    /////////////////////////////////////////////  
+    
+        //DOM节点和关系属性
+        // childeNodes ;//获取所有子节点
+        // children;//获取所有的元素子节点
+        // parentNode ;//获取父亲节点
+        // previousSibling;//获取所有的哥哥节点
+        // nextSibling;//获取所有的弟弟节点
+        // firstChild;//获取所有子节点中的第一个节点
+        // lastChild;//获取所有的子节点中的最后一个节点
+
+        //我们需要熟知的节点类型（标准浏览器下，我们拔空格和enter都当作文本节点处理）
+        //            nodeType    nodeName         nodeValue
+        //元素节点          1       大写的标签名字          null 
+        //文本节点          3       #text               文本的内容
+        //注释节点          8       #comment           注释的内容
+        //docuement        9      #document             null
+
+
+    //////////////////////////////////////////////////
+    //DOM增删改
+    //1、创建一个元素 
+    //docuement.createElement()
+    //2、添加一个元素(父级的末尾)
+    //ele.parentNode.appendChild(ele)
+    //3、往元素的前面添加
+    //ele.parentNode.insertBefore(new,old)
+    //4、替换一个元素，或者修改一个元素
+    //ele.parentNode.replaceChild(newele,ele)
+    //5、删除元素
+    //ele.parentNode.removeChild(ele)
+    //6、克隆一个元素
+    //ele.cloneNode();//true || false  --->true,克隆子子孙孙，false仅仅克隆自己
+    
+
+    
+    var op= document.createElement("p");
+    op.style.width="100px";
+    op.style.height="100px";
+    op.style.background="yellow";
+    document.body.appendChild(op);
+    var div= document.createElement("div");
+    div.style.width="100px";
+    div.style.height="100px";
+    div.style.background="red";
+    //document.body.appendChild(div);
+    document.body.insertBefore(div,op)
+
+    var op2 = op.cloneNode();
+    op2.style.background="#fff";
+    op2.style.border="2px solid #000";
+    document.body.replaceChild(op2,div)
+
+    document.body.removeChild(op)
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
