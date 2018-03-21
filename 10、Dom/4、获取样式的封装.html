@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            float: left;
+            background: #000000;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+
+    </div>
+    <script>
+        //由来：我们sytle只能是获取到行内样式，及其不方便，对于style里面写的样式没法获取，所以延伸出了这两个方法
+
+        //window.getComputerStyle(ele,null)[attr]  ---->这个仅仅是兼容主流浏览器
+        //ele.currentStyle[attr]   ---> 这个用于兼容ie6-8
+
+        var box = document.getElementById("box");
+
+        /* 
+            @getCss:获取我们设置过的css样式
+            @parameter: 
+                ele   : 获取的元素
+                attr  : 获取元素的属性
+            @return   : 获取到的值
+            @prompt   : 复合属性要拆开写
+            by hubin 2018/3/22 
+        
+         */
+        function getCss(ele, attr) {
+            var val = null;
+            if (window.getComputedStyle) {
+                val = window.getComputedStyle(ele, null)[attr];
+            } else {
+                val = ele.currentStyle[attr];
+            }
+            //return val;//如果这样的话，出来是一个字符串
+            //return parseFloat(val);//但是如果是float或者是position就挂掉了，返回的是NaN,所以我们需要加一个检测
+            var reg = /^(-?\d+(\.\d+)?)(px|rem|em|vh|vw)$/;
+            return reg.test(val) ? parseFloat(val) : val;
+            //console.log(reg.test(attr));//false
+
+        }
+        console.log(getCss(box, "opacity"));
+    </script>
+</body>
+
+</html>
