@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,
+        li,
+        div {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .list {
+            width: 990px;
+            margin: 0 auto;
+        }
+
+        .list div {
+            margin-bottom: 100px;
+            height: 800px;
+            border: 1px solid #ccc;
+            font-size: 40px;
+            color: red;
+            text-align: center;
+            line-height: 400px;
+        }
+
+        .list .first {
+            height: 900px;
+        }
+
+        .nav {
+            display: none;
+            position: fixed;
+            left: 40px;
+            width: 102px;
+            bottom: 80px;
+        }
+
+        .nav li {
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            width: 100px;
+            background: #ccc;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .nav li.active {
+            background: deepskyblue;
+        }
+        .nav li:hover{
+            background: deepskyblue;
+        }
+    </style>
+    <script>
+        //注意css和js结合的使用
+        //多方位考虑位置，定时器的时间短的时间，可以解决很多问题
+
+
+
+        window.onload = function () {
+            var nav = document.getElementById("nav");
+            var list = document.getElementById("list");
+            var aLi = nav.getElementsByTagName("li");
+            var top = document.getElementById("backtop");
+            var aDiv = list.children;
+            window.onscroll = function () {
+                showHide(nav)
+                //点亮导航
+                var lightScroll = document.documentElement.scrollTop || document.body.scrollTop;//获取的是滚动条卷去的高度
+                var arr = [];//用来存放分界值的
+                for(var i=1;i<aDiv.length;i++){//实现分界值的存放
+                    arr.push(aDiv[i].offsetTop+aDiv[i].clientHeight)
+                }
+                clearStyle(aLi)
+                for(var i = 0;i<arr.length;i++){//点亮的具体实现
+                    if(lightScroll<arr[0]){
+                        aLi[0].className="active";
+                    }
+                    if(lightScroll<arr[i] && lightScroll > arr[i-1]){//因为用的是&&所以需要把首评-1的去掉；
+                        aLi[i].className="active";
+                    }
+                }
+            }
+            top.onclick = function () {
+                backTop(1000, 10, 0, nav)
+            }
+
+            for (var i = 0; i < aLi.length - 1; i++) {//点击的动作
+                aLi[i].onclick = function () {
+                    clearStyle(aLi)
+                    this.className="active"; 
+                    var id = document.getElementById(this.getAttribute('data-id'))
+                    var target = id.offsetTop;
+                    backTop(300, 10, target, nav)
+
+                }
+            }
+
+            ////////////////////辅助函数
+            //clearStyle
+            function clearStyle(ele){
+                for(var i = 0;i<ele.length;i++){
+                    ele[i].className="";
+                    }
+            }
+            //首屏幕隐藏
+            function showHide(ele) {
+                var curH = document.documentElement.clientHeight || document.body.clientHeight;
+                var scrH = document.documentElement.scrollTop || document.body.scrollTop;
+                ele.style.display = scrH > curH ? "block" : "none";
+            }
+            //返回顶部
+            function backTop(duration, interval, target, ele) {
+                clearInterval(timer);
+                timer = null;
+                // window.onscroll = null;
+                var duration = duration; //总时长
+                var interval = interval; //几秒执行一次函数，即使几秒执行一次定时器
+                var curlScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                var step = (curlScroll - target) / duration * interval;
+                var timer = null;
+                timer = setInterval(function () {
+                    curlScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (step > 0) {//判断终止的位置；
+                        if (curlScroll <= target) {
+                            clearInterval(timer);
+                            return
+                        }
+                    } else {
+                        if (curlScroll >= target) {
+                            clearInterval(timer);
+                            return
+                        }
+                    }
+
+                    document.documentElement.scrollTop = curlScroll - step;
+                    document.body.scrollTop = curlScroll - step
+                }, interval)
+            }
+
+
+        }
+    </script> 
+</head>
+
+<body>
+    <div class="list" id="list">
+        <div class="first">首屏幕</div>
+        <div id="a">一楼</div>
+        <div id="b">二楼</div>
+        <div id="c">三楼</div>
+        <div id="d">四楼</div>
+        <div id="e">五楼</div>
+    </div>
+    <ul class="nav" id="nav">
+        <li data-id="a">1</li>
+        <li data-id="b">2</li>
+        <li data-id="c">3</li>
+        <li data-id="d">4</li>
+        <li data-id="e">5</li>
+        <li id="backtop">back</li>
+    </ul>
+</body>
+
+</html>
