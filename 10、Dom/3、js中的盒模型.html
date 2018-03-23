@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .box {
+            width: 300px;
+            height: 300px;
+            margin: 10px;
+            padding: 20px;
+            border: 4px solid red;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("box");
+
+            //client系列
+            //clientWidth=width+padding
+            //clientHeight = height + padding;
+            //clientTop = border-top
+            //clientLeft = border-left
+            //如果有溢出的情况不会收到影响
+            /* console.log(box.clientWidth);//340  width+padding
+            console.log(box.clientHeight);//340  height+padding
+            console.log(box.clientTop);//4
+            console.log(box.clientLeft);//4 */
+
+            // offset系列--->如果父级参照物是body，记着要把body的默认margin给去掉
+            // offsetWidth = clientWidth+clientLeft
+            // offsetHeight = clientHeight+clientTop
+            // offsetParent 如果没有定位的影响，那么就是body，如果有定位的影响要看相对于谁定位
+            // position的relative，absoulut，fixed 都会改变元素的父级参照物；
+            //注意：如果有定位了，那么我们得到上偏移，和左偏移不包括border的值，仅仅是padding+content的值；
+            // offsetTop 相对于父级高度
+            // offsetLeft 相对于父级宽度
+            console.log(box.offsetWidth); //348  
+            console.log(box.offsetHeight); //348
+            console.log(box.offsetParent); //body
+            console.log(box.offsetTop); //10
+            console.log(box.offsetLeft); //10
+
+            /////////////////////   scroll系列是可以读写的属性   ///////////////////////
+            //scroll系列 
+            //scrollTop ---》上下滚动条卷去的距离
+            //scrolLeft 左右滚动条卷去的距离
+            //scrollHeght --> 主要用在有溢出的时候，我们获得溢出的高度
+            /* 
+               @getWin:获取和设置浏览器的盒子属性 
+               @parameter:
+                    attr : 获取或者设置的属性
+                    value : 设置的属性值（value也就只有在设置scrolltop的时候可以用上）
+                @return 返回的是我们获取的属性的值
+             */
+            function getWin(attr, value) {
+                var temp = null;
+                if (value == "undefined") {
+                    return document.documentElement[attr] || document.body[attr];
+                }
+                document.documentElement[attr] = value;
+                document.body[attr] = value;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <p class="box" id="box">
+        大会号召，让我们更加紧密地团结在以习近平同志为核心的党中央周围，高举中国特色社会主义伟大旗帜，深入学习贯彻习近平新时代中国特色社会主义思想，全面贯彻落实党的十九大和十九届一中、二中、三中全会精神，勠力同心，锐意进取，为完成本次会议确定的任务，为决胜全面建成小康社会、夺取新时代中国特色社会主义伟大胜利、实现中华民族伟大复兴的中国梦而努力奋斗。
+    </p>
+</body>
+
+</html>
