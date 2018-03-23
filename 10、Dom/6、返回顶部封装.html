@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 500%;
+            width: 100%;
+        }
+
+        body {
+            background: -webkit-linear-gradient(top, red, blanchedalmond, greenyellow);
+        }
+
+        .goTop {
+            width: 100px;
+            height: 100px;
+            background: #000;
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            border-radius: 50%;
+            line-height: 100px;
+            text-align: center;
+            color: #fff;
+            opacity: 0.3;
+            display: none;
+            cursor: pointer;
+        }
+
+        .goTop:hover {
+            opacity: 1;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var goTop = document.getElementById("goTop");
+            var docHei = document.documentElement.clientHeight || document.body.clientHeight;
+            //超过一屏幕显示
+            window.onscroll = function(){
+                showHide(goTop)
+            }
+            goTop.onclick=function(){
+                backTop(1000,10,goTop)
+            }
+            //返回的实现
+            //思路：要确定终点、确定步长，确定多长时间执行一次,确定总长的时间，同时要注意每次更新target；
+
+            /* 
+                @showHide : 根据卷去的高度，去判断元素的显示或者隐藏
+                @parameter 
+                    ele : 要显示或者隐藏的元素
+                by hubin 2018/3/23
+             */
+             function showHide(ele) {
+                var scrollT = document.documentElement.scrollTop || document.body.scrollTop;
+                ele.style.display = scrollT > docHei ? "block" : "none";
+            }
+            /* 
+                @backTop : 返回顶部
+                @parameter: 
+                    duration : 总的时长
+                    interval : 多长时间运动一次
+                    ele : 触发器
+             */
+            function backTop(duration,interval,ele){
+                ele.style.display = "none";
+                window.onscroll = null;
+                var duration = duration; //总时长
+                var interval = interval; //几秒执行一次函数，即使几秒执行一次定时器
+                var target = document.documentElement.scrollTop || document.body.scrollTop;
+                var step = target / duration * interval;
+                var timer = null;
+                timer = setInterval(function () {
+                    target = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (target <= 0) {
+                        clearInterval(timer);
+                        window.onscroll = function(){
+                            showHide(ele)
+                        }
+                        return
+                    }
+                    document.documentElement.scrollTop = target - step;
+                    document.body.scrollTop = target - step
+                }, interval)
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="goTop" id="goTop">返回顶部</div>
+</body>
+
+</html>
