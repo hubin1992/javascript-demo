@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //js中的内存分类
+        //堆内存：用来存储引用数据类型的值；
+        //栈内存：用来提供一个共js代码执行的环境；---》作用域（全局/私有）
+
+        /* 
+                注意：
+                    1、js进行预解释的时候，如果两个表达式的变量名相同有以下两种情况；
+                        1）如果两个都是普通的变量例如var a 和 var a，那么他会留下后者的a
+                        2）如果是一个函数体，和一个普通的变量 fucntion a(){ } 和 var a 那么永远只留下函数体；
+                        3）如果是两个函数，那么也是留下后者
+
+                    2、执行的时候，是按照从上到下的顺序进行执行；
+
+         */
+
+        //alert()进行与解析分析
+        /* //a = , a=function a(){alert(2)}, function a(){alert(4)}   
+        alert(a) ;//function(){alert(4)}
+        var a = 1;//a = 1赋值
+        alert(a);//1
+        function a(){alert(2)}//没有执行
+        alert(a)//1
+        var a =3;// a=3 赋值
+        alert(a);//3
+        function a(){alert(4)};//没执行
+        alert(a)//3
+        a();//报错---》a is not a function
+        */
+    </script>
+
+
+    <!-- 
+        块级作用域的问题
+     <script>
+         alert(a);//报错 a is undefined
+     </script>
+     <script>
+         var a =  1;
+     </script>
+     -->
+
+
+    <!-- 
+        全局作用域，和私有作用域
+     -->
+     <!-- 
+        作用域链的问题:如果在自己的私有作用域里面找不到，那么就去全局下面找，如果全局下面找不到，那么就报错了undefined
+      <script>
+          var a = 1;
+          function fn(){
+              a = 2
+          }
+          fn()
+          alert(a);//2
+      </script>
+       -->
+</body>
+
+</html>
