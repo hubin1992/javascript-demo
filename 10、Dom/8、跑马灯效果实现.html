@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #wrap {
+            width: 300px;
+            margin: 50px auto;
+        }
+
+        #wrap ul {
+            height: 45px;
+            border: 1px solid red;
+            overflow: hidden;
+            /* 布局上加一个overflow 不然得不到scroll值 */
+        }
+
+        #wrap ul li {
+            height: 45px;
+            text-align: center;
+            line-height: 45px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var wrap = document.getElementById("wrap");
+            var innerwrap = document.getElementById("innerwrap");
+            var aLi = innerwrap.getElementsByTagName("li");
+
+            var timer = null
+
+            //结构初始化
+            var height = parseFloat(getComputedStyle(aLi[0], null)["height"]);
+            var totalHeight = height * aLi.length;
+            var newTag = aLi[0].cloneNode(true);
+            innerwrap.appendChild(newTag);
+
+            function move(ele) {
+                timer = setInterval(function () { //利用scrolltop有头有尾来判断
+                    ele.scrollTop += 1;
+                    var oldTop = ele.scrollTop;
+                    if (oldTop >= totalHeight) {
+                        ele.scrollTop = 0;
+                    }
+                }, 30)
+            }
+            move(innerwrap)
+
+            innerwrap.onmouseover=function(){
+                clearInterval(timer)
+            }
+            innerwrap.onmouseout=function(){
+                move(innerwrap)
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <ul id="innerwrap">
+            <li>1111111111111</li>
+            <li>2222222222222</li>
+            <li>3333333333333</li>
+            <li>4444444444444</li>
+        </ul>
+    </div>
+</body>
+
+</html>
