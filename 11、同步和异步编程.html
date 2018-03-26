@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+                //js中的同步编程和异步编程
+
+                1、js是单线程的
+
+                同步：上一件事情没完成，继续做上一件，只有完成上一件才会做下一件
+                     js中大部分都是同步编程
+                */
+        var n = 0;
+        while (1) {
+
+        }
+        console.log(n); //n 不会执行，因为while是个死循环；典型的异步编程的例子
+
+
+        //异步：多件事情共同执行
+        //    定时器、事件、ajax、回调函数
+
+
+        var n = 0;
+        setTimeout(function () {
+            n += 2;
+            console.log(n);//7
+        }, 10);
+
+        setTimeout(function(){
+            n+=5;
+            console.log(n);//5(3)
+        },6)
+        console.log(n);//0 (1)
+        for(var i = 0;i<999;i++){
+
+        }
+        console.log(n);//0 (2)
+
+
+        //解析
+        // 两个定时器是异步编程--》所以限制性异步的下面第41行 输出0然后执行for循环 执行45航，输出0；
+
+        //这时候再去执行定时器---》执行定时器的时候，有一个任务队列的情况，看谁的是你短，就先执行谁的；
+
+
+        
+
+
+    
+    </script>
+</body>
+
+</html>
