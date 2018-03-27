@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //闭包
+        //定义：可以访函数私有作用域中变量的函数
+        // function fn() {; //最简单的闭包
+        //     var n = 1;
+        //     return function () {
+        //         n++;
+        //     }
+        //     console.log(n)
+        // }
+        //为什么要这么写
+        //因为js的函数就是一个封闭小黑屋，他可以出去，但是外面的进不来，而闭包就是一个通道，建议了一个通道，让期与外面有了链接
+
+
+        //闭包中的坑
+        //书写解析一下
+        //creatFunction() 执行后仅仅是保存了一个数组，数字里面的函数没有执行
+        //[function(){return i},function(){return i},function(){return i},function(){return i},function(){return i},function(){return i},function(){return i}]
+
+        //下面的for循环才是在执行 执行的时候 function(){return i}  i在去访问creatFunction里面的i那么这个时候，已经是循环完成的i=10；所以输出10
+        /* function creatFunction() {
+            var arr = [];
+            for (var i = 0; i < 10; i++) {
+                arr[i] = function(){
+                    return i
+                }
+            }
+            return arr;
+        }
+        var fun = creatFunction();
+
+        for(var i = 0;i<fun.length;i++){
+            console.log(fun[i]())
+        } */
+
+        //避免掉坑
+        //原理就是执行多次私有空间，每个空间里面都存有一个传递过来的参数i=0,i=1,这些空间因为被
+        function creatFunction() {
+            var arr = [];
+            for (var i = 0; i < 10; i++) {
+                arr[i] = (function (i) {//暂时不被销毁
+                    //var num = i;
+                    return function () {
+                        return i
+                    }
+                })(i)
+            }
+            return arr;
+        }
+
+        var fun = creatFunction();
+        for (var i = 0; i < fun.length; i++) {
+            console.log(fun[i]())
+        }
+
+        //总结一下
+        //闭包就是一个函数引用另外一个函数的变量,因为变量被引用着所以不会被回收，因此可以用来封装一个私有变量。这是优点也是缺点，不必要的闭包只会徒增内存消耗！
+    </script>
+</body>
+
+</html>
