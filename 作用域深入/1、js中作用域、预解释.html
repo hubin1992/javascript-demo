@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //js中的内存分类
+        //堆内存：用来存储引用数据类型的值；
+        //栈内存：用来提供一个共js代码执行的环境；---》作用域（全局/私有）
+
+        /* 
+                注意：
+                    1、js进行预解释的时候，如果两个表达式的变量名相同有以下两种情况；
+                        1）如果两个都是普通的变量例如var a 和 var a，那么他会留下后者的a
+                        2）如果是一个函数体，和一个普通的变量 fucntion a(){ } 和 var a 那么永远只留下函数体；
+                        3）如果是两个函数，那么也是留下后者
+
+                    2、执行的时候，是按照从上到下的顺序进行执行；
+
+         */
+
+        //alert()进行与解析分析
+        /* //a = , a=function a(){alert(2)}, function a(){alert(4)}   
+        alert(a) ;//function(){alert(4)}
+        var a = 1;//a = 1赋值
+        alert(a);//1
+        function a(){alert(2)}//没有执行
+        alert(a)//1
+        var a =3;// a=3 赋值
+        alert(a);//3
+        function a(){alert(4)};//没执行
+        alert(a)//3
+        a();//报错---》a is not a function
+        */
+
+       //与解释
+       //1、不管函数是否成立都进行与解释
+       if(!('num' in window)){
+           var num = 12
+       }
+       console.log(num);//undefined
+
+       //2、与解释不会对值进行解释
+       //fn();// fn is not a function 
+       var fn = function(){
+           console.log('ok')
+       }
+
+       //3、自执行函数定义的function,在全局作用下不进行与解释，当代码执行到着的时候，自执行函数的定义和执行都一起；
+       (function(){console.log("ok")});//ok
+
+       // 4、return后面的代码虽然不在执行了，但是会进行预解释；return后面跟着的都是返回值，所以
+       function fn(){
+           return function(){
+
+           }
+           var num = 10;
+       }
+
+       //5、在预解释中，如果函数声明过了，那么不会在进行预解释，但是还是会进行定义和赋值
+       fn();//4
+       function fn(){console.log(1)};
+       fn()//4
+       var fn =2;
+       fn()//fn is not a function
+       function fn(){console.log(3)};
+       fn()
+       function fn(){console.log(4)};
+       fn()
+
+
+
+
+        
+    </script>
+
+</body>
+
+</html>

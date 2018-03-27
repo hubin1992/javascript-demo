@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        //作用域不销毁的总结
+        //1)函数，执行返回了一个引用数据类型的值，并且在函数外面被一个其他东西给接收了，这中情况下国作用域不会销毁；
+
+        function fn (){
+            return function(){
+
+            }
+        }
+        var f = fn();// f = return function(){};这样被外部变量给占用了，所以不会销毁
+
+        //2)在一个私有作用域中，给一个dom元素绑定事件，一般情况下我们的私有作用域也不销毁
+            //注意，我们通过dom获取到的元素的值，都是对象数据类型
+
+        function fn(){//高版本不立即销毁；ie中永不销毁，因为ie采用的是计数清除
+            var box  = document.getElementById("box");
+            console.log(typeof box);//obj
+            box.onclick=function(){
+
+            }
+        }
+
+        //3）这样的结果就是不立即销毁；，因为暂时性占用
+        function fn(){
+            return function(){
+
+            }
+        }
+        fn()()
+    </script>
+</body>
+
+</html>
