@@ -9,7 +9,7 @@
 
 <body>
     <script>
-        function fn() {
+        /* function fn() {
             var i = 10;//11 12
             return function (n) {
                 console.log(n + (++i));
@@ -19,7 +19,28 @@
         f(10);//21
         f(20);//32
         fn()(10);//21
-        fn()(20);//31
+        fn()(20);//31 */
+//60 240 960
+        var num = 20;//60 240
+        var obj = {
+            num : 30,//120
+            fn:(function(num){
+                this.num*3;
+                num+=15;
+                var num = 45;
+                return function(){
+                    this.num*=4;
+                    num+=20;
+                    console.log(num);
+                }
+            })(num)
+        }
+        var fn  = obj.fn;
+        fn();//65
+        obj.fn();//85
+        console.log(window.num,obj.num);//240 120
+
+
     </script>
 </body>
 
