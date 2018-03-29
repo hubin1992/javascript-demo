@@ -25,20 +25,40 @@
 
         //////////////////////////////////////////////
         //call继承
-        //原理是把call当成一个普通的函数来执行，然后改变函数里面的this关键字的执行
+        //原理是把call当成一个普通的函数来执行，然后改变函数里面的this关键字的执行(直接拷贝过来了)
         //缺点：这样只能继承父类的私有属性
+        // function Fn(){
+        //     this.x = 1000;
+        // };
+        // Fn.prototype.getX=function(){
+        //     console.log(100)
+        // };
+        // function B(){
+        //     Fn.call(this)//构造函数的this指向的是他的实例
+        // };
+        // var b = new B();
+        // console.log(b.x);//1000
+        // console.log(b.getX);//undefined
+
+        ///////////////////////////
+        //冒充对象继承
+        //创建一个父类的实例，因为这个实例是一个对象数据类型，然后我们可以来循环得到他的属性名和属性值；
+
         function Fn(){
             this.x = 1000;
         };
         Fn.prototype.getX=function(){
             console.log(100)
         };
+        
         function B(){
-            Fn.call(this)//构造函数的this指向的是他的实例
-        };
-        var b = new B();
-        console.log(b.x);//1000
-        console.log(b.getX);//undefined
+            var temp = new Fn();
+            for(var key in temp){
+                this[key] = temp[key]
+            }
+        }
+        var b  = new B()
+        console.log(b.x);//1000       
 
         
 
