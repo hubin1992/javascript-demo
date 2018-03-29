@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //单例模式---->模块化开发
+
+        var name  = 'heh';
+        var name  = 'hah'
+
+        //////上面的后者会覆盖前者---》这样就解决了覆盖的问题
+        var obj = {//obj 叫做命名空间
+            name:'hah',
+            age:'12'
+        }
+        var obj2 = {
+            name:'hehe',
+            age:'12'
+        }
+
+        /////实战中的应用
+        //例如百度首页（天气，皮肤，选项卡模块）--->3个人开发3个模块；
+        //像这中命名就不会冲突了
+
+        //公共模块
+        var init  = {
+            myclick:function(){
+                console.log(1)
+            }
+        }
+        //天气模块
+        var myWeather = {
+            get:function(){
+                init.myclick();//外部调用
+                this.post();//自己调用
+            },
+            post:function(){
+
+            }
+            
+        }
+        //选项卡模块
+        var change = {
+            get:function(){
+
+            }
+        }
+
+
+        
+
+    </script>
+</body>
+</html>

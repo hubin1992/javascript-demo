@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //原型继承---->不是拷贝只是改变了原型链的查找模式
+        //子级继承了父级的所有属性，作为了子级别的公有的属性
+        // function Fn(){
+        //     this.x = 1000;
+        // }
+        // Fn.prototype.getX=function(){
+        //     console.log(100)
+        // }
+        // function B(){}
+        // //console.log(B.constructor)
+        // B.prototype = new Fn;
+        // B.prototype.constructor=B;//修改b的constrctor指向，如果不修改查到的是A;
+        // //console.log(B.constructor)
+        // var b = new Fn
+        // console.log(b)
+
+        //////////////////////////////////////////////
+        //call继承
+        //原理是把call当成一个普通的函数来执行，然后改变函数里面的this关键字的执行
+        //缺点：这样只能继承父类的私有属性
+        function Fn(){
+            this.x = 1000;
+        };
+        Fn.prototype.getX=function(){
+            console.log(100)
+        };
+        function B(){
+            Fn.call(this)//构造函数的this指向的是他的实例
+        };
+        var b = new B();
+        console.log(b.x);//1000
+        console.log(b.getX);//undefined
+
+        
+
+
+
+    </script>
+</body>
+</html>
