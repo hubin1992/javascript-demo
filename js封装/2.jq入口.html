@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>aaaa</div>
+  <div>bbbb</div>
+  <div>cccc</div>
+  <script>
+    (function() {
+      function jQuery(element) {
+        // 这样我们仅仅能获取div，如果我们获取class或者id就没有别的方法了。
+        const eles = document.getElementsByTagName(element)
+        // return eles //这样无法.css
+        //定义在eles的原型上
+        console.log(eles.__proto__);//HTMLCollection
+        HTMLCollection.prototype.css = function(){} ;//这样定义方法就破坏了原型本身；
+      }
+      window.jQuery = window.$ = jQuery;
+    })()
+    $("div").css()
+  </script>
+</body>
+
+</html>

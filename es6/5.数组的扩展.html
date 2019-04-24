@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数组中常用的方法</title>
+</head>
+
+<body>
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <script>
+    // ... 很好用的扩展符
+    //includes(); 返回的也是布尔值
+    //Array.from(obj,fn) 将类数组转换为数组
+    //Array.of(arg1,arg2) 将数值转换为数组
+    //copyWithin(taget,start=0,end=length) 从取到start到end的索引，去覆盖target索引开始的值，会改变原有的数组；
+    //find(cb(value,index,arr))和findIndex() 查找，如果找到返回的是true，找不到返回的是undefined
+    // entries()遍历键值对，keys()用来遍历健 和 values()用来遍历值的。
+    //数组中几个常用的方法，
+      //map(cb(value,index,arr),context)  方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。更适合处理后台的数据修改每个数据的印射 
+      //forEach -->循环处理数组中的东西，需要重新定义一个数组来接受，没有返回值
+      //filter-->方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。没有到没有符合条件时返回空数组。更适合用来筛选 
+      //reduce(cb(total,valu,index,arr),total)，total代表计算的初始值, 也是计算结束后的返回值。其实更方便用来求和
+
+
+    let arr = [1, 23, 4]
+    let arr1 = [3, 4, ...arr]
+    console.log(arr1)
+
+    //可以用...来替代apply的方法
+    console.log(Math.max.apply(null, arr)); //23
+    console.log(Math.max(...arr)); //23
+
+    //Array.from(obj,fn) 将类数组转换为数组
+    var bts = document.querySelectorAll("button")
+    // bts.slice();//bts.slice is not a function
+    console.log(Array.from(bts).slice()); //[button, button, button]
+    Array.from(bts, (n) => {
+      console.log(n.innerHTML); //<button>1</button>
+    })
+
+    //Array.of(arg1,arg2) 将数值转换为数组
+    console.log(Array.of(1, 2, 4));
+    [1, 2, 4]
+    Array.of(1, 2, 4)
+
+    //copyWithin(taget,start=0,end=length) 从取到start到end的索引，去覆盖target索引开始的值，会改变原有的数组；
+
+    let arr2 = [1, 2, 3, 4, 5, 6]
+    // console.log(arr2.copyWithin(0,4));// [5, 6, 3, 4, 5, 6]
+
+
+    //find()和findIndex()--->如果有返回索引，如果没有返回的是-1，另外和indexof相比他可以查找NaN
+    arr2.find((value, index, arr) => {
+      console.log(value, index, arr)
+    })
+    console.log(arr2.findIndex((value, index, arr) => {
+      return value > 5; //5
+    }))
+
+
+    //entries() ,keys() , values()
+    for(let [key,value] of arr2.entries()){
+      console.log(key,value)
+    }
+    for(let index of arr2.keys()){
+      console.log(index)
+    }
+    for(let ele of arr2.values()){
+      console.log(ele)
+    }
+    //includes
+    console.log(arr2.includes(1));//true
+    console.log(arr2.includes(0));//false
+
+    //forEach仅仅是循环来处理，没有任何返回值
+    let newArr = []
+    console.log(arr2.forEach((val,index,arr)=>{
+      if(val >= 2){
+        newArr.push(index)
+      }
+      return 1
+    }));//undefined
+    console.log(newArr);
+
+    //reduce(fn,totol初始值) 求和
+    let arr3 = [1,2,3]
+    let newArr3 = arr3.reduce((total,item,value,arr)=>{
+      return total+=item
+    },0)
+    console.log(newArr3)
+
+    //es5去实现reduce方法
+
+    Array.prototype.reduce1 = function(fn,initval){
+      for(var i =0;i<this.length;i++){
+        initval = fn(initval,this[i])
+      }
+      return initval
+    }
+   let len =  arr3.reduce1(function(item,value){
+      return item+value
+    },0)
+
+    console.log(len)
+
+  </script>
+</body>
+
+</html>

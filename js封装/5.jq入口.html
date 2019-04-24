@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>aaaa</div>
+  <div>bbbb</div>
+  <div>cccc</div>
+  <span class="span">span</span>
+  <span id="span">span</span>
+  <script>
+    (function() {
+      function jQuery(element) {
+        //修改了名字
+        //并且把init挂载到jq原型上
+        return new jQuery.prototype.init(element);
+      }
+
+      //jq为了省事，直接写成了这样
+
+      jQuery.prototype = {
+        constructor: jQuery,
+        //init和css方法看起来是没有一点的关系，因为都是封闭的函数
+        //jQuery.prototype.init.prototype = jQuery.prototype
+        //这样this的执行都是jq的实例了
+        init: function(element) {
+          const eles = document.querySelectorAll(element);
+          for (let i = 0; i < eles.length; i++) {
+            this[i] = eles[i]
+          }
+          this.length = eles.length
+        },
+        css: function(attr, val) {
+          for (let i = 0; i < this.length; i++) {
+            this[i].style[attr] = val
+          }
+        }
+      }
+      //jQuery原型上的init方法的原型，也指向了jq本身
+      jQuery.prototype.init.prototype = jQuery.prototype
+
+      window.jQuery = window.$ = jQuery;
+    })()
+
+    $("div").css("color", "red")
+    $(".span").css("color", "blue")
+    $("#span").css("color", "yellow")
+  </script>
+</body>
+
+</html>

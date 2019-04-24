@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    //注意：因为script相当于一个块，我们跨域单独占用了一个块，所以后面的块可以用前面块的内容，但是前面不能用后面的内容
+    function fn(data) {
+        console.log(data);//这样我们就可以获取到数据了
+    }
+</script>
+<script type="text/javascript" src="http://matchweb.sports.qq.com/team/list?columnId=100000&callback=fn"></script>
+</body>
+</html>

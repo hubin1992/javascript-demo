@@ -1,0 +1,35 @@
+//我们服务器存放源文件的接口一般是
+80--http
+443--https
+
+//DNS解析（域名解析）---国际公用网络服务器（在我们从客户端往服务器端发送请求的时候的中转站）
+//作用：记录着  你买的ip地址和云服务器外网ip地址
+
+
+URL/URI/URN
+    URL：统一资源定位符
+        http://v.qq.com:80/index.html?name=zhufeng&age=7#abc
+
+        http:传输协议（客户端和服务端之间的数据传输，都是通过http传输协议进行传输的）
+        v.qq.com:域名
+        80: 端口号
+        index.html:请求的文件   --------> 告诉服务器我们请求的文件是谁
+        ?name=zhufeng&age=7：url问好传参-----> 客户端传递给服务器的内容
+        #abc：URL的hash
+    URI：统一资源名称
+    URN=URI+URL
+
+
+传输协议
+    HTTP：超文本传输协议
+    HTTPS：更安全的HTTP
+    FTP：文本传输协议（本地传输到服务器端）
+
+    注意：在不置顶端口的情况下
+    HTTP ： 80
+    HTTPS ：443
+    FTP ：21
+
+
+
+

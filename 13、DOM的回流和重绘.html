@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul, li {
+            list-style: none;
+        }
+
+        #list {
+            width: 300px;
+            height: 46px;
+        }
+
+        #list li {
+            height: 46px;
+            background: #ccc;
+            margin-top: 4px;
+            line-height: 46px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            let list = document.getElementById("list");
+            let aLi = list.getElementsByTagName("li");
+            let arr = [555555555, 4444444];
+
+
+            for (let i = 0; i < aLi.length; i++) {
+                aLi[i].onmouseover = () => {
+                    aLi[i].style.background = "yellow"
+                };
+                aLi[i].onmouseout = () => {
+                    aLi[i].style.background = "#ccc"
+                }
+            }
+
+            //DOM创建的形式
+            //新增加的元素对原来的效果没有一点影响
+            //但是引发了多次dom的回流，性能不好
+            // for(let i = 0;i<arr.length;i++){
+            //     let Li = document.createElement("li");
+            //     Li.innerHTML=arr[i];
+            //     list.appendChild(Li)
+            // }
+
+
+            //字符串拼接的方法
+            //只会引发一次dom回流，但是会影响到原先的效果
+            // let str ='';
+            // for(let i = 0;i<arr.length;i++){
+            //     str+=`<li>${arr[i]}</li>`
+            // }
+            // list.innerHTML+=str;
+
+
+            //针对这这种情况我们可以有一个更优秀的处理方式（文档碎片的模式）
+
+            var frg = document.createDocumentFragment();
+            for (let i = 0; i < arr.length; i++) {
+                let Li = document.createElement("li");
+                Li.innerHTML = arr[i];
+                frg.appendChild(Li)
+            }
+            list.appendChild(frg)
+
+        }
+
+
+    </script>
+</head>
+<body>
+<ul id="list">
+    <li>111111111111111111111111</li>
+    <li>222222222222222222</li>
+    <li>3333333333333333</li>
+    <li>3333333333333333</li>
+    <li>3333333333333333</li>
+</ul>
+<script>
+    //回流（重排reflow:)当页面中的html结构发生变化的时候（增加，删除元素，位置发生改变），浏览器都要重新的计算一边DOM的结构，重新进行渲染
+    //重绘 某一个元素的部分样式发生改变，浏览器只需要重新渲染当前元素即可
+
+
+</script>
+</body>
+</html>

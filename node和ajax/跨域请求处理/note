@@ -1,0 +1,30 @@
+//跨域请求
+//协议：ip：端口 这个三个只要其中有一个不一样那么就是跨域请求
+//例如：
+//我们本地页面
+http://localhost:63342/js/9%E3%80%81js%E4%B8%AD%E7%9A%84%E5%AE%9A%E6%97%B6%E5%99%A8.html?_ijt=e6ust35dfc1mgpio3n40vu72so
+//请求的页面
+    https:www.baidu.com
+//上面这样就是进行了跨域请求
+
+
+
+
+
+//解决的原理 例如script不存在跨域的原理，根据后台的规定，传递一个函数，然后后台会进行拼接返回我们想要的数据
+
+<script src = "https://www.baidu.com"></script>    我们也能拿到数据，这就是原理
+
+
+//具体实例的方式
+<script src = "https://www.baidu.com?callback=fn"></script>
+//注意：callback这个名字是后台来规定的，
+       fn 这个处理函数的名字，是我们前台来随便定义的
+
+
+//腾讯的请求地址
+http://matchweb.sports.qq.com/team/list?callback=getTeamList&columnId=100000&competitionId=100000&callback=jsonp_1523979822102_68136
+
+
+
+

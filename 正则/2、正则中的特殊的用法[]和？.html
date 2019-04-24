@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //[]--->也有转义的意思
+        //var reg = /[.]/;
+        // . 默认是除了\n意外所有的中其中的一个
+        // console.log(reg.test("1"));//false
+        // console.log(reg.test("."));//true
+    //[] ---> 默认规定也有或者的意思
+    //[xy],[xyz]都是正则里面默认的表示方式
+
+
+    //?的最用
+
+    //1、一个字符出现0次或者一次
+        // var reg =/^\d?$/;
+        // console.log(reg.test(''));//true
+        // console.log(reg.test('1'));//true
+
+    //2、在量词后面解决正则的贪婪行
+    // var reg = /\d+/g;
+    // var str = 'zhufeng2015zhu2016';
+    // console.log(str.match(reg));//["2015", "2016"]
+    // reg = /\d+?/g;
+    // console.log(str.match(reg));//["2", "0", "1", "5", "2", "0", "1", "6"]
+
+
+    //3、 ?: 只匹配不捕获
+    var str = '371323199106085839' ;
+    var reg = /^(\d{2})(\d{2})(\d{2})(\d{4})(\d{2})(\d{2})(?:\d{2})(\d)(\d|x)$/;
+    console.log(reg.exec(str));//["371323199106085839", "37", "13", "23", "1991", "06", "08", "3", "9", index: 0, input: "371323199106085839", groups: undefined]   58没有匹配到
+
+
+
+
+</script>
+</body>
+</html>

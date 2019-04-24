@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //捕获的两种方式
+    //exec（正则的方法）---->一次只能捕获到一个符合条件的，
+        var reg = /\d+/;
+        var str = 'hubin2016haha2017';
+        reg = /\d+/g;
+        //console.log(reg.exec(str),reg.lastIndex);//["2016", index: 5, input: "hubin2016haha2017", groups: undefined]  9
+       // console.log(reg.exec(str),reg.lastIndex);//["2017", index: 13, input: "hubin2016haha2017", groups: undefined] 17
+
+    //match(string的方法)
+    //好处：一次可以捕获到所有符合的字符串
+    console.log(str.match(reg));//[2016,2017]
+    //-------------------------------------------
+
+    //exec捕获的两个弊端（贪婪性，懒惰性）;
+    //懒惰性
+        // var reg = /\d+/;
+        // var str = 'hubin2016haha2017';
+        //console.log(reg.exec(str));//["2016", index: 5, input: "hubin2016haha2017", groups: undefined]// 返回的是一个数组，第一个是我们捕获的，第二个是起始的索引值，第三个是我们捕获的对象
+        //console.log(reg.exec(str));//["2016", index: 5, input: "hubin2016haha2017"
+
+        //问题：这个字符串中2017也符合啊 ，哪为什么捕获不到，就因为正则的懒啊
+
+        // //解决的方式,加上一个修饰符g（global）
+        // reg = /\d+/g;
+        // console.log(reg.exec(str));//["2016", index: 5, input: "hubin2016haha2017", groups: undefined]
+        // console.log(reg.exec(str));//["2017", index: 13, input: "hubin2016haha2017", groups: undefined]
+
+
+    //贪婪性 --->从上面我们可以看出，我们捕获的是以到多个数字，但是他返回的是多个2016，为什么不是2呢，所以这也就是正则的贪婪行，
+
+    //解决的方式(量词元字符后面加上一个问号就解决了)
+    var arr = [];
+    reg=/\d+?/g;
+    var res = reg.exec(str);
+    while (res){
+        arr.push(res[0]);
+        res=reg.exec(str)
+    }
+    console.log(arr);//["2", "0", "1", "6", "2", "0", "1", "7"]
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+/**
+ * Created by hubin on 2018/4/11
+ */
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft yahei"}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.w50{
+    width: 50px;
+}
+.w100{
+    width: 100px;
+}
+.w150{
+    width: 150px;
+}
+
+/* main */
+
+.box{
+    border: 1px solid darkgreen;
+    width: 600px;
+    padding: 10px;
+    margin: 0 auto;
+}
+.box .add{
+    display: block;
+    color: #000;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+}
+.box .add:hover{
+    color: red;
+}
+.box .tab_head{
+    font-size: 0;
+    height: 36px;
+    line-height: 36px;
+    background: darkgreen;
+}
+.box .tab_head span,.box .list span{
+    text-align: center;
+    font-size: 14px;
+    display: inline-block;
+}
+.box .list li{
+    height: 36px;
+    line-height: 36px;
+    font-size: 0;
+}
+.box .tab_head span{
+    font-weight: bold;
+    color: #fff;
+}
+.box .operation a{
+    color: #000;
+    margin: 0 5px;
+
+}
+.box .operation a:hover{
+    color: red;
+}
+
+.list li:nth-of-type(even){
+   background: #ccc;
+}
+.list li:hover{
+    background: lightgoldenrodyellow;
+}

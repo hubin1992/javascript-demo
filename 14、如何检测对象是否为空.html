@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        //方法1
+
+        var obj = {};
+
+        // var b = JSON.stringify(obj);
+        //
+        // if(b == '{}'){
+        //     alert(true)
+        // }
+
+
+        //方法2
+
+        // function testEmptyObj() {// obj里面有参数，for in 才会执行
+        //     for(var key in obj){
+        //         return "非空对象"
+        //     }
+        //     return "空对象"
+        // }
+        //
+        // console.log(testEmptyObj());//false
+
+
+        //方法2 jq中对象
+        //console.log($.isEmptyObject(obj));//true 证明也是空对象
+
+
+        //方法4
+        //Es6新增的属性Object.keys--->返回的是一个数组，数组中的每一项是是对象的name
+        var obj1 = {name:1};
+        var arr = Object.keys(obj1);
+        var arr2 = Object.keys(obj);
+        console.log(arr2);//[]
+        console.log(arr);//["name"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

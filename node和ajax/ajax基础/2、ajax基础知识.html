@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //
+    var val = null;
+    //创建一个Ajax对象
+
+    var xhr = new XMLHttpRequest();
+    //发送前的配置
+    //配置的请求方式（get／post／put／delete／head）
+    //打开一个url地址（配置向哪一个服务器发送请求）
+    //false --同步   true --异步
+    //username／userpass  向服务器请求发送用户名和密码，只有当服务器做了安全的限制我们才会写；
+    xhr.open(get,"data.txt",false,[username],[userpass]);
+    //发送请求
+    //参数：参数是从请求主体中传递给服务器的值
+    xhr.send();
+    //检测ajax的状态值
+    /*
+    *
+    * 0 UNSET  未发送
+    * 1 OPEND  URL地址已经打开（发送前的配置信息已经完成）
+    * 2 响应头信息已经接收
+    * 3 主要的返回内容正在服务器端处理
+    * 4 处理的内容返回客户端
+    *
+    * */
+
+    /*
+    * xhr.status  http状态码
+    * 200 || 以2开头的  都代表请求成功
+    * 301（永久重定向）302（临时重定向[服务器的负载均衡]）304（本次的数据是从缓存中获取到的）
+    * 400（客户端向服务器端发送参数错误）401（无权限访问）404（客户端访问的地址不存在 ）
+    * 500（未知的服务器错误）503（服务器超负荷）
+    * */
+    xhr.onreadystatechange=function () {
+        if(xhr.readyState==4 && /^2\d+$/.test(xhr.status)){
+            val = xhr.responseText;
+        }
+    };
+
+
+
+</script>
+</body>
+</html>

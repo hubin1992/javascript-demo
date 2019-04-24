@@ -51,7 +51,6 @@
 
         //数组快速排序
         //思路：我们选取一个中间数，然后创建两个数组，把大于平均数的放在右面，小于平均数的放左面，一直循环，然后无限递归，直至实现排序完事
-
         function quickSort(arr){
             //如果传递过来的数组只有一项来，就不需要快速的思想拆来，直接一项数组返回
             if(arr.length<=1){return arr};
@@ -70,7 +69,8 @@
             return quickSort(leftArray).concat([middleArr],quickSort(rightArray))
 
         }
-        quickSort(arr)
+       console.log( quickSort(arr))
+        
 
     </script>
 </body>

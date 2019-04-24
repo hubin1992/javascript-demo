@@ -1,0 +1,20 @@
+.main{
+  display: flex;
+}
+.main .aside{
+  width: 200px;
+}
+.main .aside li{
+  text-align: center;
+  padding: 30px 0;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #cccc;
+}
+.main .aside li.active{
+  color: #fff;
+  background: red;
+}
+.main .content{
+  flex: 1;
+  margin-left: 20px;
+}

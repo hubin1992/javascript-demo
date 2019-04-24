@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>替换</title>
+</head>
+<body>
+<script>
+    //replace(oldstr,newstr);
+    //1、可以接受正则,并且执行回调 replace(reg,fn(mathed,key)) matched是我们整个正则捕获到的内容，key 是小括号捕捉到的内容
+    //2、fn中的arguments就是exec捕获到的内容一样，返回的是一个数组，return返回的值就是我们用来替换的值
+    //3、字符串有几处可以替换掉，fn就执行几次
+
+
+    //var str = 'gome123gome456';
+    //var newStr.replace('gome','GOME');
+    // console.log(str.replace('gome',"GOME"));//GOME123gome123
+    // console.log(str.replace(/gome/,function () {//不使用全局的匹配符号，直接是进行了两次捕获
+    //     return 'GOME'
+    // }));
+
+
+    // str.replace('gome', function () {
+    //     //console.log(arguments);//["gome", 0, "gome123gome456", callee: ƒ, Symbol(Symbol.iterator): ƒ] 相当于exec捕获到的值
+    //
+    //     return "GOME";//是我们用来替换的值
+    // });
+
+    //实例
+
+    var str = '20132018';
+    var arr = ["零", "壹", "贰","叁", "肆", "伍", "陆", "柒", "捌", "玖"];
+
+   var newStr = str.replace(/\d/g,function (mathed,key) {
+      console.log(mathed,key,arguments)
+        // console.log(arguments[0])
+        return arr[arguments[0]]
+    })
+    // console.log(newStr);//贰零壹叁贰零壹捌
+
+
+</script>
+</body>
+</html>

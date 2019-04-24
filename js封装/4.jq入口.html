@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>aaaa</div>
+  <div>bbbb</div>
+  <div>cccc</div>
+  <span class="span">span</span>
+  <script>
+    (function() {
+      function jQuery(element) {
+        return new F(element);
+      }
+
+      function F(element) {
+        const eles = document.querySelectorAll(element);
+        // this.eles = eles; 挂在在我们原型的对象上。
+        //jq中返回的这种一个伪数组，所以我们需要挂载到this对象本身上，并且手动的创造一个伪数组
+        for (let i = 0; i < eles.length; i++) {
+          this[i] = eles[i]
+        }
+        this.length = eles.length
+      }
+      F.prototype.css = function(attr, val) {
+        for (let i = 0; i < this.length; i++) {
+          this[i].style[attr] = val
+        }
+      }
+      window.jQuery = window.$ = jQuery;
+    })()
+
+    // console.log($("div"));F {0: div, 1: div, 2: div, length: 3}
+    $("div").css("color", "red")
+    $(".span").css("color", "blue")
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="box">
+    <a href="addInfo.html" class="add">新增加的客户</a>
+    <h2 class="tab_head">
+        <span class="w50">编号</span>
+        <span class="w100">姓名</span>
+        <span class="w50">年龄</span>
+        <span class="w150">电话</span>
+        <span class="w150">地址</span>
+        <span class="w100">操作</span>
+    </h2>
+    <ul class="list" id="list">
+        <!--<li>-->
+        <!--<span class="w50">1</span>-->
+        <!--<span class="w100">xxx</span>-->
+        <!--<span class="w50">xxx</span>-->
+        <!--<span class="w150">xxx</span>-->
+        <!--<span class="w150">xxx</span>-->
+        <!--<span class="w100 operation">-->
+        <!--<a href="" class="change">修改</a>-->
+        <!--<a href="" class="delete">删除</a>-->
+        <!--</span>-->
+        <!--</li>-->
+
+    </ul>
+</div>
+<script src="../ajax分页/ajax.js"></script>
+<script>
+    var list = document.getElementById("list");
+    //初始化
+    var custom = (function () {
+        //删除其中的一项数据（执行方法是在所有的数据绑定之后才可以执行）
+        function deleteData() {//事件委托的方法，来绑定点击事件
+            list.onclick = function (e) {
+                e = e || window.event;
+                var tar = e.target || e.srcElement;
+                var curEle = tar.tagName.toUpperCase();
+                //window.confirm（）弹出框，确定是否要删除某个东西，有两个返回值，true和false
+                if (curEle == "A" && tar.innerHTML == "删除") {//注意是tar的内容
+                    var customId = tar.getAttribute("curtomid");
+                    var flag = window.confirm("确定要删除"+customId+"号数据");
+                    if(flag){
+                        ajax({
+                            url:"/removeList?id="+customId,
+                            success:function (jsonData) {
+                                if(jsonData && jsonData["code"] == 0){
+                                    //这样直接删除可以不需要在获取服务
+                                    list.removeChild(tar.parentNode.parentNode)
+                                    alert(jsonData['mes'])
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        }
+
+
+        //初始化数据
+        function bindHtml(data) {
+            var str = "";
+            for (var i = 0; i < data.length; i++) {
+                str += '<li>';
+                str += '<span class="w50">' + data[i]["id"] + '</span>';
+                str += '<span class="w100">' + data[i]["name"] + '</span>';
+                str += '<span class="w50">' + data[i]["age"] + '</span>';
+                str += '<span class="w150">' + data[i]["phone"] + '</span>';
+                str += '<span class="w150">' + data[i]["address"] + '</span>';
+                str += '<span class="w100 operation">';
+                str += '<a href="./addInfo.html?id=' + data[i]["id"] + '" class="change">修改</a>';
+                //因为我们删除的数据的时候要获取id，所以我们不如直接放在按钮上直接获取
+                str += '<a href="javascript:;" class="delete" curtomId=' + data[i]["id"] + '>删除</a>';
+                str += '</spn>';
+                str += '</li>';
+            }
+            list.innerHTML = str
+        }
+
+        //初始化
+        function init() {
+            ajax({
+                url: "/getList",
+                success: function (jsonData) {
+                    if (jsonData && jsonData["code"] == 0) {
+                        var data = jsonData.data;
+                        bindHtml(data);
+                        deleteData()
+                    }
+                }
+            })
+        }
+
+        return {
+            init: init,
+        }
+    })();
+    custom.init()
+
+</script>
+</body>
+</html>

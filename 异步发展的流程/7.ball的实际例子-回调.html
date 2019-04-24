@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>回调</title>
+  <style>
+    div {
+      margin: 0;
+      padding: 0;
+    }
+
+    .ball {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .ball1 {
+      background: red;
+    }
+
+    .ball2 {
+      background: yellow;
+    }
+
+    .ball3 {
+      background: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ball ball1"></div>
+  <div class="ball ball2"></div>
+  <div class="ball ball3"></div>
+  <script>
+    let ball1 = document.querySelector(".ball1")
+    let ball2 = document.querySelector(".ball2")
+    let ball3 = document.querySelector(".ball3")
+    function move(ball, target, cb) { //ball target  fn
+      let index = 0;
+      let timer = setInterval(() => {
+        index++;
+        if (index < target) {
+          ball.style.transform = `translateX(${index}px)`
+        } else {
+          clearInterval(timer)
+          cb()
+        }
+      }, 14);
+    }
+
+    move(ball1,100,function(){
+      move(ball2,100,function(){
+        move(ball3,100,function(){
+          alert("over")
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>

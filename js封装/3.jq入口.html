@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>aaaa</div>
+  <div>bbbb</div>
+  <div>cccc</div>
+  <script>
+    (function() {
+      function jQuery(element) {
+        return new F(element);//返回的是一个原型的实例
+      }
+
+      function F(element) {
+        //这样我们可以解决单调的仅仅选择一种元素，在jQuery中他们用的Sizzle.js
+        const eles = document.querySelectorAll(element);
+        //挂在到原型本身上
+        this.eles = eles;
+      }
+      F.prototype.css = function(attr,val) {
+        for (let i = 0; i < this.eles.length; i++) {
+          this.eles[i].style[attr] = val
+        }
+      }
+      window.jQuery = window.$ = jQuery;
+    })()
+    $("div").css("color","red")
+  </script>
+</body>
+
+</html>

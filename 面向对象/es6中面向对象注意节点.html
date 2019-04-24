@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //实际例子
+    //es5
+    function Fn(){
+
+    }
+    Fn.prototype.get=function(){
+
+    }
+    //es6
+    class Parent {
+      constructor(name,age){
+        this.name = name
+        this.age = age
+      }
+      toStirng(){
+        console.log('我是公有方法')
+      }
+    } 
+    var p = new Parent();
+    
+    //实例可以通过proto找到父类的原型
+    console.log(p.__proto__ == Parent.prototype);//true;
+    //类的所有方法都是定义在prototy上的
+    console.log(Parent.prototype);//constructor:class Parent  toStirng: ƒ toStirng()
+    //constructor()这个方法，必须存在，即使你不添加，浏览器会默认添加,同时定义在constructor里里面的属性都是类的实例私有属性
+    console.log(p.hasOwnProperty("name"));true;
+    console.log(p.hasOwnProperty("age"));true;
+    console.log(p.hasOwnProperty('toStirng'));false;
+    console.log(p.__proto__.hasOwnProperty('toStirng'));true;
+    //原型的constructor直接指向类本身
+    console.log(Parent.prototype.constructor ==  Parent);//true
+    //类定义的所有的方法都是不可枚举的
+    console.log(Object.keys(Parent.prototype));//[]
+    console.log(Object.keys(Fn.prototype));//["get"]
+    
+
+    
+    
+  </script>
+</body>
+</html>

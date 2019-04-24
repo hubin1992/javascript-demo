@@ -2,82 +2,52 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
 
 <body>
-    <script>
-        //闭包
-        //定义：可以访函数私有作用域中变量的函数
-        // function fn() {; //最简单的闭包
-        //     var n = 1;
-        //     return function () {
-        //         n++;
-        //     }
-        //     console.log(n)
-        // }
-        //为什么要这么写
-        //因为js的函数就是一个封闭小黑屋，他可以出去，但是外面的进不来，而闭包就是一个通道，建议了一个通道，让期与外面有了链接
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <script>
+    //闭包
+    //定义：可以访函数私有作用域中变量的函数
+    //解析：因为js的函数就是一个封闭小黑屋，他可以出去，但是外面的进不来，而闭包就是一个通道，建议了一个通道，让期与外面有了链接
+    // function fn() {; //最简单的闭包
+    //     var n = 1;
+    //     return function () {
+    //         n++;
+    //         console.log(n)
+    //     }()
+    // }
+    // fn()
 
+    //闭包解决的问题
+    var bts = document.querySelectorAll("button");
+    //相当于在全局的环境中创造了一个变量i，然后我们每次循环的时候当会去给每个i绑定一个事件，仅仅是绑定了没有执行。所以当执行的时候，我们去获取的变量已经变成了10。
+    // for(var i =0;i<bts.length;i++){
+    //   bts[i].onclick=function(){//onclick是异步的，所以
+    //     console.log(i)
+    //   }
+    // }
 
-        //闭包中的坑
-        //书写解析一下
-        //creatFunction() 执行后仅仅是保存了一个数组，数字里面的函数没有执行
-        //[function(){return i},function(){return i},function(){return i},function(){return i},function(){return i},function(){return i},function(){return i}]
-
-        //下面的for循环才是在执行 执行的时候 function(){return i}  i在去访问creatFunction里面的i那么这个时候，已经是循环完成的i=10；所以输出10
-        /* function creatFunction() {
-            var arr = [];
-            for (var i = 0; i < 10; i++) {
-                arr[i] = function(){
-                    return i
-                }
-            }
-            return arr;
+    //思路 我们循环的时候,onclick后面的时候自执行函数，同时他会创建一个私有作用域，而且我们也是传递了当前的i作为常量，传递给了自执行函数作为了变量这样，然后扔出了一个函数，因为这个函数在里面可以访问到自执行函数的变量，所以我们这样就正常了
+    for (var i = 0; i < bts.length; i++) {//解决的方案
+      // bts[i].index = i
+      bts[i].onclick = (function(i) {//
+        return function(){
+          console.log(i)
         }
-        var fun = creatFunction();
+      })(i)
+    }
 
-        for(var i = 0;i<fun.length;i++){
-            console.log(fun[i]())
-        } */
 
-        //避免掉坑
-        //原理就是执行多次私有空间，每个空间里面都存有一个传递过来的参数i=0,i=1,这些空间因为被
-        // function creatFunction() {
-        //     var arr = [];
-        //     for (var i = 0; i < 10; i++) {
-        //         arr[i] = (function (i) { //暂时不被销毁
-        //             //var num = i;
-        //             return function () {
-        //                 return i
-        //             }
-        //         })(i)
-        //     }
-        //     return arr;
-        // }
-
-        // var fun = creatFunction();
-        // for (var i = 0; i < fun.length; i++) {
-        //     console.log(fun[i]())
-        // }
-
-        //总结一下
-        //闭包就是一个函数引用另外一个函数的变量,因为变量被引用着所以不会被回收，因此可以用来封装一个私有变量。这是优点也是缺点，不必要的闭包只会徒增内存消耗！
-
-        function a() {
-            var n = 0;
-            function inc() {
-                n++;
-                console.log(n);
-            }
-            inc();
-            inc();
-            inc();
-        }
-        a()
-    </script>
+    //总结一下
+    //闭包的好处：变量私有化，防止全局变量的污染
+    //闭包就是一个函数引用另外一个函数的变量,因为变量被引用着所以不会被回收，因此可以用来封装一个私有变量。这是优点也是缺点，不必要的闭包只会徒增内存消耗！
+  </script>
 </body>
 
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>测试this</button>
+  <script>
+    //1. 默认参数可以增加
+    //2. 可以使用解构赋值来配合
+    //3. 增加来箭头函数
+    //4. 箭头函数this的指向成来静态的。看在哪定义的，而不是看在哪执行的来
+    // (1) 箭头函数本身没有this指向，所以要找他最初定义的，同时定义函数如果
+        //普通的定义函数this指向的windon
+        //在对象里面定义的函数 指向也是window
+        //点击事件的指向也是window
+    //（2）箭头函数没有this所以我们也不能通过bind，call和apply来改变this指向
+    //5. 增加来rest来替代arguments,从伪数组变成来数组
+    // (1) 这个...rest必须放在最后
+
+
+    //默认参数的增加
+    function fn(x = 0, y = 1) {
+      console.log(x + y)
+    }
+    fn(); //1
+
+    //关于解构赋值的配合
+    function fn1({ x = 0, y = 0 } = {}) { //注意另外一种形式{x,y}={x:0,y:1}这样就是简单的解构赋值，而不是默认的参数
+      console.log(x, y)
+    }
+    fn1(); //3
+    fn1({}); //这个其实已经默认的赋值就是空来
+    fn1({ x: 3, y: 4 }); //这个其实已经默认的赋值就是空来
+    fn1({ x: 3 }); //这个其实已经默认的赋值就是空来
+
+    //箭头函数
+    var a = i => console.log(i)
+
+    //关于箭头函数的rest
+    var b = (...arg) => {
+      console.log(arg.reverse()) //[6, 5, 4, 3, 2, 1]
+    }
+    b(1, 2, 3, 4, 5, 6)
+
+    //箭头函数的this指向 
+
+    let getPhone = {
+      say() {
+        console.log(this)
+      }
+    }
+    getPhone.say()
+
+    //不适合箭头函数使用的场景
+    const cat = {
+      lives: 9,
+      jumps: () => {
+        console.log(this); //window
+        console.log(this.lives--)
+      }
+    }
+    cat.jumps(); //NaN 不受执行的影响，只受定义的影响
+    //修改一下
+    const _cat = {
+      lives: 9,
+      jumps() {
+        console.log(this); //window
+        console.log(this.lives--)
+      }
+    }
+    _cat.jumps()
+    //测试this
+    let _jumps = () => {
+      console.log(this); //window
+    }
+    _jumps()
+    //点击事件测试this
+    var btn = document.querySelector("button");
+    btn.onclick=()=>{
+      console.log(this);//window
+    }
+  </script>
+</body>
+
+</html>

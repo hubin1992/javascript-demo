@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //1. 如果子类继承父类，子类必须在constructor中定义super()的方法，来继承父类的属性和方法,如果不写super(),我们在创建子类实例的时候会报错。
+    //2. Object.getPrototypeOf();用来检测是否继承了某个类
+    //3. 关于super
+    //sueper()是函数的时候 --代表父类的构造函数，ES6要求，子类的构造函数必须执行一次super函数。super虽然代表类父亲的构造函数，但是返回的实际上是子类的实例，super(User.prototype.constructor.call(Vip))
+    //sueper()是对象的时候,在普通的方法中，指向的是父类的原型，在静态方法中指向的是父类
+    //4. 类的__proto__和prototype
+    //1）子类的__proto__属性，表示构造函数的继承，总是指向父类。
+    //2) 子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。
+    //5.实例的 __proto__ 属性 
+    //子类实例的__proto__属性的__proto__属性，指向父类实例的__proto__属性。也就是说，子类的原型的原型，是父类的原型。
+    class User {
+      constructor(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      showName() {
+        console.log(this.name)
+      }
+      showAge() {
+        console.log(this.age)
+      }
+    }
+
+    //类的继承
+    class Vip extends User {
+      constructor(name, age, leave) {
+        super(name, age);
+        this.leave = leave
+      }
+      showLeave() {
+        console.log(this.leave)
+      }
+    }
+    var vip = new Vip();
+
+
+    //Object.getPrototypeOf()
+    console.log(Object.getPrototypeOf(Vip) == User); //true
+    //同时我们也能看出
+    console.log(vip.__proto__ == Vip.prototype); //true;
+    console.log(vip.__proto__.__proto__ == User.prototype); //true;
+  </script>
+</body>
+
+</html>

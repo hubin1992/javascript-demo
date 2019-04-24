@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            //this的几种判断方式
+            //1、函数执行的时候看函数前面是否有点，如果有点，那么点前面是谁，this指的就是谁；
+            //2、自执行函数的this永远是window；
+            //3、事件触发，当前中的this是触发的元素；
+            //4、构造函数中this是代表当前类的一个实例；
+            //5、call和applly可以改变this的指向
+                //call(this, 传入函数的参数)
+                //apply(this, [传入函数的参数])
+            //6、箭头函数的this指向是上一级作用域
+            //7、bind方法也可以用来改变this的关键字
+            //8、bind的作用他属于高阶函数，同时也是函数，他可以像普通函数一样传递参数，同时也可以改变this,但是他不会去主动执行函数他
+            //实例1
+            // message = "22222"
+            // var obj = {
+            //     message: "11111",
+            //     handleClick: function () {
+            //         console.log(this.message);
+            //     }
+
+            // }
+            // obj.handleClick()
+            // obj.handleClick.bind(window)()
+            
+
+
+
+
+
+        }
+    </script>
+</body>
+
+</html>

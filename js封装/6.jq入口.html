@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>最终简化</title>
+</head>
+
+<body>
+  <div>aaaa</div>
+  <div>bbbb</div>
+  <div>cccc</div>
+  <span class="span">span</span>
+  <span id="span">span</span>
+  <script>
+    (function() {
+      function jQuery(element) {
+        //修改了名字
+        return new jQuery.prototype.init(element);
+      }
+
+      //jQuery.fn 指向了jQuery的原型
+      jQuery.fn = jQuery.prototype = {
+        constructor: jQuery,
+        init: function(element) {
+          const eles = document.querySelectorAll(element);
+          for (let i = 0; i < eles.length; i++) {
+            this[i] = eles[i]
+          }
+          this.length = eles.length
+        },
+        css: function(attr, val) {
+          for (let i = 0; i < this.length; i++) {
+            this[i].style[attr] = val
+          }
+        }
+      }
+      jQuery.fn.init.prototype = jQuery.fn
+
+      window.jQuery = window.$ = jQuery;
+    })()
+
+    $("div").css("color", "red")
+    $(".span").css("color", "blue")
+    $("#span").css("color", "yellow")
+  </script>
+</body>
+
+</html>

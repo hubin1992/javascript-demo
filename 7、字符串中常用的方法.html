@@ -96,7 +96,7 @@
         // console.log(str.slice(0, 4)); //和substing一样
         // console.log(str.slice(4, 0)); //返回的是空，不回自己比较大小，进行切换
         // console.log(str.slice(-5, -1)); //返回的是什多福多
-        // //实例--》利用字符串的截取，我们控制字符的多少，来实现，多行超出显示省略号的效果；
+        //实例--》利用字符串的截取，我们控制字符的多少，来实现，多行超出显示省略号的效果；
         // var op = document.getElementById("wrap");
         // var oSpan = op.getElementsByTagName("span")[0];
         // var oa = op.getElementsByTagName("a")[0];
@@ -129,27 +129,52 @@
         //console.log(str.split("/",2));//["", "hubin"]-->分割符不会放到数组中  
         //实例---(实现查找和替换)
         //查找的思路，我们用字符串转换为数组的特性，查找的字符标志，会删掉，然后在用join的特性，以字符为间隔转换为字符串。这样即实现了
-        var op = document.getElementsByTagName("p")[0];
-        var text1 = document.getElementById("text1");
-        var text2 = document.getElementById("text2");
-        var btn = document.getElementById("btn")
-        btn.onclick=function(){
-            var str = text1.value;//查找的字符断
-            var newStr = text2.value;
-            var context = op.innerHTML;//查找的范围
-            console.log(str);
-            console.log(context.split(str));//["", "山东分局对斯洛伐克觉得舒服的是非得失发生的，", "法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代", ""]
-            console.log(context.split(str).join('<span>'+str+'</span>'));//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
-            console.log(context.split(str).join('<span>'+str+'</span>')== context);//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
-            
-            op.innerHTML=context.split(str).join('<span>'+newStr+'</span>')
+        // var op = document.getElementsByTagName("p")[0];
+        // var text1 = document.getElementById("text1");
+        // var text2 = document.getElementById("text2");
+        // var btn = document.getElementById("btn")
+        // btn.onclick=function(){
+        //     var str = text1.value;//查找的字符断
+        //     var newStr = text2.value;
+        //     var context = op.innerHTML;//查找的范围
+        //     console.log(str);
+        //     console.log(context.split(str));//["", "山东分局对斯洛伐克觉得舒服的是非得失发生的，", "法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代", ""]
+        //     console.log(context.split(str).join('<span>'+str+'</span>'));//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
+        //     console.log(context.split(str).join('<span>'+str+'</span>')== context);//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
+        //
+        //     op.innerHTML=context.split(str).join('<span>'+newStr+'</span>')
+        //
+        // }
+        //
+        //
+        // //8、字符串的比较:只会取字符串的第一个值，根据asc编码值进行比较；
+        // console.log('10000'<"2");//true
+        // console.log('12000'<"2");//true
 
-        }
+
+        //9、match 正则的捕获
+            //match(string的方法)
+            //好处：一次可以捕获到所有符合的字符串
+            //局限：不支持分组捕获
+            //var str = 'hubin2016haha2017';
+            //var reg = /\d+/g;
+            //console.log(str.match(reg));//[2016,2017]
 
 
-        //8、字符串的比较:只会取字符串的第一个值，根据asc编码值进行比较；
-        console.log('10000'<"2");//true
-        console.log('12000'<"2");//true
+        //10、replace(oldstr,newstr);//会返回一个新的字符串，原有的字符串不变
+        //局限：如果不使用正则，只能返回替换一个
+        var str = 'gome123gome456';
+        var newStr = str.replace('gome','GOME');
+        console.log(newStr,str);//GOME123gome456 gome123gome456
+        //使用正则
+        console.log(str.replace(/gome/,"GOME"));//GOME123gome456
+        console.log(str.replace(/gome/g,"GOME"));//GOME123GOME456
+
+
+        //此处只是简单演示，原理在正则处会详细讲解
+
+
+
 
 
     </script>

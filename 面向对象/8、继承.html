@@ -44,25 +44,46 @@
         //冒充对象继承
         //创建一个父类的实例，因为这个实例是一个对象数据类型，然后我们可以来循环得到他的属性名和属性值；
 
-        function Fn(){
-            this.x = 1000;
-        };
-        Fn.prototype.getX=function(){
-            console.log(100)
-        };
-        
-        function B(){
-            var temp = new Fn();
-            for(var key in temp){
-                this[key] = temp[key]
-            }
+        // function Fn(){
+        //     this.x = 1000;
+        // };
+        // Fn.prototype.getX=function(){
+        //     console.log(100)
+        // };
+        //
+        // function B(){
+        //     var temp = new Fn();
+        //     for(var key in temp){
+        //         this[key] = temp[key]
+        //     }
+        // }
+        // var b  = new B()
+        // console.log(b.x);//1000
+
+
+
+        //////////////////////////
+        //混合继承（比较完美的继承）
+        function A(name, age) {
+            this.name = name;
+            this.age = age;
         }
-        var b  = new B()
-        console.log(b.x);//1000       
+        A.prototype.showName = function () {
+            console.log(this.name)
+        };
+        A.prototype.showAge = function () {
+            console.log(this.age)
+        };
 
-        
-
-
+        function B(name, age, leaver) {
+            A.call(this,name,age);//call继承就可以了，让A执行，并且A中还接收了B的参数，还指向了B的实例
+            this.leaver = leaver;
+        }
+        B.prototype = new A;//这样单纯的继承，我们只能继承他的属性，但是没法把子级里面的传递参数接收过来
+        B.prototype.constructor = B;
+        B.prototype.leaver = function () {
+            console.log(this.leaver)
+        }
 
     </script>
 </body>

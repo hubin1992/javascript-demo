@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="box">变颜色</div>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+  <script>
+    //extends  
+    //jQuery.fn.extend = jQuery.extend( [deep ], target, object1 [, objectN ] )
+    //这两个仅仅是挂载的地方不同，前者是在jquery的原型上，后者是在jq这个类的本身上
+    //1. 如果仅仅有一个参数，那么我们要判断是不是应该添加方法
+    //2. 如果大于2个参数，我们就要考虑是不是在进行拷贝
+    //参数解析
+    //deep : Boolean 是否开启深度拷贝  ，target 拷贝的对象  object1 源对象
+
+
+    //关于方法的挂载
+    // $.extend({ //我认为这种方法不是很常用
+    //   changeColor() {
+    //     $(arguments[0]).css("color", arguments[1])
+    //   }
+    // })
+    // $.changeColor(".box", "red")
+
+    // $.fn.extend({ //这样的只要jq的实例就可以直接用$(ele).blueColor来调用
+    //   blueColor() {
+    //     $(this).css("background", "blue")
+    //   }
+    // })
+    // $(".box").blueColor()
+
+    //关于深浅拷贝(默认的就是浅拷贝)
+    let obj1 = { name: "xxx", children: { name: "xiaoxxxx" } }
+    let obj2 = { age: 12 }
+      // let obj = $.extend(false, {}, obj1, obj2)
+      // console.log(obj)
+      // obj1.children.name = "我是xxx的羊羔"
+      // console.log(obj1, obj); //都改变了
+
+      //试一下深拷贝
+      // let obj3 = $.extend(true, {}, obj1, obj2)
+      // console.log(obj3)
+      // obj1.children.name = "我看看你是不是随我改变"
+      // console.log(obj1, obj3); //仅仅是改变了obj1，obj3没有改变
+
+      //extend的方法实现
+      !(function() {
+        function jQuery(element) {
+          //修改了名字
+          return new jQuery.prototype.init(element);
+        }
+
+        //jQuery.fn 指向了jQuery的原型
+        jQuery.fn = jQuery.prototype = {
+          constructor: jQuery,
+          init: function(element) {
+            const eles = document.querySelectorAll(element);
+            for (let i = 0; i < eles.length; i++) {
+              this[i] = eles[i]
+            }
+            this.length = eles.length
+          },
+          css: function(attr, val) {
+            for (let i = 0; i < this.length; i++) {
+              this[i].style[attr] = val
+            }
+          }
+        }
+        jQuery.extend = jQuery.fn.extend = function() {
+          let target,
+            source = [...arguments],
+            len = arguments.length;
+          if (len == "1") { //如果仅仅有一个，那么我们就默认他是添加方法
+            target = this
+          } else { //如果是有两个参数，那么第一个是target，第二个就是源文件
+            target = arguments[0]
+            source.splice(0, 1)
+          }
+          source.forEach((item, index) => {
+            for (let key in item) {
+              target[key] = item[key]
+            }
+          })
+          return target
+
+        }
+        jQuery.fn.init.prototype = jQuery.fn
+
+        window.jQuery = window.$ = jQuery;
+      })()
+
+    let p = {}
+    // $.extend(p, obj1, obj2)
+    // console.log(p)
+
+    $.extend()
+
+    //extend 源码解析
+    // jQuery.extend = jQuery.fn.extend = function() { //挂在到jq对象上，同时还在jq原型上
+    //   var options, name, src, copy, copyIsArray, clone,
+    //     target = arguments[0] || {}, //源，最后返回出的，到底是挂载还是拷贝到一个对象
+    //     i = 1,
+    //     length = arguments.length,
+    //     deep = false; //默认是用浅拷贝
+    //   if (typeof target === "boolean") { //我们获取的第一个参数，如果是布尔的类型，那么就是我们自定义拷贝类型
+    //     deep = target; //这个定义的类型，就是我们的第一个参数
+    //     target = arguments[i] || {}; //i在上定义了，如果有了第一个参数，那么我们最后合成的对象就是第二个了
+    //     i++;
+    //   }
+    //   //这个其实更像是一个容错处理
+    //   if (typeof target !== "object" && !jQuery.isFunction(target)) { //堆target做了一个判断，如果不是对象，并且不是函数，那么target就是一个空
+    //     target = {};
+    //   }
+    //   if (i === length) { //判断是否为扩展工具的方法
+    //     target = this;
+    //     i--;
+    //   }
+    //   for (; i < length; i++) { //根据i来循环我们传递进来的参数
+    //     //判断扩展的对象和引用的对象是否一样
+    //     if ((options = arguments[i]) != null) { //这里其实就是给option赋值，然后如果我们定义了方法
+    //       for (name in options) { //然后去循环里面定义了几个函数
+    //         src = target[name]; //src保存的是我们定义在{}的方法名字。
+    //         copy = options[name]; //copy也是保存在{}名字
+    //         if (target === copy) { //要扩展的对象和被扩展的对象两者的引用是否相同，如果相同，则跳出，防止循环引用的情况发生。
+    //           continue;
+    //         }
+    //         //判断是否为深拷贝
+    //         if (deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) { //如果deep是true，并且copy也存在，并且是数组或者对象
+    //           if (copyIsArray) { //如果是数组
+    //             copyIsArray = false;
+    //             clone = src && jQuery.isArray(src) ? src : []; //判断src是否存在
+    //           } else {
+    //             clone = src && jQuery.isPlainObject(src) ? src : {};
+    //           }
+    //           //递归操作
+    //           target[name] = jQuery.extend(deep, clone, copy);
+    //         } else if (copy !== undefined) { //浅拷贝
+    //           target[name] = copy;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   return target;
+    // };
+  </script>
+</body>
+
+</html>

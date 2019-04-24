@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数据解构</title>
+</head>
+
+<body>
+  <script>
+    //Set  本身是一个构造函数，类似于数组，但是成员都是唯一的，没有重复的值,而且返回的是一个对象
+    //add(value)：添加某个值，返回 Set 结构本身。
+    //delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+    //has(value)：返回一个布尔值，表示该值是否为Set的成员。
+    //clear()：清除所有成员，没有返回值。
+    //本身还有一个size的属性
+    //Map--->本身的使用有限制，暂时放弃
+
+    //Set--->可以用来去重复
+
+    let s = new Set([1, 2, 3, 5, 5, 5, 6, 2, 23]);
+    console.log(s); //
+    console.log([...s])
+
+    //Set的实例属性和方法
+    //add()
+    s.add(0)
+    console.log(s); //Set( {1,2,3,5,6,23,0}）
+    console.log(s.has(0)); //true
+    console.log(s.size); //7 s.size == length
+    console.log(s.clear()); //清除所有成员，没有返回值。
+
+    //Set遍历操作
+    // keys()： 返回键名的遍历器
+    // values()： 返回键值的遍历器
+    // entries()： 返回键值对的遍历器
+    // forEach()： 使用回调函数遍历每个成员
+  </script>
+</body>
+
+</html>

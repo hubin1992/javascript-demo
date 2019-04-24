@@ -1,0 +1,124 @@
+/**
+ * Created by hubin on 2018/4/20
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft yahei";
+    color: #000;
+    user-select: none;
+}
+
+li {
+    list-style: none;
+}
+
+input {
+    outline: none;
+}
+
+.clear:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.fl {
+    float: left;
+}
+
+/* end reset */
+
+.wrap {
+    width: 800px;
+    margin: 20px auto;
+    border: 2px solid green;
+    padding: 20px;
+}
+
+.head {
+    height: 45px;
+}
+
+.head h2 {
+    float: left;
+    width: 200px;
+    line-height: 45px;
+    background: green;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.main li {
+    height: 36px;
+    cursor: pointer;
+}
+
+.main li:nth-of-type(even) {
+    background: #ccc;
+}
+
+.main li:hover {
+    background: #ddffdd;
+}
+
+.main li span {
+    float: left;
+    width: 200px;
+    text-align: center;
+    line-height: 36px;
+    height: 36px;
+}
+
+.btn {
+    float: right;
+    margin-top: 20px;
+}
+
+.pageNum li, .btn span, .btn input {
+    float: left;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 4px;
+    border: 1px solid greenyellow;
+    cursor: pointer;
+}
+.pageNum li.active{
+    background: #35658d;
+}
+
+.btn span, .btn input {
+    width: 60px;
+    font-weight: bold;
+}
+.btn input{
+    font-size: 16px;
+}
+
+/* detail */
+
+.content{
+    margin: 20px auto;
+    width: 200px;
+    height: 160px;
+    padding: 4px;
+    border: 1px dashed #000;
+}
+.content li {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+.content li:nth-of-type(even){
+    background: #ccc;
+}
+.content li span{
+    float: left;
+    width: 100px;
+    text-align: center;
+}

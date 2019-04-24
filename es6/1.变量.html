@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var //--->可以重复声明，存在变量提升，可修改
+    // var a = 1;
+    // var a = 2;
+    // a = 3;
+    // console.log(a);//2
+    // console.log(b);//undefined
+    // var b = 3
+
+
+    let //--->不允许重复声明,不存在变量提升,可修改，存在作用域
+    // let a = 1;
+    // let a = 2;
+    // a = 3
+    // console.log(a);//Identifier 'a' has already been declared
+    // console.log(b);//b is not defined
+    // let b = 3;
+    //var c = [];
+    // for(var i =0;i<4;i++){
+    //   c[i] = function(){
+    //     console.log(i)
+    //   }
+    // }
+    //x
+    // for(let i =0;i<4;i++){//因为是块级作用域，所以每一次循环都会开辟一个新空间，所以是一一对应记录的
+    //   c[i] = function(){
+    //     console.log(i)
+    //   }
+    // }
+    // c[1]();//1
+
+    // for(let i = 0;i<2;i++){
+     
+    // }
+    // console.log(i)//i is not undefined
+
+    const//--->不允许重复声明,不存在变量提升,可修改，存在块级作用域,并且定义的是一个常量，不允许修改，但是引用数据类型是可以修改的。因为他固定的是引用空间的地址
+    //const a  = 1;
+    //a = 2;
+    // console.log(a);//Assignment to constant variable.
+
+    // const obj = {}
+    // obj.name = 'haha'
+    // console.log(obj.name)
+  
+  </script>
+</body>
+</html>

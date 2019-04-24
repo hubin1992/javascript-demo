@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>replace实战</title>
+</head>
+<body>
+<script>
+    //或者我们ajax中get传递给我后台的参数值
+
+    //var str = 'http://kbs.sports.qq.com/?name=haha&age=17';//name="haha&age=17
+    // var obj = {//  获取到这种格式
+    //     name:"haha",
+    //     age:17
+    // }
+
+
+    //思路：用=分割,从等于号往左边走,name在走就是？，所以获取都的是name，从等于号往右面走，获取到的haha遇到&又结束了，不能匹配了
+    //
+    // var reg = /([^?=&]+)=([^?=&]+)/g;
+    //
+    // var obj = {};
+    //
+    // str.replace(reg, function () {
+    //     var name = arguments[1];
+    //     var val = arguments[2];
+    //     obj[name] = val
+    // })
+
+    //方法的封装
+
+    // function queryParameter(str) {
+    //     var obj = {},
+    //         reg = /([^?=&]+)=([^?=&]+)/g;
+    //     str.replace(reg,function () {
+    //         var name = arguments[1];
+    //         var val = arguments[2];
+    //         obj[name] = val
+    //     })
+    //     return obj
+    // }
+    //
+    // console.log(queryParameter(str))
+///////////-------------------------------
+    //获取一个字符串出现次数最多，并且是多少
+    // var str = 'zhufengpeixunniubizuiniubi';
+    // //思路：首先我们要先获取到每一个字符出现的次数，然后获取里面最大的一个数字，然后通过最大的数字找到对应的属性值；
+    //
+    // //计数
+    // var obj ={};
+    // var reg = /[a-z]/gi;
+    // str.replace(reg,function () {
+    //     var name = arguments[0];
+    //     if(obj[name]>=1){
+    //         obj[name]+=1
+    //     }else {
+    //         obj[name]=1
+    //     }
+    // });
+    //
+    // //获取最大的值
+    // var maxNum = 0;
+    // for(var key in obj){
+    //     if(obj[key]>maxNum){
+    //         maxNum = obj[key]
+    //     }
+    // }
+    // console.log(maxNum);
+    //
+    // var arr = [];
+    // for(var key in obj){
+    //     if(obj[key]==maxNum){
+    //         arr.push(key)
+    //     }
+    // }
+    // console.log(arr)
+
+/////////////---------------------
+
+</script>
+</body>
+</html>

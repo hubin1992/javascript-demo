@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    //传统es5中的写法
+    // function User(name,age) {
+    //     this.name = name;
+    //     this.age = age;
+    // }
+    // User.prototype.showName = function () {
+    //     console.log(this.name)
+    // };
+    // User.prototype.showAge = function () {
+    //     console.log(this.age)
+    // };
+    //
+    // var person = new User("hubin",27);
+    // //person.showName();//hubin
+    // //person.showAge();//27
+    //
+    //
+    // //传统es5中的继承
+    //
+    //
+    // function Vip(name,age,leave) {
+    //     User.call(this,name,age);
+    //     this.leave = leave
+    // }
+    // Vip.prototype = new User();
+    // Vip.constructor = Vip;
+    // Vip.prototype.showLeave = function () {
+    //     console.log(this.leave);
+    // };
+    //
+    // var vip1 = new Vip("hah",18,1);
+    // // vip1.showName();
+    // // vip1.showAge();
+    // // vip1.showLeave();
+    // console.log(vip1)
+    //
+
+
+    /////////////////////ES6的面向对象的改写/////////////////////////////
+
+    class User {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        showName(){
+            console.log(this.name)
+        }
+
+        showAge(){
+            console.log(this.age)
+        }
+
+    }
+
+    var person = new User("hah",17);
+    person.showAge();//17
+    person.showName();//haha
+
+
+
+    ////类的继承
+
+    class Vip extends User{
+        constructor(name,age,leave){
+            super(name,age);//调用父类的construction属性,不用写call了直接就是指向子类的实例
+            this.leave = leave
+        }
+        showLeave  () {
+            console.log(this.leave)
+        }
+    }
+    var vip = new Vip("hu",23,1);
+    vip.showName();
+    vip.showAge();
+    vip.showLeave();
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    //ajax中常用的参数
+    // $.ajax({
+    //     url:"data",
+    //     type:"get",
+    //     async:"true",//异步
+    //     dataType:"json",//数据格式
+    //     cache:true,//不走缓存，就是get请求加一个随机数
+    //     data:null,
+    //     // timeout:3000,//延迟事件
+    //     success:function (data) {
+    //         　console.log(data)
+    //     }
+    // })
+
+
+    //jsonp中常用的参数
+    //1、所有的跨域请求都是get请求
+    //2、不会存在缓存
+    $.ajax({
+        url:"http://matchweb.sports.qq.com/team/list?columnId=100000",
+        dataType:"jsonp",//这就代表这jsonp的请求
+        type:"get",
+        //默认的是这样
+        //http://matchweb.sports.qq.com/team/list?columnId=100000&callback=jQuery111308705867310052964_1523986945090&_=1523986945091
+        // callback:"fn",//回调函数的名字
+        // jsonp:"cb",//回调对应的参数
+        //http://matchweb.sports.qq.com/team/list?columnId=100000&cb=fn
+        success:function (data) {
+            console.log(data)
+        }
+    })
+
+
+
+</script>
+</body>
+</html>

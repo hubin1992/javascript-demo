@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //工具类方法
+    //each用法就是循环，万物都可以循环，我们在这就需要区分数组和对象的循环，然后通过回调来处理这些参数，其中还需要注意伪数组
+    !(function() {
+      function jQuery(element) {
+        return new jQuery.prototype.init(element);
+      }
+      jQuery.fn = jQuery.prototype = {
+        constructor: jQuery,
+        init: function(element) {
+          const eles = document.querySelectorAll(element);
+          for (let i = 0; i < eles.length; i++) {
+            this[i] = eles[i]
+          }
+          this.length = eles.length
+        },
+        css: function(attr, val) {
+          for (let i = 0; i < this.length; i++) {
+            this[i].style[attr] = val
+          }
+        }
+      }
+      jQuery.extend = jQuery.fn.extend = function() {
+        let target,
+          source = [...arguments],
+          len = arguments.length;
+        if (len == "1") {
+          target = this
+        } else {
+          target = arguments[0]
+          source.splice(0, 1)
+        }
+        source.forEach((item, index) => {
+          for (let key in item) {
+            target[key] = item[key]
+          }
+        })
+        return target
+      }
+      //工具类方法
+      jQuery.extend({
+        each: function(obj, callback) {
+          if ((length in obj) && obj.length >= 0) {
+            for (let i = 0; i < obj.length; i++) {
+              callback.call(obj[i],i, obj[i])
+            }
+          } else {
+            for (let key in obj) {
+              callback.call(obj[i],i, obj[i])
+            }
+          }
+        },
+        type: function(data) {
+          let type = Object.prototype.toString.call(data)
+          return type.replace(/\[object\s+/, "").replace(/\]/, "").toLowerCase()
+        }
+      })
+      //实例方法
+      jQuery.fn.extend({ //就是改变了遍历的对象而已，别的和jq.extend没有任何区别
+        each: function(callback) {
+          jQuery.each(this, callback)
+        }
+      })
+      jQuery.fn.init.prototype = jQuery.fn
+
+      window.jQuery = window.$ = jQuery;
+    })()
+    console.log($.type(''))
+  </script>
+</body>
+
+</html>

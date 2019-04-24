@@ -1,5 +1,5 @@
 {
-    "editor.fontSize": 17,
+    "editor.fontSize": 18,
     "editor.wordWrap": "on",
     "jsFileHeader.Author": "hubin",
     "editor.parameterHints": true,
@@ -7,6 +7,4 @@
     "other": true,
     "comments": true,
     "strings": true
-}
-
-}
+},

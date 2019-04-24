@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+</head>
+<body>
+<div class="wrap clear">
+    <div class="head">
+        <h2>学号</h2>
+        <h2>姓名</h2>
+        <h2>性别</h2>
+        <h2>分数</h2>
+    </div>
+    <ul class="main" id="main">
+        <li class="clear">
+            <span>1</span>
+            <span>xxx</span>
+            <span>xxx</span>
+            <span>xxx</span>
+        </li>
+    </ul>
+    <div class="btn" id="btn">
+        <div class="fl clear">
+            <span>first</span>
+            <span>pre</span>
+        </div>
+        <ul class="fl pageNum" id="pageNum">
+            <!--<li>1</li>-->
+            <!--<li>2</li>-->
+            <!--<li>3</li>-->
+            <!--<li>4</li>-->
+            <!--<li>5</li>-->
+            <!--<li>6</li>-->
+            <!--<li>7</li>-->
+            <!--<li>8</li>-->
+            <!--<li>9</li>-->
+            <!--<li>10</li>-->
+        </ul>
+        <div class="fl clear">
+            <span>next</span>
+            <span>last</span>
+            <input type="text" value="1" id="number">
+        </div>
+    </div>
+</div>
+<script src="ajax.js"></script>
+<script type="text/javascript">
+    var student = (function () {
+        var main = document.getElementById("main"),
+            pageNum = document.getElementById("pageNum"),
+            pageLi = pageNum.getElementsByTagName("li"),
+            btn = document.getElementById("btn");
+        var n = 1,//因为后台设置这样的，如果是0请求不到数据
+            total = 0;
+
+        //数据绑定
+        function bindHTML(data,total) {
+            var str ="",
+                page ="";
+            for(var i =0;i<data.length;i++){
+                //判断男女
+                var sex = data[i]["sex"]==0?"男":"女";
+                str+="<li class='clear'>";
+                str+="<span>"+data[i]["id"]+"</span>";
+                str+="<span>"+data[i]["name"]+"</span>";
+                str+="<span>"+sex+"</span>";
+                str+="<span>"+data[i]["score"]+"</span>";
+                str+="</li>";
+            }
+            main.innerHTML=str;
+            //绑定页码
+            for(var j = 1;j<=total;j++){
+                page+="<li>"+j+"</li>"
+            }
+            pageNum.innerHTML = page;
+            pageLi[n-1].className = "active"
+
+        }
+
+        //发送请求
+        function sendAjax() {
+            ajax({
+                url:"/getList?page="+n,
+                success:function (jsonData) {
+                    if(jsonData["code"]==0 && jsonData){
+                        var total = jsonData["total"];
+                        var data =jsonData["data"];
+                        bindHTML(data,total)
+                    }
+                }
+            })
+        }
+        //change
+        btn.onclick=function (e) {
+            e = e ||window.event;
+            e.src  = e.src || e.srcElement;
+            //实现点击页面按需加载
+            if(e.src.tagName.toUpperCase()==="LI"){
+                var num = parseInt(e.src.innerHTML);
+                n = num;
+                sendAjax()
+            }
+        };
+
+        //init ---唯一的出口
+        function init() {
+            sendAjax()
+        }
+
+        return {
+            init:init
+        }
+
+
+    })();
+
+    student.init()
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>字符串的扩展</title>
+</head>
+
+<body>
+  <script>
+    //indexOf:如果有返回的是对应索引，如果没有返回的是-1
+    //1. 新增加遍历的方法
+    //includes:返回布尔值，表示是否找到了参数字符串。
+    //startWith:返回布尔值，表示参数字符串是否在原字符串的头部
+    //endWidth:返回布尔值，表示参数字符串是否在原字符串的尾部。
+
+    let str = 'hello word'
+    console.log(str.includes(1)); // false
+    console.log(str.includes('h')); // true
+    console.log(str.startsWith('h')); // true
+    console.log(str.startsWith('w')); // false
+    console.log(str.endsWith('w')); // false
+
+    //2. repeat(num)  复制字符串 
+    console.log(str.repeat(2)); //hello wordhello word
+
+    //3. padStart(),padEnd()字符串的补长
+    'x'.padStart(5, 'ab') // 'ababx'
+    'x'.padStart(4, 'ab') // 'abax'
+    'x'.padEnd(5, 'ab') // 'xabab'
+    'x'.padEnd(4, 'ab') // 'xaba'
+
+    //4. 模版字符串
+    let name = 'haha',age=17;
+    console.log("我叫"+name+"今年"+age+"岁了")
+    //es6写法
+    console.log(`我叫${name}今年${age}岁了`)
+    let des = "我叫${name}今年${age}岁了"
+    //用es5的方法来实现es6的模版字符串的编译
+    function replace(des){
+      return  des.replace(/\$\{([^}]+)\}/g,function(matched,key){
+        console.log(arguments)
+        return eval(arguments[1])
+      })
+    }
+    console.log(replace(des))
+  </script>
+</body>
+
+</html>

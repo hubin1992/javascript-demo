@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //bind(this,[arg1,arg2,……]) 
+    //定义：修改this关键字，并且还可以像普通函数一样处理接收到的参数
+    //浏览器的支持：iE9以及iE9+
+    //返回的还是一个全新的函数
+    //如果我们修改this的时候，传递了一个arg，那么你执行返回的函数的时候，不论你传递什么参数，那么第一个参数的位置永远是arg的
+
+    var obj = {
+      a: 1,
+      b: 2,
+      add: function(a, b) {
+        console.log(this.a + this.b, this)
+      }
+    }
+    obj.add() //3 obj
+    let _add = obj.add
+    _add(); //NaN window
+
+    //修改this
+    let b_add = _add.bind(obj);
+    b_add()
+
+
+    //关于参数那点事
+    function copyArr() {
+      console.log(this)
+      return Array.prototype.slice.call(arguments)
+    }
+    let _copyArr = copyArr.bind(null, "h") //没有改变this
+    console.log(_copyArr())
+    console.log(_copyArr(1, 2, 3))
+    console.log(_copyArr(4, 5, 6))
+
+    function add(arg1, arg2) {
+      console.log(arg1 + arg2)
+    }
+    add(1, 2)
+
+
+    let _add_ = add.bind(null, 20, 1); //像这种只能接受两个参数的就傻逼了，外面的无论传递什么都没有用
+    _add_(10, 2); //30
+
+
+    //原生的方法去实现bind
+    Function.prototype._bind = function() {
+      let self = arguments[0] || this;
+      let opt = Array.prototype.slice.call(arguments, 1);
+      if(typeof this != 'function'){
+        throw Error ("必须是函数使用")
+      }
+      
+      //未实现，可以先暂时方一下
+    
+
+
+    }
+  </script>
+</body>
+
+</html>

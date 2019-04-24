@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // var reg = /\d/;//只要包含一个数字即可
+    // console.log(reg.test("9"));//true
+    // console.log(reg.test("hah222222"));// true
+    //
+    // var reg2 = /^\d$/;//必须以数字开头，以数字结尾，而且里面值能有一个数字，因为^$是不会占用位置的
+    // console.log(reg2.test("9"));//true
+    // console.log(reg2.test("999"));//false
+
+    //正则
+    //定义：就是一个规则，用来字符串的规则
+    //组成：元字符，修饰符
+
+    //元字符
+    //-------- 特殊元字符 --------
+    // \ : 转译字符
+    // ^ : 以某一个元字符开始
+    // $ : 以某一个元字符结尾
+    // \n : 匹配一个换行符号
+    // . : 除了\n以为的任意字符
+    // () : 分组的意思
+    //-------------------------
+    // x|y :x或者y其中的一个
+    // [xyz] : x或者y或者z其中的一个
+    // [^xyz] : 除了xyz任意一个字符
+    // [a-z] : a到z其中的任何一个
+    // [^a-z] : 除了a到z中的任意一个字符
+    // \d : 0到9之间的任意一个数字
+    // \D : 除了0-9之外的任意一个字符
+    // \b : 匹配一个边界符
+    // \s : 匹配一个空格
+    // \w : 数字大小写字母下划下中的任意以个 [(0-9)(A-Z)(a-z)(_)]
+
+    //--------- 出现次数的元字符（量词） ---------------
+    // * : 出现0到多次
+    // + : 出现1到多次
+    // ? : 出现0到1次
+    // {n} : 出现n次
+    // {n,} : n到多次
+    // {n,m} : 出现n到m次
+
+
+    //--------------修饰符号
+    //i 忽略大小写
+    //m 多行匹配
+    //g 全局
+
+
+    // var reg = /^\d+$/;//以数字开头，以数字结尾出现1到多次
+    // var reg2 = /^\d$/;//以数字开头，以数字结尾中间只有一个数字、
+    // console.log(reg.test("2015"));//true
+    // console.log(reg2.test("2015"));//false
+
+
+    //匹配手机号
+    //规则：以1开头，后面是10个数字
+    // var reg = /^1\d{10}$/;
+    // console.log(reg.test("12345678901ha"))
+
+    //.的联系
+    var reg = /^0.2$/;//意思就是以0开头以2结尾，中间可以是除了换行符以外的任意的一个字符
+    console.log(reg.test("0hjjjj2"));//false
+    console.log(reg.test("0h2"));//true
+
+
+
+
+
+
+    //修饰符
+
+
+</script>
+</body>
+</html>

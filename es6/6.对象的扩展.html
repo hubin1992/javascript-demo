@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>对象</title>
+</head>
+
+<body>
+  <script>
+    //Object.is()用来比较
+    //Object.assign()-->浅拷贝
+    //   由于undefined和null无法转成对象，所以如果它们作为参数，就会报错
+    //super()
+    //Object.create(proto,[propertiesObject])创建一个新对象，使用现有的对象来提供新创建的对象的__proto__
+    //Object.setPrototypeOf(obj,proto) 设置obj的prototype为proto
+    //   如果第一个不是对象，那么他会自动转换。
+    //   由于undefined和null无法转为对象，所以如果第一个参数是undefined或null，就会报错。
+    //Object.getPrototypeOf()
+    //Object.key() 返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键名。
+    //Object.values方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值。
+    //Object.entries()方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值对数组。
+
+    //Object.is()用来比较
+    console.log(Object.is({}, {})); //false
+    console.log(Object.is([], [])); //false
+    console.log(Object.is('', '')); //true
+    console.log(Object.is(NaN, NaN)); //true
+    console.log(Object.is(+0, -0)); //false
+    console.log(+0 === -0); //true
+
+    //Object.assign()-->浅拷贝
+    //由于undefined和null无法转成对象，所以如果它们作为参数，就会报错
+    let obj1 = { name: 'haha' }
+    let obj2 = { age: 13 }
+    let obj3 = { name: 'xixi' }
+    console.log(Object.assign({}, obj1, obj2)); //{name: "haha", age: 13}
+    console.log(Object.assign({}, obj1, obj3)); //{name: "xixi"}
+
+    //Object.create(proto,[propertiesObject])propertiesObject则是要添加到新创建对象的可枚举属性(既其自身的私有属性，而不是原型上的属性)
+
+    const person = {
+      isHuman: false,
+      printIntroduction: function() {
+        console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+      }
+    };
+    const me = Object.create(person);
+    me.name = "Matthew";
+    me.isHuman = true;
+    me.printIntroduction();
+    //用Object.create()实现混合继承
+    function Person() {
+      this.age = "40"
+    }
+    Person.prototype.money = function() {
+      console.log(money)
+    }
+
+    function Child() {
+      this.name = 'son'
+      Person.call(this)
+    }
+    // Child.prototype = new Person;
+    Child.prototype = Object.create(Child.prototype)
+    Child.prototype.constructor = Child;
+
+
+    //Object.setPropotypeOf(obj,proto)
+    let obj = { 'x': 1 };
+    let _proto_ = {
+      'y': 2,
+      'z': 3
+    };
+    Object.setPrototypeOf(obj, _proto_)
+    console.log(obj.x, obj.y, obj.z); //1 2 3
+
+    //Object.getPrototypeOf()
+    console.log(Object.getPrototypeOf(obj)); //{y: 2, z: 3}
+
+    //Object.keys()--返回的是一个数组为键名
+    console.log(Object.keys(_proto_));//["y", "z"]
+
+    //Object.entries
+    console.log(Object.entries(_proto_));//[["y", 2], ["z", 3]]
+  </script>
+</body>
+
+</html>

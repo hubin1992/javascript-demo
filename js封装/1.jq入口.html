@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //只有两个输出的变量 jQuery,$ 其余的都是放在封闭的模块里面的
+    (function() {
+      function jQuery() {
+
+      }
+      window.jQuery = window.$ = jQuery; //这样就可以在外部访问到了
+    })()
+  </script>
+</body>
+
+</html>

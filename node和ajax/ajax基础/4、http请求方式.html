@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<script src="../ajax分页/ajax.js"></script>
+<script>
+    var xhr = createXHR();
+    //xhr.open(get,'/getlist',true);
+    //AJAX中常用的http请求的方式
+    // GET(一般用在向服务器获取数据)
+        //一般用？传参
+        //xhr.open('get','/list?num=12');
+    // POST(更多的用于向服务器发送数据)
+        //xhr.open('post','/list');
+        //xhr.send('{"name":"haha"}');
+
+    //get和post请求区别
+    //1、get请求传递给服务器是有大小限制，而post理论上没有限制（get通过url传参，每个浏览器对url的长度是有限制！谷歌8k、火狐7k、ie2k）
+    //2、get请求会出现缓存，但是这个缓存不一定是304，然而post是没有缓存的；
+    //针对get缓存的问题，我们需要做一个处理，就是需要去掉get请求方式的缓存
+    xhr.open("get","/dataList?num=12&="+Math.random());
+
+    //3、安全问题
+    //get请求是可见的，所以安全性不高，post请求是不可见的所以安全性高
+
+
+
+
+    // PUT(向服务器发送资源，例如发送图片)
+    // DELETE(从服务器上删除信息)
+    // HEAD（获取响应头的信息）
+
+</script>
+</body>
+</html>
