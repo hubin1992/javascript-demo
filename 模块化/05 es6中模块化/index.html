@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="module">
+    //import   --- 输入
+    // import { aFn } from './export.js'
+    //别名的适用
+    import { aFn as hash } from './export'
+    console.log(hash.name)
+    console.log(hash.age)
+    hash.fn()
+
+  </script>
+</body>
+
+</html>
