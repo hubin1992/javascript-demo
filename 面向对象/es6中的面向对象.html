@@ -71,10 +71,9 @@
 
 
     ////类的继承
-
     class Vip extends User{
         constructor(name,age,leave){
-            super(name,age);//调用父类的construction属性,不用写call了直接就是指向子类的实例
+            super(name,age);//parent.prototype.constructor.call(this)
             this.leave = leave
         }
         showLeave  () {

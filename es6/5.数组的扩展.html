@@ -21,10 +21,10 @@
     //find(cb(value,index,arr))和findIndex() 查找，如果找到返回的是true，找不到返回的是undefined
     // entries()遍历键值对，keys()用来遍历健 和 values()用来遍历值的。
     //数组中几个常用的方法，
-      //map(cb(value,index,arr),context)  方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。更适合处理后台的数据修改每个数据的印射 
-      //forEach -->循环处理数组中的东西，需要重新定义一个数组来接受，没有返回值
-      //filter-->方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。没有到没有符合条件时返回空数组。更适合用来筛选 
-      //reduce(cb(total,valu,index,arr),total)，total代表计算的初始值, 也是计算结束后的返回值。其实更方便用来求和
+    //map(cb(value,index,arr),context)  方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。更适合处理后台的数据修改每个数据的印射 
+    //forEach -->循环处理数组中的东西，需要重新定义一个数组来接受，没有返回值
+    //filter-->方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。没有到没有符合条件时返回空数组。更适合用来筛选 
+    //reduce(cb(total,valu,index,arr),total)，total代表计算的初始值, 也是计算结束后的返回值。其实更方便用来求和
 
 
     let arr = [1, 23, 4]
@@ -64,13 +64,13 @@
 
 
     //entries() ,keys() , values()
-    for(let [key,value] of arr2.entries()){
-      console.log(key,value)
+    for (let [key, value] of arr2.entries()) {
+      console.log(key, value)
     }
-    for(let index of arr2.keys()){
+    for (let index of arr2.keys()) {
       console.log(index)
     }
-    for(let ele of arr2.values()){
+    for (let ele of arr2.values()) {
       console.log(ele)
     }
     //includes
@@ -79,34 +79,40 @@
 
     //forEach仅仅是循环来处理，没有任何返回值
     let newArr = []
-    console.log(arr2.forEach((val,index,arr)=>{
-      if(val >= 2){
+    console.log(arr2.forEach((val, index, arr) => {
+      if (val >= 2) {
         newArr.push(index)
       }
       return 1
     }));//undefined
     console.log(newArr);
+    //filters
+    let arrT = [1, 2, 3]
+    arrT = arrT.filter((item) => {
+      return item > 1
+    })
 
     //reduce(fn,totol初始值) 求和
-    let arr3 = [1,2,3]
-    let newArr3 = arr3.reduce((total,item,value,arr)=>{
-      return total+=item
-    },0)
+    let arr3 = [1, 2, 3]
+    let newArr3 = arr3.reduce((total, item, value, arr) => {
+      return total += item
+    }, 0)
     console.log(newArr3)
 
     //es5去实现reduce方法
 
-    Array.prototype.reduce1 = function(fn,initval){
-      for(var i =0;i<this.length;i++){
-        initval = fn(initval,this[i])
+    Array.prototype.reduce1 = function (fn, initval) {
+      for (var i = 0; i < this.length; i++) {
+        initval = fn(initval, this[i])
       }
       return initval
     }
-   let len =  arr3.reduce1(function(item,value){
-      return item+value
-    },0)
+    let len = arr3.reduce1(function (item, value) {
+      return item + value
+    }, 0)
 
     console.log(len)
+
 
   </script>
 </body>
