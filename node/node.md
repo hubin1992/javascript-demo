@@ -209,3 +209,101 @@ read();//1 , 2, 0, 3
     ```
 
     
+
+### module
+
+##### 发展历程
+
+1. 闭包，函数作用域
+2. sea.js/require.js 
+3. es6 module
+4. Node.js(common.js)
+5. umd(amd+cmd+es6+common.js的组合)
+
+##### common.js好处
+
+1. 封闭功能
+2. 封闭作用域
+3. 可能解决依赖问题
+4. 工作效率更高，重构方便
+
+##### node.js中common.js的解析
+
+1. 在node.js中1个文件就是一个模块
+2. 通过require方法，实现模块之间的依赖
+
+##### 模块的分类
+
+###### 4.1  原生模块（打包在node.exe）加载速度最快
+
+1. path
+2. fs
+3. http
+4. util
+5. events
+
+###### 4.2 文件模块
+
+ 	1. 文件模块（自己写的）===> 硬盘的某个位置上面
+     * 后缀名为.js会读入内存然后运行
+     * 后缀名为.json的会读入内存，然后用JSON.parse()转换为对象
+     * 后缀名.node的文件，会经过编译后的二进制文件，可以直接使用
+ 	2. 第三方模块（npm 包下载的）
+     	* 第三方模块查找的路径默认的是在当前文件的node_module下或者全局的目录下
+
+###### 4.3 模块的加载策略
+
+![require读取模块](/Users/hubin/learn-file/js/node/img/require读取模块.png)
+
+##### 从模块外部访问模块内部的变量
+
+```js
+//1.js
+let name  = "Hroot"
+let age = 18
+module.export = {
+  name,
+  age
+}
+//2.js
+let User = require("./1.js")
+```
+
+##### module对象的属性
+
+1. id ： 当前的模块的id永远是".",而其他的模块的id是他的绝对路径
+2. Filename: 返回的是当前模块的绝对路径
+3. Path: 第三方模块的查找路径
+4. exports: {}  导出的路径
+5. parent：null  是不是被人require了
+6. children：[]  是不是require了
+7. loaded :false 模块是否加载完成
+
+##### require对象
+
+###### require中常用的属性和方法
+
+1. Require.reslove("path") ;//不引用，只是用来获取绝对路径
+2. require.main：其实获取的就是module对象
+3. Require.cache:{} 获取的是缓存的模块
+4. Requrie.extensions 支持扩展的文件类型
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
