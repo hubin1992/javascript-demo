@@ -344,15 +344,132 @@ let User = require("./1.js")
 
 ##### 如何定义buffer
 
+###### 定义buffer的三种方式
+
+```js
+//第一种是我们最常用的
+Buffer.alloc(len,default)这个只能确定buffer固定空间的大小
+
+//第二种性能比第一种高，但是不够安全---》因为会有乱七八糟的字符在里面
+Buffer.allocUnsafe(len)
+
+//第三种是我们用来定义字符串或者汉字
+Buffer.from();//更多用于定义字符串
+```
 
 
 
+##### Buffer中常用的方法
 
+* fill(num,startIndex,endIndex) 填充
 
+  ```js
+  let buffer = Buffer.alloc(6);
+  console.log(buffer) //<buffer 00 00 00 00 00 00>
+  buffer.fill(3,1,3)
+  console.log(buffer)// <buffer 00 03 03 00 00 00>
+  ```
 
+* write("字符串",startIndex,endIndex,编码格式)
 
+  ```js
+  let buf2 = Buffer.alloc(10)
+  buf2.write("afafsdf", 0, 2, "utf8")
+  console.log(buf2);//<buffer 61 00 00 00 00 00 00 00 00 00 00>
+  ```
 
+* writeInt8(num,index)在指定的位置写入num,限制8位一个字节（It must be >= -128 and <= 127. Received 254）
 
+  ```js
+  let buf3 = Buffer.alloc(6)
+  buf3.writeInt8(10, 0)
+  buf3.writeInt8(12, 1)
+  buf3.writeInt8(16, 2)
+  console.log(buf3);//<buffer 0a 0c 10 00 00 00>
+  ```
+
+* writeInt16BE,writeInt16LE,writeInt32BE,writeInt32LE
+
+  * BE  big endian  --->高位在前，低位在后
+
+  * LE  little endian  --->反之
+
+    ```js
+    let buf4 = Buffer.alloc(8)
+    buf4.writeInt16BE(258, 0)
+    console.log(buf4);//<Buffer 01 02 00 00 00 00 00 00>   高位在前所以正常显示
+    buf4.writeInt16LE(259, 2)
+    console.log(buf4);//<Buffer 01 02 03 01 00 00 00 00>   高位在后
+    let s = buf4.readInt16BE(0);//从索引0 的位置读两个字节
+    console.log(s)
+    let s1 = buf4.readInt16LE(2)
+    console.log(s1)
+    ```
+
+* slice(startInex,endIndex)截取
+
+  ```js
+  //slice字符串的截取
+  let buffer6 = Buffer.alloc(6, 1)
+  console.log(buffer6);//<Buffer 01 01 01 01 01 01>
+  
+  let buf7 = buffer6.slice(0, 3);//返回的是一个<Buffer 01 01 01>这个也是个浅拷贝，共用一个内存地址
+  console.log(buf7)
+  
+  buf7.fill(4)
+  console.log(buf7);//<Buffer 04 04 04>
+  console.log(buffer6);//<Buffer 04 04 04 01 01 01>
+  ```
+
+* toString()
+
+  * 只有用write写的buffer才可以转换成字符串，如果是用writeInt8或者类似的方法，我们转换后都称为了空
+
+* copy-->克隆
+
+  * 语法: 被克隆的buffer对象.clone(源对象，源开始的索引，被克隆开始的索引，被克隆结束的索引)
+
+  ```js
+  let buffer11 = Buffer.alloc(6)
+  
+  let buffer12 = Buffer.from("生如夏花")
+  
+  console.log(buffer12)//<Buffer e7 94 9f e5 a6 82 e5 a4 8f e8 8a b1>
+  
+  console.log(buffer11)//<Buffer 00 00 00 00 00 00>
+  
+  buffer12.copy(buffer11,2,4,7)
+  
+  console.log(buffer11)//<Buffer 00 00 a6 82 e5 00>
+  
+  ```
+
+* concat buffer的拼接
+
+  * 语法: Buffer.concat([list],totallength)
+
+  ```js
+  let buffer13 = Buffer.from("升入")
+  let buffer14 = Buffer.from("夏花")
+  // let buffer15 = Buffer.concat([buffer13,buffer14])
+  //如果我们设置的totallength不足一个字的字符的时候，他会出现乱码
+  let buffer15 = Buffer.concat([buffer13,buffer14],10);//升入夏�
+  console.log(buffer15.toString())
+  ```
+
+* buf.length; --返回的buf字符串的长度
+
+  ```js
+  console.log(buffer15.length);//10
+  ```
+
+* isBuffer() —判断是否位buffer对象
+
+  ```js
+  console.log(Buffer.isBuffer(buffer15));//true
+  ```
+
+  
 
 
 
