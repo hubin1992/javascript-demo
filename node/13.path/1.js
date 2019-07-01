@@ -14,9 +14,10 @@ const path = require("path");
 
 //1. 路径拼接
 console.log(path.join("a","1.html")) ;//"a/1.html"
-//2. __dirname 显示绝对路径
+//2. __dirname,__filename 显示绝对路径
 console.log(__dirname);///Users/hubin/learn-file/js/node/13.path 显示的是绝对路径
-//3. basename 显示名字
+console.log(__filename);//显示的是当前文件的绝对路径
+//3. basename(路径,后缀) 显示名字
 console.log(path.basename("1.jpg")) //1.jpg 显示的就是名字
 
 //4. extname 显示扩展名字

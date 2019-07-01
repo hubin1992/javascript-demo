@@ -332,6 +332,16 @@ read();//1 , 2, 0, 3
   > nrm use taobao
   > ```
   >
+  > 第三方模块的依赖安装
+  >
+  > ```js
+  > //如果是开发时
+  > npm install xxx --save-dev   缩写成-D
+  > 
+  > //如果是运行时
+  > npm install xxx --save  缩写成-D
+  > ```
+  >
   > 
 
 ### buffer
@@ -524,6 +534,7 @@ Buffer.from();//更多用于定义字符串
   	
   	
   	
+  	
   	* Path —>路径，我们要注意一个问题当我们使用路径的时候 肯能要配合着path.join(__dirname,path)
   	* Options 这个就比较多我们最常用的参数就是编码格式 utf-8，或者是flag，默认的flag是r
   	* cb(err,data)  返回值
@@ -686,4 +697,66 @@ read_file("./1.txt", "./3.txt")
 
   * stat就是这个文件的详细信息
 
- 
+
+
+### path
+
+* 路径拼接
+
+```js
+console.log(path.join("a","1.html")) ;//"a/1.html"
+```
+
+* ____dirname,___filename 显示绝对路径
+
+```js
+console.log(__dirname);///Users/hubin/learn-file/js/node/13.path 显示的是绝对路径
+
+console.log(__filename);//显示的是当前文件的绝对路径
+
+```
+
+* basename(路径,后缀) 显示名字
+
+```js
+console.log(path.basename("1.jpg")) //1.jpg 显示的就是名字
+```
+
+* extname 显示扩展名字
+
+```js
+console.log(path.extname("1.jpg")) //.jpg
+```
+
+* parse(string)
+
+```js
+console.log(path.parse(__dirname)) 
+{ root: '/',
+
+  dir: '/Users/hubin/learn-file/js/node',
+
+  base: '13.path',
+
+  ext: '.path',
+
+  name: '13' }
+
+```
+
+* path.format(obj) 这个obj是固定的方式{root,dir,base}
+
+```js
+console.log(path.format({
+
+  root:"/root",
+
+  dir:"a/b/c",
+
+  base:"2.txt"
+
+}));//a/b/c/2.txt像这样的默认是省略root
+
+```
+
+* path.reslove() // path.resolve() 方法将路径或路径片段的序列解析为绝对路径。
