@@ -1,7 +1,7 @@
 /* 
   fs node中操作文件的核心模块
-  fs.readFile(path,[options],[mode],cb(err,data))-->mode是权限用16位来表示
-  fs.writeFIle(path,[options],[mode],cb(err))
+  fs.readFile(path,[options],cb(err,data))-->mode是权限用16位来表示
+  fs.writeFIle(path,[options],cb(err))
   
 */
 //读取文件

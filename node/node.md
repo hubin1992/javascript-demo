@@ -255,20 +255,6 @@ read();//1 , 2, 0, 3
 
 ![require读取模块](/Users/hubin/learn-file/js/node/img/require读取模块.png)
 
-##### 从模块外部访问模块内部的变量
-
-```js
-//1.js
-let name  = "Hroot"
-let age = 18
-module.export = {
-  name,
-  age
-}
-//2.js
-let User = require("./1.js")
-```
-
 ##### module对象的属性
 
 1. id ： 当前的模块的id永远是".",而其他的模块的id是他的绝对路径
@@ -287,6 +273,66 @@ let User = require("./1.js")
 2. require.main：其实获取的就是module对象
 3. Require.cache:{} 获取的是缓存的模块
 4. Requrie.extensions 支持扩展的文件类型
+
+##### 模块的使用
+
+* 内部模块的使用
+
+  ```js
+  const fs  = require("fs")
+  ```
+
+* 自定义模块的使用
+
+  ```js
+  //定义一个模块(文件或者是文件夹)
+  //注意：如果是文件夹，想要省略文件夹里面的文件名字我们默认写成a/index.js-->引用的时候require("./a")
+  
+  //如果是一个文件 a.js
+  //第一种抛出的方式
+  module.exports = {
+    name:"haha",
+    fn:function(){}
+  } 
+  //使用 a.js
+  const {name,fn} = require("a")
+  
+  //第二种抛出方式
+  name:"haha"
+  function fn(){}
+  module.export = {name,fn}
+  //使用
+  const {name,fn} = require("a")
+  
+  //第三种抛出方式
+  name:"haha"
+  function fn(){}
+  module.exports.name = name
+  module.exports.fn = fn
+  //使用
+  const obj = require("a")
+  obj.name
+  obj.fn()
+  ```
+
+* 第三方模块的使用
+
+  > 第三方模块使用我们需要先去下载模块
+  >
+  > ```js
+  > 1. npm install jquery  需要下载模块
+  > 2. require(jquery) 直接使用
+  > ```
+  >
+  > 注意： 我们在使用第三方模块的时候，最好使用国内的淘宝源，因为速度比较快
+  >
+  > ```js
+  > npm install nrm -g
+  > nrm ls
+  > nrm use taobao
+  > ```
+  >
+  > 
 
 ### buffer
 
@@ -469,22 +515,175 @@ Buffer.from();//更多用于定义字符串
   console.log(Buffer.isBuffer(buffer15));//true
   ```
 
+
+### fs
+
+##### 常用的api以及解析
+
+* fs.readFile(path,[options],cb(err, data))
+  	
+  	
+  	
+  	* Path —>路径，我们要注意一个问题当我们使用路径的时候 肯能要配合着path.join(__dirname,path)
+  	* Options 这个就比较多我们最常用的参数就是编码格式 utf-8，或者是flag，默认的flag是r
+  	* cb(err,data)  返回值
+* fs.writeFile(path, data,[options],cb(err))
   
+  * Data 写入的数据
+* fs.open(path, flag,[mode],cb(err,fd))  打开文件
+  
+  * Path 是路径
+  
+  * flag  是类型，例如 w ，r，a
+  
+  * mode 是用户的权限 默认是ox666 可以可以写
+  
+  * fd 是在计算机里面的代号—>用阿拉伯数字来表示
+  
+    * 标准输入  0
+  
+      ```js
+      process.stdin.on('data',(data)=>{
+        console.log(data)
+      })
+      ```
+  
+    * 标准输出  1
+  
+      ```js
+      console.log()//标准输出
+      //相当于
+      process.stdout.write('')
+      ```
+  
+    * 错误输出  2
+  
+      ```js
+      console.error('')
+      //相当于
+      process.stderr.write('')
+      ```
+  
+      
 
+* fs.read(fd,buffer,offset,lenth,postion,cb(err,readBytes,buffer)) 这个是读取部分文件
+  * 注意：buffer一次性读取不要超过边界，如果超过边界，会报错
+  * fd就是我们open里面的fd
+  * buffer 是我们自己来创建的buffer，它是node里面的一个对象，用来存储数据的
+  * offset从文件的第几个开始读取
+  * len 一共读取几个
+  * Postion 是我们从buffer的几个字节开始写入 默认我们一般是null。例如第一次是0-2，那么下次就是3-5
+  * cb(err,readBytes,buffer)
+    * readBytes —是我们一次读取到的位数
+    * buffer和上面的buffer其实是一样的
+* fs.write(fd,buffer,offser,len,postion,cb(err,writeBytes,buffer))
 
+```js
+//实例
+//需求：我们不可能一次性读取整个文件，因为内存大小是固定的，所以我们采取的是读多少写入多少的
+//思路：我们用到open打开，然后用一边读取一边写入的方式，多次递归来实现完整的写入
+let fs  = require('fs');
+let path  = require("path");
+function read_file(src, targe) {
+ 	const buf = Buffer.alloc(3)
+  fs.open(src, "r", 0o666, function (err, readFd) {
+    fs.open(targe, "w", 0o666, function (err, writeFd) {
+      !function next() {//我们这个位置要读取多次的原因，就是要使整个文件全部读完
+        fs.read(readFd, buf, 0, 3, null, function (err, bytesRead, buffer) {
+          console.log(buffer.toString())
+          if (bytesRead > 0) {//bytesRead 因为我们最后读取的可能会小雨buffer的大小
+            fs.write(writeFd, buf, 0, bytesRead, null, next)
+          }
+        })
+      }()
+    })
+  })
+}
+read_file("./1.txt", "./3.txt")
+```
 
+* fs.close(fd,(err))
+  * Fd 就是open里面的fd
+  * 由于写入的机制，是先写入缓存，然后等到了一定数量，会一起写入内存，所以我们在关闭文件的时候，强制把缓存区的也要写入到
+    * fs.fsync(fd,(){ fs.colse(fd,(err)=>{})  })
+  
+* fs.mkdir(path,cb)
 
+  * 注意这个不可以创建多个文件夹，而且创建的文件夹父目录必须存在
 
+    ```js
+    //例如
+    fs.mkdir("a/b",function(err)=>{这样会报错，因为a文件夹不存在
+             err?console.log(err):console.log("success")
+     })
+    ```
 
+  * 所以我们要实现这种创建文件夹的方式，必须自己来实现
 
+    ```js
+    //利用递归的方式来创建文件夹
+    //思路就是拆开一个个的来创建
+    fuction mkdir_d(directory){
+  let index = 1
+      let arr = directoy.split("/");
+      // console.log(arr);//[ 'a', 'b', 'c' ]
+      !function next(index) {
+        //我们首先要判断 "a" 然后 "a/b" 然后 "a/b/c"
+        let curPath = arr.slice(0, index).join("/")
+        if (index > arr.length) return
+        fs.access(curPath, function (err) {
+          if (err) {//就说明没有文件，那么我们就需要创建一个
+            fs.mkdir(curPath, function (err) {
+              err ? console.log(err) : next(++index)
+            })
+          }else{
+            next(++index)
+          }
+        })
+      }(index)
+    }
+    ```
+    
 
+* fs.access(path,[mode],cb) 
 
+  * mode：权限默认的fs.constants.F_Ok(表明文件对调用进程可见。 这对于判断文件是否存在很有用) | fs.constants.R_Ok(表明文件对调用进程可见。 这对于判断文件是否存在很有用) | fs.constants.W_OK(表明调用进程可以写入文件。)
 
+    ```js
+    fs.access("./a",fs.constants.F_OK,function(err){
+      err? console.log(err) : console.log("有文件")
+    })
+    ```
 
+    
 
+* fs.rmdir(path,cb)  删除空文件夹
 
+  ```js
+  fs.rmdir(path, callback)
+  const fs = require("fs");
+  fs.rmdir("c",function(err){
+    console.log("删除空文件夹")
+  })
+  ```
 
+* fs.unlink(path,cb) 删除文件
 
+  ```js
+  fs.unLink(path,cb)
+  fs.unlink('path/file.txt', (err) => {
+    if (err) throw err;
+    console.log('文件已删除');
+  });
+  ```
 
+* fs.readdir(path,[ options],cb(err, file))  读取文件夹中的内容
+
+  * File 是一个数组
+  * Options:{encoding:utf-8}
+
+* Fs.stat(path,[options],cb(err,stats)) 将其转换为stat类，里面有很多常用的属性，例如isDirectory，
+
+  * stat就是这个文件的详细信息
 
  

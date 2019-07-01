@@ -41,6 +41,6 @@ mkdir_d("a/b/c")
 //测试用户对 path 指定的文件或目录的权限
 // fs.access(path,[mode],cb) mode：权限默认的fs.constants.F_Ok(表明文件对调用进程可见。 这对于判断文件是否存在很有用) | fs.constants.R_Ok(表明文件对调用进程可见。 这对于判断文件是否存在很有用) | fs.constants.W_OK(表明调用进程可以写入文件。)
 
-// fs.access("./a",fs.constants.F_OK,function(err){
-//   err? console.log(err) : console.log("有文件")
-// })
+fs.access("./a",fs.constants.F_OK,function(err){
+  err? console.log(err) : console.log("有文件")
+})

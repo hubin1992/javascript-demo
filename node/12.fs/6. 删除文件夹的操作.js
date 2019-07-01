@@ -1,18 +1,18 @@
 
 //学习几个api，然后用异步的方法实现删除一个非空目录
 //1. 删除空文件夹 --->一次也就删除一个
-// fs.rmdir(path, callback)
-// const fs = require("fs");
-// fs.rmdir("c",function(err){
-//   console.log("删除空文件夹")
-// })
+fs.rmdir(path, callback)
+const fs = require("fs");
+fs.rmdir("c",function(err){
+  console.log("删除空文件夹")
+})
 
 //2. 删除文件
-//fs.unLink(path,cb)
-// fs.unlink('path/file.txt', (err) => {
-//   if (err) throw err;
-//   console.log('文件已删除');
-// });
+fs.unLink(path,cb)
+fs.unlink('path/file.txt', (err) => {
+  if (err) throw err;
+  console.log('文件已删除');
+});
 
 //3. 我们要读取到这个目录的内容
 // fs.readdir(path[, options], callback(err,files))  options:{encoding,withFileTypes}
