@@ -15,10 +15,11 @@ app.set('views', path.join(__dirname, 'views'));
 //设置了模版引擎
 app.set('view engine', 'hbs');
 
+//使用自带中间件
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(express.json());//解析jsoin
+app.use(express.urlencoded({ extended: false }));//解析url
+app.use(cookieParser());//解析cookie
 //设置暴露的文件，外部可访问的文件
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -531,11 +531,8 @@ Buffer.from();//更多用于定义字符串
 ##### 常用的api以及解析
 
 * fs.readFile(path,[options],cb(err, data))
-  	
-  	
-  	
-  	
-  	* Path —>路径，我们要注意一个问题当我们使用路径的时候 肯能要配合着path.join(__dirname,path)
+  
+  * Path —>路径，我们要注意一个问题当我们使用路径的时候 肯能要配合着path.join(__dirname,path)
   	* Options 这个就比较多我们最常用的参数就是编码格式 utf-8，或者是flag，默认的flag是r
   	* cb(err,data)  返回值
 * fs.writeFile(path, data,[options],cb(err))
@@ -760,3 +757,36 @@ console.log(path.format({
 ```
 
 * path.reslove() // path.resolve() 方法将路径或路径片段的序列解析为绝对路径。
+
+  ```js
+  console.log(path.resolve());// /Users/hubin/learn-file/js
+  console.log(path.resolve(".."))// /Users/hubin/learn-file
+  ```
+
+###  流(stream)
+
+##### 流的概念
+
+> 1. 流是一组有序的，有起点和终点的字节数据的传输手段
+> 2. 他不关心整体文件，只关心是否从文件中读取到了数据，以及读到数据之后的整理
+> 3. 流是一个抽象的接口，被node中很多对象所实现，比如http中req和request
+
+#### 流的工作原理
+
+> 1. 不论是可读流还是可写流都会在内部的缓存区中存储数据，当缓存区中数据满了之后才会去写入
+> 2. 可以分别使用的 `writable.writableBuffer` 或 `readable.readableBuffer` 来获取。
+> 3. 可缓冲的数据大小取决于传入流构造函数的 `highWaterMark` 选项。 对于普通的流， `highWaterMark` 指定了[字节的总数](http://nodejs.cn/s/K499k3)。 对于对象模式的流， `highWaterMark`指定了对象的总数。
+> 4. 一旦内部的可读缓冲的总大小达到 `highWaterMark` 指定的阈值时，流会暂时停止从底层资源读取数据，直到当前缓冲的数据被消费 （也就是说，流会停止调用内部的用于填充可读缓冲的 `readable._read()`）。
+> 5. 当调用 [`writable.write(chunk)`](http://nodejs.cn/s/doppiK) 时，数据会被缓冲在可写流中。 当内部的可写缓冲的总大小小于 `highWaterMark` 设置的阈值时，调用 `writable.write()` 会返回 `true`。 一旦内部缓冲的大小达到或超过 `highWaterMark` 时，则会返回 `false`。
+
+#### 可读流
+
+* fs.createReadStream(path,[options])
+  * flag：读写位，默认的r
+  * encoding：编码格式
+  * start 开始的索引
+  * end 结束索引（包含结束索引）
+  * mode 权限 默认0o666可读可写
+  * highWaterMark  流的大小默认是64*1024
+* 
+
