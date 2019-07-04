@@ -781,12 +781,31 @@ console.log(path.format({
 
 #### 可读流
 
-* fs.createReadStream(path,[options])
+* fs.createReadStream(path,[options]).  创建可读流
   * flag：读写位，默认的r
   * encoding：编码格式
   * start 开始的索引
   * end 结束索引（包含结束索引）
   * mode 权限 默认0o666可读可写
   * highWaterMark  流的大小默认是64*1024
-* 
+* node中常见的可读流的位置
+  - [客户端的 HTTP 响应](http://nodejs.cn/s/2RqpEw)
+  - [服务器的 HTTP 请求](http://nodejs.cn/s/2RqpEw)
+  - [fs 的读取流](http://nodejs.cn/s/C3Eioq)
+  - [zlib 流](http://nodejs.cn/s/duYbh2)
+  - [crypto 流](http://nodejs.cn/s/FuEfsg)
+  - [TCP socket](http://nodejs.cn/s/wsJ1o1)
+  - [子进程 stdout 与 stderr](http://nodejs.cn/s/F2vs59)
+  - [`process.stdin`](http://nodejs.cn/s/gagmJq)
 
+* 可读流两种模式
+
+  * 流动模式
+
+  * 暂停模式
+
+    > 注意所有可读流，开始都处于暂停的状态
+    >
+    > - 添加 [`'data'`](http://nodejs.cn/s/8CCPjN) 事件句柄。
+    > - 调用 [`stream.resume()`](http://nodejs.cn/s/Zhf28N)。
+    > - 调用 [`stream.pipe()`](http://nodejs.cn/s/Ea2ZNW)。
