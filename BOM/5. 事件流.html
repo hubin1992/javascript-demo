@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			body {
+				margin: 0;
+			}
+			div {
+				margin: 0;
+				padding: 0;
+			}
+			.box1 {
+				height: 90px;
+				background: red;
+				overflow: hidden;
+			}
+			.box2 {
+				overflow: hidden;
+				height: 60px;
+				background: blue;
+				margin: 15px auto;
+			}
+			.box3 {
+				margin: 15px auto;
+				height: 30px;
+				background: yellow;
+				position: absolute;
+				width: 100px;
+			}
+			.share {
+				width: 30px;
+				height: 50px;
+				background: purple;
+				position: absolute;
+				top: 50%;
+				margin-top: -25px;
+			}
+			.share-content {
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				top: 0;
+				left: 30px;
+				display: none;
+			}
+			.meau {
+				width: 50px;
+				height: 200px;
+				border: 1px solid red;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1">
+			<div class="box2">
+				<div class="box3"></div>
+			</div>
+		</div>
+		<div class="share">
+			<div class="share-content"></div>
+		</div>
+
+		<button class="btn">点击展示菜单</button>
+		<div class="meau"></div>
+		<script>
+			//事件流包含两个部分
+			//1. 事件冒泡-->  如果父元素绑定了事件，通过子元素也会触发，就是泡泡一样上去浮动
+			// 当我们点击box3的时候他就是默认的触发2和1的事件
+			// 当我们取消box2的事件，也不影响他的冒泡机制
+			// 即使用了定位也不会影响冒泡机制的触发
+			// document.querySelector('.box1').addEventListener('click', function() {
+			// 	alert(1)
+			// });
+			// document.querySelector('.box2').addEventListener('click', function() {
+			// 	alert(2)
+			// });
+			// document.querySelector('.box3').addEventListener('click', function() {
+			// 	alert(3)
+			// });
+
+			//实例 -- 利用冒泡的原理来做，省事
+			let share = document.querySelector('.share');
+			let shareCon = document.querySelector('.share-content');
+			share.onmouseover = function() {
+				shareCon.style.display = 'block';
+			};
+			share.onmouseout = function() {
+				shareCon.style.display = 'none';
+			};
+
+			//阻止事件冒泡e.stopPropagation(); --->比如说我们做一个菜单，当点中的时候，显示出来，然后点击任何地方都消失。这个时候利用事件冒泡来做会有一个问题，所以我们看实例
+
+			let btn = document.querySelector('.btn');
+			let meau = document.querySelector('.meau');
+			btn.onclick = function(e) {
+				meau.style.display = 'block';
+				e.stopPropagation();
+			};
+			document.onclick = function() {
+				meau.style.display = 'none';
+			};
+
+			//2. 事件捕获 --> 正好与事件冒泡相反，从上到下执行
+      document.querySelector('.box1').addEventListener('click', function() {
+				alert(1)
+			},true);
+			document.querySelector('.box2').addEventListener('click', function() {
+				alert(2)
+			},true);
+			document.querySelector('.box3').addEventListener('click', function() {
+				alert(3)
+			},true);
+
+			//总结
+      //其实事件的捕获和冒泡就是事件的一个闭环的执行。
+		</script>
+	</body>
+</html>

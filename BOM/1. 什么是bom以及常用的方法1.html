@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button class="btn1">点击我1</button>
+		<button class="btn2">点击我2</button>
+		<button class="btn3">点击我3</button>
+		<script>
+			//BOM  borwser object model  浏览器对象模型
+			let btn1 = document.querySelector('.btn1');
+			let btn2 = document.querySelector('.btn2');
+			let btn3 = document.querySelector('.btn3');
+			//常用的方法
+			//open(url,type)
+      //如果什么也不传递，默认的就是新窗口打开一个空白的页面
+      //如果想用本窗口打开 open(url,'_self')
+			btn1.onclick = function() {
+				window.open();
+			};
+
+      //close() --- 方法不常用
+
+      //常用的属性
+      //window.navigator.userAgent // 返回的是浏览器的信息
+      //我们可以用来测试浏览器的版本，写不同的代码
+      console.log(window.navigator.userAgent)
+      if(window.navigator.userAgent.match(/webkit/) >= 0){
+        console.log("我是webkit内核")
+      }
+      //window.localtion  返回的是url的信息
+      /* 
+        window.localtion.href  返回的就是url地址
+        window.localtion.hash  返回的是url地址#后面的信息
+        window.localtion.search 返回的是url地址？后面的信息
+       */
+
+       console.log(window.location.href)
+       console.log(window.location.hash)
+       console.log(window.location.search)
+
+		</script>
+	</body>
+</html>

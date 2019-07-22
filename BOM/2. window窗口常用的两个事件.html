@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			html,
+			body {
+				height: 300%;
+				background: -webkit-linear-gradient(top, red, blue, yellow);
+			}
+			.backTop {
+				margin: 0;
+				padding: 0;
+				width: 100px;
+				height: 100px;
+				background: #ccc;
+				line-height: 100px;
+				text-align: center;
+				position: fixed;
+				bottom: 10px;
+				right: 10px;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="backTop">BACK</div>
+		<script>
+			//  onscroll    ---->滚动条滚动事件
+			//  onresize    ----->窗口改变的事件
+
+			//两个事件的例子
+			//回到顶部的方法
+			//思路分析，默认的是限时的当超过一屏幕的时候才会去显示
+			var ele = document.querySelector('.backTop');
+			var wH = document.documentElement.offsetHeight,
+				sH = null,
+				timer = null;
+			window.onscroll = function() {
+				sH = document.documentElement.scrollTop || document.body.scrollTop;
+				sH >= wH ? (ele.style.display = 'block') : (ele.style.display = 'none');
+			};
+
+			ele.onclick = function() {
+				autoMove();
+			};
+
+			// 需要封装一个动画的方法
+			function autoMove(step) {
+				step = step || 80;
+				var scrollT = document.documentElement.scrollTop || document.body.scrollTop;
+				timer = setInterval(function() {
+					scrollT = scrollT - step;
+					document.documentElement.scrollTop = scrollT;
+					document.body.scrollTop = scrollT;
+				}, 10);
+				if (scrollT == 0) {
+					clearInterval(timer);
+					document.documentElement.scrollTop = 0;
+					document.body.scrollTop = 0;
+				}
+			}
+
+			//移动端适配的方法
+
+			var html = document.documentElement;
+			var head = document.head;
+
+			var m = document.createElement('meta');
+			m.setAttribute('name', 'viewport');
+			m.setAttribute(
+				'content',
+				'width = device-width,user-scalable = no,initial-scale=1,maximum-scale = 1,minimum-scale=1'
+			);
+
+			head.appendChild(m);
+
+			//字体适配
+			var WW = document.documentElement.offsetWidth;
+			html.style.fontSize = (100 / 750) * WW +"px";
+      window.onresize =function(){
+        WW = document.documentElement.offsetWidth;
+        WW = document.documentElement.offsetWidth;
+      }
+		</script>
+	</body>
+</html>
