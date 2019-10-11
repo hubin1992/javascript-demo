@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				height: 100px;
+				background: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" style="height: 200px;"></div>
+		<script>
+			/* 
+      cssText 是用来控制style样式的
+      1. 它的作用清除所有的样式，然后在新添加
+      2. 如果在原来的style基础上添加，最好配合字符串拼接来使用
+    
+     */
+			let box = document.querySelector('.box');
+			//  box.style.cssText="width:200px;background:red;"  //我们会看到这样会把我们写在行间的样式覆盖掉
+
+			// 修改一下不让其覆盖
+      //这样就不会覆盖掉了
+			box.style.cssText += 'width:200px;background:red;';
+		</script>
+	</body>
+</html>

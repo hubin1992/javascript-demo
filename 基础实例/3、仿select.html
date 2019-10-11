@@ -37,7 +37,7 @@
 
         .title {
             border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid transparent;
             margin-bottom: -1px;
             cursor: pointer;
         }
@@ -69,18 +69,19 @@
     <script>
         window.onload = function () {
             let listWarp = document.getElementById("list-warp");
+            let titleWrap = listWarp.querySelector(".title-warp");
             let show = listWarp.getElementsByTagName("h2")[0];
             let oUl = listWarp.getElementsByTagName("ul")[0];
             let aLi = oUl.getElementsByTagName("li");
             let oSpan = listWarp.getElementsByTagName("span")[0];
             let onoff = true;
-            show.onclick = function () {
+            titleWrap.onclick = function () {
                 if (onoff) {
                     oUl.style.display = "block";
-                    show.style.borderBottom = "1px solid #fff";
+                    show.style.borderBottom = "1px solid #ccc";
                 } else {
                     oUl.style.display = "none";
-                    show.style.borderBottom = "1px solid #ccc";
+                    show.style.borderBottom = "1px solid #fff";
                 }
                 onoff = !onoff
             }
@@ -89,7 +90,7 @@
                 aLi[i].index = i;
                 aLi[i].onclick = function () {
                     show.innerHTML = aLi[this.index].innerHTML;
-                    oUl.style.display = "none";
+                    oUl.style.display= "none"
                     show.style.borderBottom = "1px solid #ccc";
                     onoff = !onoff
                 }

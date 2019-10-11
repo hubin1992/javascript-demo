@@ -1,152 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			div,
+			ul,
+			li,
+			p,
+			input {
+				margin: 0;
+				padding: 0;
+			}
+			li {
+				list-style: none;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        div,
-        ul,
-        li,
-        p,
-        input {
-            margin: 0;
-            padding: 0;
-        }
-        li{
-            list-style: none;
-        }
+			button {
+				border: none;
+				border: 1px solid #ccc;
+			}
 
-        button {
-            border: none;
-            border: 1px solid #ccc;
-        }
+			.clear {
+				content: '';
+				display: block;
+				clear: both;
+			}
 
-        .clear {
-            content: "";
-            display: block;
-            clear: both;
+			.fl {
+				float: left;
+			}
+			.fr {
+				float: right;
+			}
 
-        }
+			.warp {
+				width: 300px;
+			}
 
-        .fl {
-            float: left;
-        }
-        .fr{
-            float: right;
-        }
+			.show img,
+			.warp p {
+				float: left;
+			}
 
-        .warp {
-            width: 300px;
-        }
+			.warp .show {
+				height: 400px;
+				padding-top: 4px;
+				border: 1px solid red;
+				overflow: auto;
+			}
 
-        .show img,
-        .warp p {
-            float: left;
-        }
+			.warp li {
+				width: 100%;
+				overflow: hidden;
+			}
+			.show img {
+				width: 30px;
+				height: 30px;
+			}
 
-        .warp .show {
-            height: 400px;
-            border: 1px solid red;
-            overflow: auto;
-        }
+			.warp .title {
+				width: 30px;
+				height: 30px;
+				background: url('img/1.jpg');
+				background-size: cover;
+				margin-right: 2px;
+			}
 
-        .warp li {
-            margin-top: 10px;
-            width: 100%;
-        }
-        .show img{
-            width: 30px;
-            height: 30px;
-        }
+			.warp p {
+				margin-left: 4px;
+				height: 30px;
+				line-height: 30px;
+			}
+			.fr p {
+				margin-right: 4px;
+				margin-left: 0;
+			}
 
-        .warp .title {
-            width: 30px;
-            height: 30px;
-            background: url("img/1.jpg");
-            background-size: cover;
-            margin-right: 2px;
-        }
+			.shuru {
+				border: 1px solid red;
+			}
 
-        .warp p {
-            margin-left: 4px;
-            height: 30px;
-            line-height: 30px;
-        }
+			.shuru img {
+				float: left;
+				width: 30px;
+				height: 32px;
+				background: url('img/1.jpg');
+				background-size: cover;
+			}
 
-        .shuru {
-            border: 1px solid red;
-        }
+			.shuru .content {
+				width: 224px;
+				height: 28px;
+				line-height: 30px;
+			}
 
-        .shuru img {
-            float: left;
-            width: 30px;
-            height: 32px;
-            background: url("img/1.jpg");
-            background-size: cover;
-        }
+			.shuru .btn {
+				height: 32px;
+			}
+		</style>
+	</head>
 
-        .shuru .content {
-            width: 224px;
-            height: 28px;
-            line-height: 30px;
-        }
+	<body>
+		<div class="warp" id="warp">
+			<ul class="show"></ul>
+			<div class="shuru clear">
+				<img class="pic" src="img/1.jpg" id="pic" />
+				<input type="text" class="content fl" id="text" />
+				<button class="btn">发送</button>
+			</div>
+		</div>
+		<script>
+			let wrap = document.getElementById('warp');
+			let pic = document.getElementById('pic');
+			let oUl = wrap.getElementsByTagName('ul')[0];
+			let btn = wrap.getElementsByTagName('button')[0];
+			let text = document.getElementById('text');
+			let people = document.getElementById('title');
+			let onOff = true;
+			let str = '';
+			//点击切换头像
+			pic.onclick = function() {
+				if (onOff) {
+					this.src = 'img/2.jpg';
+				} else {
+					this.src = 'img/1.jpg';
+				}
+				onOff = !onOff;
+			};
+			btn.onclick = writeText;
+			document.onkeydown = function(e) {
+				if (e.keyCode == 13) {
+          writeText()
+				}
+			};
 
-        .shuru .btn {
-            height: 32px;
-        }
-
-    </style>
-</head>
-
-<body>
-    <div class="warp" id="warp">
-        <ul class="show">
-        </ul>
-        <div class="shuru clear">
-            <img class="pic" src="img/1.jpg" id="pic">
-            <input type="text" class="content fl" id="text">
-            <button class="btn">发送</button>
-        </div>
-    </div>
-    <script>
-        let wrap = document.getElementById("warp");
-        let pic = document.getElementById("pic");
-        let oUl = wrap.getElementsByTagName("ul")[0];
-        let btn = wrap.getElementsByTagName("button")[0];
-        let text = document.getElementById("text");
-        let people = document.getElementById("title");
-        let onOff = true;
-        let str = "";
-        //点击切换头像
-        pic.onclick = function () {
-            if (onOff) {
-                this.src = 'img/2.jpg';
-            } else {
-                this.src = 'img/1.jpg';
-            }
-            onOff = !onOff
-        }
-        btn.onclick=function(){
-            
-            if(text.value == ""){
-                alert("请输入内容")
-            }else{
-                if(onOff){
-                    str+="<li><div class='fl clear'><img src="+pic.src+"><p>"+text.value+"</p></div></li>"
-                }else{
-                    str+="<li><div class='fr clear'><p>"+text.value+"</p><img src="+pic.src+"></div></li>"
-                }
-                oUl.innerHTML=str;
-                text.value="";
-            } 
-        }
-        
-
-
-    </script>
-
-</body>
-
+			function writeText() {
+				if (text.value == '') {
+					alert('请输入内容');
+				} else {
+					if (onOff) {
+						str +=
+							"<li><div class='fl clear'><img src=" + pic.src + '><p>' + text.value + '</p></div></li>';
+					} else {
+						str +=
+							"<li><div class='fr clear'><p>" + text.value + '</p><img src=' + pic.src + '></div></li>';
+					}
+					oUl.innerHTML = str;
+					text.value = '';
+				}
+			}
+		</script>
+	</body>
 </html>

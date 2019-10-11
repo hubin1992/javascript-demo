@@ -9,14 +9,22 @@
 </head>
 
 <body>
+  <div>aaaa</div> 
+  <div>bbbb</div>
+  <div>cccc</div>
   <script>
-    //只有两个输出的变量 jQuery,$ 其余的都是放在封闭的模块里面的
     (function() {
-      function jQuery() {
-
+      function jQuery(element) {
+        // 这样我们仅仅能获取div，如果我们获取class或者id就没有别的方法了。
+        const eles = document.getElementsByTagName(element)
+        // return eles //这样无法.css
+        //定义在eles的原型上
+        console.log(eles.__proto__);//HTMLCollection
+        HTMLCollection.prototype.css = function(){} ;//这样定义方法就破坏了原型本身；
       }
-      window.jQuery = window.$ = jQuery; //这样就可以在外部访问到了
+      window.jQuery = window.$ = jQuery;
     })()
+    $("div").css()
   </script>
 </body>
 
