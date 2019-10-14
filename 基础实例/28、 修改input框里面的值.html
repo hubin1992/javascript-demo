@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box-border {
+				display: none;
+			}
+			li {
+				list-style: none;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var aLi = document.querySelectorAll('.chagneList li');
+
+        aLi.forEach((item)=>{
+          changeInput(item)
+        })
+				function changeInput(aLi) {
+					var btn = aLi.querySelector('.btn');
+					var showCon = aLi.querySelector('.show_con');
+					var boxBorder = aLi.querySelector('.box-border');
+					var submit = aLi.querySelector('.submit');
+					var text = aLi.querySelector('.text');
+					var txt = aLi.querySelector('.txt');
+					btn.onclick = function() {
+						showCon.style.display = 'none';
+						boxBorder.style.display = 'block';
+						txt.value = text.innerHTML;
+					};
+					submit.onclick = function() {
+						showCon.style.display = 'block';
+						boxBorder.style.display = 'none';
+						text.innerHTML = txt.value;
+					};
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<ul class="chagneList">
+			<li>
+				<p class="show_con">
+					<span class="text">这是第一个input的内容</span>
+					<a href="javascript:;" class="btn">修改</a>
+				</p>
+				<div class="box-border">
+					<input type="text" class="txt" />
+					<button class="submit">确定</button>
+				</div>
+			</li>
+			<li>
+				<p class="show_con">
+					<span class="text">这是第二个input的内容</span>
+					<a href="javascript:;" class="btn">修改</a>
+				</p>
+				<div class="box-border">
+					<input type="text" class="txt" />
+					<button class="submit">确定</button>
+				</div>
+			</li>
+			<li>
+				<p class="show_con">
+					<span class="text">这是第三个input的内容</span>
+					<a href="javascript:;" class="btn">修改</a>
+				</p>
+				<div class="box-border">
+					<input type="text" class="txt" />
+					<button class="submit">确定</button>
+				</div>
+			</li>
+		</ul>
+	</body>
+</html>
