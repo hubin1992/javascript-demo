@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>选项卡2种实现思路</title>
+		<style>
+			.btn {
+				display: inline-block;
+				width: 100px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+			}
+			.btn.active {
+				background: red;
+			}
+			.inner div {
+				width: 300px;
+				height: 300px;
+				text-align: center;
+				line-height: 200px;
+				font-size: 50px;
+				border: 1px dashed #ccc;
+				display: none;
+			}
+			.inner div.active {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bts">
+			<a class="btn item1 active">按钮1</a>
+			<a class="btn item2">按钮2</a>
+			<a class="btn ite3">按钮3</a>
+		</div>
+		<div class="inner">
+			<div class="active">内容1</div>
+			<div>内容2</div>
+			<div>内容3</div>
+		</div>
+	</body>
+	<script>
+		var btns = document.querySelectorAll('.bts > a');
+		// 思路1: 清除所有的样式，然后当前元素加上样式
+		// 思路2: 清除上一个元素样式，然后当前元素加上样式
+
+		// 思路1实现
+		// for(var i=0;i<btns.length;i++){
+		//   //自定义属性
+		//   //就如同在 <a class="btn ite3" index = 1>按钮3</a>
+		//   btns[i].index = i
+		//   btns[i].onclick  = function(){
+		//     //清除所有样式
+		//     for(var i=0;i<btns.length;i++){
+		//       btns[i].classList.remove("active")
+		//     }
+		//     btns[this.index].classList.add("active")
+		//   }
+		// }
+		// 思路2实现
+		// 常理里说我们都需要第一个来显示
+		var prevEle = btns[0];
+		for (var i = 0; i < btns.length; i++) {
+			//自定义属性
+			//就如同在 <a class="btn ite3" index = 1>按钮3</a>
+			btns[i].index = i;
+			btns[i].onclick = function() {
+        //如果是点击的同一个，我们直接不用执行此函数
+				if (prevEle == btns[this.index]) {
+					return;
+				}
+				prevEle.classList.remove('active');
+				btns[this.index].classList.add('active');
+				prevEle = btns[this.index];
+			};
+		}
+	</script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>定点爆破-选项卡</title>
+  <style>
+   .btn{
+     display: inline-block;
+     width: 100px;
+     height: 30px;
+     text-align: center;
+     line-height: 30px;
+   }
+   .btn.active{
+     background: red;
+   }
+   .inner div{
+     width: 300px;
+     height: 300px;
+     text-align: center;
+     line-height: 200px;
+     font-size: 50px;
+     border: 1px dashed #ccc;
+     display:none;
+   }
+   .inner div.active{
+     display: block;
+   }
+  </style>
+</head>
+<body>
+  <div class="bts">
+    <a class="btn item1 active">按钮1</a>
+    <a class="btn item2">按钮2</a>
+    <a class="btn ite3">按钮3</a>
+  </div>
+  <div class="inner">
+    <div class="active"> 内容1</div>
+    <div> 内容2</div>
+    <div> 内容3</div>
+  </div>
+</body>
+<script>
+  var btns = document.querySelectorAll(".bts > a");
+
+
+  // console.log(btns[0].classList)
+  //["btn", "item1", "active", value: "btn item1 active"]
+  // console.log(btns[0].classList.value)
+
+  //classList 中常用的方法
+  //1. add 增加类名
+  //2. remove 移除类名
+  //3. contains 查询类名 --->返回的是true or false
+  //4. toggle 自动切换类名(如果没有就是增加，如果有就是删除)
+  //5. length 属性值，跟数组的length是一样
+
+
+  // 兼容性: pc端：ie10 以上
+  //        mob端: safari 有部分浏览器不兼容
+  //解决方式：babel 编译工具，进行编译之后就可以解决部分问题
+
+  console.log(btns[0].classList.contains("active")) ;//true
+  console.log(btns[0].classList.remove("active")) ; //没有返回值直接移除掉
+  console.log(btns[0].classList.add("active")) ; //没有返回值，直接增加
+  console.log(btns[0].classList.length) ; //这个是class的总个数，是个属性值
+
+
+</script>
+</html>
