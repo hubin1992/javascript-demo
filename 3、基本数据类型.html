@@ -56,14 +56,17 @@
             //console.log(parseFloat(num));//12.34
 
             //实例：如何判断这个数是小数，还是整数
-            if(parseInt(num) == parseFloat(num)){
-                alert("整数")
-            }else{
-                alert("小数")
-            }
+            // if(parseInt(num) == parseFloat(num)){
+            //     alert("整数")
+            // }else{
+            //     alert("小数")
+            // }
 
 
         //5)string---字符串
+            //String()转换为字符串的方法
+            //特殊的一个[1,2,3]
+            console.log(String([1,23,4])) //'1,23,4'
             //字符串中常用的方法
             var str = "good good study day day up"
             //1)length(); 获取字符的个数
@@ -95,6 +98,15 @@
             //////////////////// 和正则有关的两个，在正则的时候，再去整理  //////////////////////////
             //match
             //replace
+
+          //6) symbol(es6新增加的)
+          //定义：表示独一无二的值
+
+          var s  =  Symbol("aaa");
+          console.log(typeof s) //symbol
+
+          //注意，Symbol函数前不能使用new命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。
+
 </script>
 </body>
 
