@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>拼图思维训练 100个div生成 不用浮动用定位来实现</title>
+  <style>
+    .wrap{
+      position: relative;
+      height: 1000px;
+    }
+    .wrap div{
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: red;
+      text-align: center;
+      line-height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap"></div>
+  <script>
+    /*
+    //思路分析:
+    第一行 
+    x:0  100  200 300
+    y:0  0
+
+    第一列
+    x 0     0
+    y 100   200
+    
+    */
+    let x = 100
+    let y = 100
+    let wrap  = document.querySelector(".wrap")
+    var str = ""
+
+    for(var j=0;j<10;j++){//这是列数
+      for(var i =0;i<10;i++){//这是第一行的10
+      str+="<div style='left:"+(i*x+5*i)+"px;top:"+(y*j+5*j)+"px;'>"+i+"</div>"
+    }
+    }
+    wrap.innerHTML = str
+  
+  </script>
+</body>
+</html>

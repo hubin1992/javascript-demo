@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>拼图思维训练 100个div生成 不用浮动用定位来实现</title>
+		<style>
+			.wrap {
+				position: relative;
+				height: 1000px;
+			}
+			.wrap div {
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				background: red;
+				text-align: center;
+				line-height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap"></div>
+		<script>
+			/*
+    //思路分析:
+    主要解决是列的问题
+    0-9  
+    第一行 
+    i%10  （ 0 1 2 3 4 5 6 7 8 9 ） *100 就是我们需要的一行10个了
+
+    第一列
+   parseInt(i/10) 我们也需要（0，1，2，3，4，5，6）这样来实现10列
+    
+    */
+			let x = 100;
+			let y = 100;
+			let wrap = document.querySelector('.wrap');
+			var str = '';
+
+			for (var i = 0; i < 100; i++) {
+				str += "<div style='left:" + (i % 10) * x + 'px;top:' + parseInt(i / 10) * x + "px;'>" + i + '</div>';
+			}
+			wrap.innerHTML = str;
+		</script>
+	</body>
+</html>
