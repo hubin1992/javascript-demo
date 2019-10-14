@@ -1,52 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="wrap">
-        请输入qq号:
-        <input type="text" placeholder="请输入qq" id="content">
-        <input type="button" id="btn" value="登录">
-    </div>
-    <script>
-        /* 
+	<body>
+		<div class="wrap">
+			请输入qq号:
+			<input type="text" placeholder="请输入qq" id="content" />
+			<input type="button" id="btn" value="登录" />
+		</div>
+		<script>
+			/* 
                                                 1、有没有输入
                                                 2、输入的是不是数字
                                                 3、不能有0在前面
                                                 4、不能是小数
                                                 5、输入的数字必须在5位以上、10位以内
                                             */
-        var btn = document.getElementById("btn");
-        var content = document.getElementById("content")
+			var btn = document.getElementById('btn');
+			var content = document.getElementById('content');
 
-        btn.onclick = function () {
-            if (content.value == "") {
-                alert("请输入内容")
-            } else if (isNaN(content.value)) {
-                alert("请输入有效数字")
-                content.value="";
-            } else if (content.value.charAt(0) == 0) {
-
-                alert("不能以0开头")
-                content.value="";
-            } else if (content.value.length < 5 || content.value.length > 10) {
-                alert("输入的数字5位以上、10位以内")
-                content.value="";
-            }else{
-                alert("登陆成功")
-            }
-            
-
-        }
-        content.onfocus=function(){
-            this.select()
-        }
-    </script>
-</body>
-
+			btn.onclick = function() {
+				if (content.value == '') {
+					alert('请输入内容');
+				} else if (isNaN(content.value) || content.value != String(parseInt(content.value))) {//这个地方我们防止 111111.0 这种情况出现，只能转换成整数，然后在转换成字符串进行比较
+					alert('请输入有效数字');
+					content.value = '';
+				} else if (content.value.charAt(0) == 0) {
+					alert('不能以0开头');
+					content.value = '';
+				} else if (content.value.length < 5 || content.value.length > 10) {
+					alert('输入的数字5位以上、10位以内');
+					content.value = '';
+				} else {
+					alert('登陆成功');
+				}
+			};
+			content.onfocus = function() {
+				this.select();
+			};
+		</script>
+	</body>
 </html>
