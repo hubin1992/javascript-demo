@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <script>
-        /* function fn() {
+	<body>
+		<script>
+			/* function fn() {
             var i = 10;//11 12
             return function (n) {
                 console.log(n + (++i));
@@ -20,28 +19,26 @@
         f(20);//32
         fn()(10);//21
         fn()(20);//31 */
-//60 240 960
-        var num = 20;//60 240
-        var obj = {
-            num : 30,//120
-            fn:(function(num){
-                this.num*3;
-                num+=15;
-                var num = 45;
-                return function(){
-                    this.num*=4;
-                    num+=20;
-                    console.log(num);
-                }
-            })(num)
-        }
-        var fn  = obj.fn;
-        fn();//65
-        obj.fn();//85
-        console.log(window.num,obj.num);//240 120
-
-
-    </script>
-</body>
-
+			//60 240 960
+			var num = 20; //60
+			var obj = {
+				num: 30,//120
+				fn: (function(num) {
+          // num = 45 65 85
+					this.num * 3;
+					num += 15; 
+					var num = 45;
+					return function() {
+						this.num *= 4;
+						num += 20;
+						console.log(num);
+					};
+				})(num),
+			};
+			var fn = obj.fn;
+			fn();
+			obj.fn();
+			// console.log(window.num, obj.num);
+		</script>
+	</body>
 </html>

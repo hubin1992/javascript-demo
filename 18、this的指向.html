@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			/*
+      关于this的指向问题--->关键看函数在那执行的
+      1. 函数内   ---> 谁来执行，this指向就是谁
+      2. 函数外   ---> 执行window
+    */
+
+			function fn() {
+				console.log(this);
+			}
+			fn(); //this 指向window
+
+			var obj = {
+				fn1: function() {
+					console.log(this);
+				},
+			};
+			obj.fn1(); //指向的是obj
+
+			document.onclick = function() {
+				console.log(this); //document
+			};
+			//特殊的this执行
+			//自执行的函数，指向永远是window
+			~(function() {
+				console.log(this);
+			})();
+
+			//构造函数的this执行永远是指向实例
+      function Person(){
+        this.a = 66;//这里的this指向的是他的实例
+        //例如person就是他的一个实例
+      }
+      Person.prototype.name="tsetThis"
+
+      var person = new Person()
+      
+		</script>
+	</body>
+</html>

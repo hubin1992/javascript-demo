@@ -1,70 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+	<body>
+		<script>
+			//bind(this,[arg1,arg2,……])
+			//定义：修改this关键字，并且还可以像普通函数一样处理接收到的参数
+			//浏览器的支持：iE9以及iE9+
+			//返回的还是一个全新的函数
+			//如果我们修改this的时候，传递了一个arg，那么你执行返回的函数的时候，不论你传递什么参数，那么第一个参数的位置永远是arg的
 
-<body>
-  <script>
-    //bind(this,[arg1,arg2,……]) 
-    //定义：修改this关键字，并且还可以像普通函数一样处理接收到的参数
-    //浏览器的支持：iE9以及iE9+
-    //返回的还是一个全新的函数
-    //如果我们修改this的时候，传递了一个arg，那么你执行返回的函数的时候，不论你传递什么参数，那么第一个参数的位置永远是arg的
+			var obj = {
+				a: 1,
+				b: 2,
+				add: function(a, b) {
+					console.log(this.a + this.b, this);
+				},
+			};
+			obj.add(); //3 obj
+			let _add = obj.add;
+			_add(); //NaN window
 
-    var obj = {
-      a: 1,
-      b: 2,
-      add: function(a, b) {
-        console.log(this.a + this.b, this)
-      }
-    }
-    obj.add() //3 obj
-    let _add = obj.add
-    _add(); //NaN window
+			//修改this
+			let b_add = _add.bind(obj);
+			b_add();
 
-    //修改this
-    let b_add = _add.bind(obj);
-    b_add()
+			//关于参数那点事
+			function copyArr() {
+				console.log(this);
+				return Array.prototype.slice.call(arguments);
+			}
+			let _copyArr = copyArr.bind(null, 'h'); //没有改变this
+			console.log(_copyArr());
+			console.log(_copyArr(1, 2, 3));
+			console.log(_copyArr(4, 5, 6));
 
+			function add(arg1, arg2) {
+				console.log(arg1 + arg2);
+			}
+			add(1, 2);
 
-    //关于参数那点事
-    function copyArr() {
-      console.log(this)
-      return Array.prototype.slice.call(arguments)
-    }
-    let _copyArr = copyArr.bind(null, "h") //没有改变this
-    console.log(_copyArr())
-    console.log(_copyArr(1, 2, 3))
-    console.log(_copyArr(4, 5, 6))
+			// 如果我们在bind中添加了要传递的参数，那么当我们在执行返回的函数的时候，再次传递参数，那么传递这个参数是无效的
+			let _add_ = add.bind(null, 20, 1);
+			_add_();
 
-    function add(arg1, arg2) {
-      console.log(arg1 + arg2)
-    }
-    add(1, 2)
+			//原生的方法去实现call,apply,bind
+			//---------------------------------------------
+			// call 方法的实现
+			// 初步体验，这个是仅仅改变this指向，还没法传递参数
+			// Function.prototype.myCall = function(ctx) {
+			// 	ctx.fn = this; // {value:1 ,fn:bar}  --->this 执行的是函数的实例
+			// 	ctx.fn(); //这个就相当于 bar执行了，并且bar属于ctx，所以fn中this的指向就是ctx。最后就删掉就可以了
+			// 	delete ctx.fn;
+			// };
+			// let foo = {
+			// 	value: 1,
+			// };
+			// function bar() {
+			// 	console.log(this.value);
+			// }
+			// bar.myCall(foo);
 
+			//call可以传递参数
+			// Function.prototype.myCall = function(ctx) {
+			// 	ctx.fn = this;
+			// 	let arg = [];
+			// 	for (var i = 1, len = arguments.length; i < len; i++) {
+			// 		arg.push('arguments[' + i + ']'); //[argument[i]]
+			// 	}
+			// 	eval('ctx.fn(' + arg + ')'); //ctx.fn(argument[i])
+			// };
+			// let foo = {
+			// 	value: 1,
+			// };
+			// function bar(a, b) {
+			// 	console.log(this.value, a, b);
+			// }
+			// bar.myCall(foo, 1, 3);
 
-    let _add_ = add.bind(null, 20, 1); //像这种只能接受两个参数的就傻逼了，外面的无论传递什么都没有用
-    _add_(10, 2); //30
+			//不实用arguments ，使用es6来实现
+			// Function.prototype.myCall = function(ctx, ...args) {
+			// 	ctx.fn = this;
+			// 	ctx.fn(...args);
+			//   delete ctx.fn
+			// };
+			// let foo = {
+			// 	value: 1,
+			// };
+			// function bar(a, b) {
+			// 	console.log(this.value, a, b);
+			// }
+			// bar.myCall(foo, 1, 3);
+			// bar.call(foo, 1, 3);
 
+			//这样还有一个不完美的地方，如果我们不传递或者为null的时候，肯定会报错
+			Function.prototype.myCall = Function.prototype.myApply = function(ctx, ...args) {
+				if (typeof ctx === 'object') {
+					ctx = ctx || window;
+				} else {
+					ctx = {};
+				}
+				ctx._fn = this;
+				ctx._fn(...args);
+				delete ctx._fn;
+			};
+			let foo = {
+				value: 1,
+			};
+			function bar(a, b) {
+				console.log(this.value, a, b);
+			}
+			bar.myCall(foo, 1, 3);
+			bar.call(foo, 1, 3);
+			bar.apply(foo, [1, 3]);
+			// 思想：就是利用来，函数执行，前面点是谁就是谁，所以我们利用来 obj{fn:function}的思想来写的
 
-    //原生的方法去实现bind
-    Function.prototype._bind = function() {
-      let self = arguments[0] || this;
-      let opt = Array.prototype.slice.call(arguments, 1);
-      if(typeof this != 'function'){
-        throw Error ("必须是函数使用")
-      }
-      
-      //未实现，可以先暂时方一下
-    
+			//bind 实现
+			//思路解析：bind 返回的是一个函数，并且不立刻执行函数
+			// 当我们执行函数的时候，输出的this
 
-
-    }
-  </script>
-</body>
-
+			Function.prototype.myBind = function(ctx, ...args) {
+        let me = this
+				return function() {
+					return me.call(ctx, ...args);
+				};
+			};
+			let res = bar.myBind(foo, 2, 4);
+			let res1 = bar.bind(foo, 1, 2);
+      res()
+      res1()
+		</script>
+	</body>
 </html>

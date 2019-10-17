@@ -15,7 +15,7 @@
         //注意，如果跟事件合作的时候，我们需要先清除定时器，然后在在去设置定时器，为了避免出现多次执行，关不掉的问题
 
         var btn = document.getElementById("btn");
-        var arr = ["7、实例/img/home1.jpeg", "7、实例/img/home2.jpeg", "7、实例/img/home3.jpeg", "7、实例/img/home4.jpeg"]
+        var arr = ["基础实例/img/home1.jpeg", "基础实例/img/home2.jpeg", "基础实例/img/home3.jpeg", "基础实例/img/home4.jpeg"]
         var timer = null;
         var onOff = false;
         var num = 0;
@@ -40,7 +40,10 @@
         //例如：延迟的广告，打开后过2秒在显示，只执行一次；
 
         //定时器的深入
-        //1、设置定时器的时候，先要清掉定时器
+        //1、设置定时器的时候，先要清掉定时器，避免开启多个定时器，导致定时乱掉
+          // 清除定时器的两种方式
+          // 1) 当我们每次开启定时器的时候，我们首先要清除上面的定时器
+          // 2）或者我们需要判断timer是否存在，如果存在我们直接return出去
         //2、timer，尽量设置成自定义属性；
         //3、边界判断的时候，为了避免出现抖动，和回退的现象，我们需要加上步长
 
