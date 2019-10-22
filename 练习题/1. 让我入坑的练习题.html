@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			var length = 10;
+			function fn() {
+				console.log(this.length);
+			}
+			var obj = {
+				length: 5,
+				method: function(fn) {
+					fn();
+					arguments[0]();
+				},
+			};
+			obj.method(fn, 1, 2);
+			// 	A、10 10
+			// 	B 5 10
+			// 	C  10 3
+			// 	D 5 5
+			// 	答案 C；
+			/*
+						     2. arguments[0]();  arguments 本身是一个对象(类数组),这里是调用了 对象下的方法，this 指向当前对象，也就是arguments。obj.method(fn,1,2); 这里我们传入了 3 个实参，也就是 arguments.length = 3; 最终调用结果为 3
+						   */
+
+			var i = 0;
+			alert(++i == i++);
+			// A： true
+			// B，false
+			// C，undefined
+			// D，NaN
+			// 答案:(A)
+			/*
+			      解析：
+			          这里要注意运算的优先级
+			              1. 先执行 ++i,这里 i 变成了 1
+			              2. 再执行 i == i, (注意 i++ 中的 ++ 运算优先级最低，会运算完其他之后，最后执行++)
+			              3. i == i 他自己那自然是成立的 所以返回 true
+			          最终结果 为 true
+			       */
+
+			console.log(1 + '2' + '2');
+			console.log(1 + +'2' + '2');
+			console.log('A' - 'B' + '2');
+			console.log('A' - 'B' + 2);
+
+			//  A.122 122 NaN NaN
+			//  B.122 32 NaN NaN2
+			//  C.122 32 NaN2 NaN
+			//  D.122 32 NaN2 NaN2
+
+			//  答案：C
+
+			//       解析：
+			//     1. 1+ "2"+"2" : + 碰到字符串会执行字符串连接,所以结果为 '122'
+			//     2. 1+ +"2"+"2":  这里重点注意(+"2"),这个 + 号，代表的是正负的正号，正号本身会把字符串正常数字，所以结果变成 1 + 2 + "2",最终结果为 '32'
+			//     3. "A"- "B"+"2" : - 号只能用来数字运算，所以 'a' - 'b' 为 NaN，NaN + "2",会进行字符串转换，结果 'NaN2'
+			//     4. "A"- "B"+2 :  - 号只能用来数字运算，所以 'a' - 'b' 为 NaN，NaN + 2，这里还是数字运算，结果还是为 NaN
+			// 最终结果:122 32 NaN2 NaN
+
+			/* var a = 1;
+						console.log((i = a++)); //先执行，在++
+						console.log((i = ++a)); // 先++ 在执行
+
+						function f1() {
+							var n = 100;
+							nAdd = function() {
+								n += 1;
+							};
+							function f2() {
+								alert(n);
+							}
+							return f2;
+						}
+						var result = f1();
+						result();
+						nAdd();
+						result();
+
+			      A. 100 undefined 101
+            B. 100 undefined 100
+            C. 100  101
+            D. 100  100 */
+		</script>
+	</body>
+</html>
