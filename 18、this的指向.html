@@ -38,14 +38,13 @@
 			})();
 
 			//构造函数的this执行永远是指向实例
-      function Person(){
-        this.a = 66;//这里的this指向的是他的实例
-        //例如person就是他的一个实例
-      }
-      Person.prototype.name="tsetThis"
+			function Person() {
+				this.a = 66; //这里的this指向的是他的实例
+				//例如person就是他的一个实例
+			}
+			Person.prototype.name = 'tsetThis';
 
-      var person = new Person()
-      
+			var person = new Person();
 		</script>
 	</body>
 </html>
