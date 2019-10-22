@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			//charCodeAt()  ---> 判断输入值是否为数字
+			// 我们需要测试一下0-9的charCodeAt值（48-57）
+			// var str="1234567890"
+			// for(var i =0;i<str.length;i++){
+			//   console.log(str.charCodeAt(i))
+			// }
+
+			// 	var text = document.getElementById('text');
+			// 	var btn = document.getElementById('btn');
+			// 	btn.onclick = function() {
+			// 		if (!testNum(text.value)) {
+			// 			text.value = '';
+			// 			alert('请输入数字');
+			// 		}
+			// 	};
+			// 	function testNum(str) {
+			// 		var n = null; //字符太长用来接受的
+			// 		for (var i = 0; i < str.length; i++) {
+			// 			// if(isNaN(str[i])){//检测不到空格
+			// 			//     return false;
+			// 			// }
+			// 			n = str.charCodeAt(i);
+			// 			if (n < 48 || n > 57) {
+			// 				//48~57为数字
+			// 				return false;
+			// 			}
+			// 		}
+			// 		return true;
+			// 	}
+
+			//==============================================
+			//实例  利用字符串的截取，我们控制字符的多少，来实现，多行超出显示省略号的效果；
+			// var op = document.getElementById("wrap");
+			// var oSpan = op.getElementsByTagName("span")[0];
+			// var oa = op.getElementsByTagName("a")[0];
+			// var text = oSpan.innerHTML;
+			// var onOff = true;
+			// oa.onclick = function () {//思路：利用字符串截取的技术，我们想要多少截取多少
+			//     if (onOff) {
+			//         oSpan.innerHTML = text.substring(0, 10);
+			//         oa.innerHTML = "打开"
+			//     } else {
+			//         oSpan.innerHTML = text.substring(0);
+			//         oa.innerHTML = "收起"
+			//     }
+			//     onOff = !onOff
+			// }
+
+			//==============================================
+			//实例---(实现查找和替换)
+			//查找的思路，我们用字符串转换为数组的特性，查找的字符标志，会删掉，然后在用join的特性，以字符为间隔转换为字符串。这样即实现了
+			// var op = document.getElementsByTagName("p")[0];
+			// var text1 = document.getElementById("text1");
+			// var text2 = document.getElementById("text2");
+			// var btn = document.getElementById("btn")
+			// btn.onclick=function(){
+			//     var str = text1.value;//查找的字符断
+			//     var newStr = text2.value;
+			//     var context = op.innerHTML;//查找的范围
+			//     console.log(str);
+			//     console.log(context.split(str));//["", "山东分局对斯洛伐克觉得舒服的是非得失发生的，", "法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代", ""]
+			//     console.log(context.split(str).join('<span>'+str+'</span>'));//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
+			//     console.log(context.split(str).join('<span>'+str+'</span>')== context);//<span>胡滨</span>山东分局对斯洛伐克觉得舒服的是非得失发生的，<span>胡滨</span>法律是开飞机失联飞机上的发生地方是，发生了就大方善良的封建时代<span>胡滨</span>
+			//
+			//     op.innerHTML=context.split(str).join('<span>'+newStr+'</span>')
+			//
+			// }
+
+			//综合实例
+			// 需求：去掉中间的"-",然后小驼峰命名法 =
+			var str = 'kai-ke-ba';
+      console.log(changeCase(str))
+			function changeCase(str) {
+				var res = str.split('-');
+				var ele = res[0];
+				for (var i = 1; i < res.length; i++) {
+					ele += res[i].charAt(0).toUpperCase() + res[i].slice(1);
+				}
+        return ele
+			}
+		</script>
+	</body>
+</html>

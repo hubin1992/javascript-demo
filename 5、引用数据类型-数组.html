@@ -1,192 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        ul,li{
-            margin: 0;
-            padding: 0;
-            list-style: none
-        }
-        .test{
-            width: 990px;
-            margin: 0 auto;
-        }
-        .test li{
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-            background: #ddffdd;
-            margin-bottom: 4px;
-        }
-    
-    </style>
-    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>
-        $(function () {
-            $(".test > li").each(function (i,item) {
-                $(this).click(function () {
-                        console.log(i,item)
-                  })
-              })
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.test {
+				width: 990px;
+				margin: 0 auto;
+			}
+			.test li {
+				height: 50px;
+				text-align: center;
+				line-height: 50px;
+				background: #ddffdd;
+				margin-bottom: 4px;
+			}
+		</style>
+		<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script>
+			$(function() {
+				$('.test > li').each(function(i, item) {
+					$(this).click(function() {
+						console.log(i, item);
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<ul class="test">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
 
-          })
-    
-    </script>
-</head>
-<body>
-    <ul class="test">
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-    </ul>
-    
-    <script>
-        //数据的的基础语法
-        // var ary = [12,23,34]
-        // console.log(ary[0]);//12 有索引值，从0开始
-        // console.log(ary.length);//3  有length值
-        // ary[1] = 14;
-        // console.log(ary);//[12, 14, 34] 修改
-        // ary[3]=100;
-        // console.log(ary);//[12, 14, 34, 100] 添加
+		<script>
+			//数据的的基础语法
+			// var ary = [12,23,34]
+			// console.log(ary[0]);//12 有索引值，从0开始
+			// console.log(ary.length);//3  有length值
+			// ary[1] = 14;
+			// console.log(ary);//[12, 14, 34] 修改
+			// ary[3]=100;
+			// console.log(ary);//[12, 14, 34, 100] 添加
+      
+			//==========================================================================
 
+			//数组中常用的方法
+			var arr = [1, 2, 3, 4, 5, 0, 11, 22, 33, 10];
 
-        //数组中常用的方法
-        var arr = [1,2,3,4,5,0,11,22,33,10]
-        
-        //push 向数组的末尾添加一个元素
-            //console.log(arr.push(10));//6,返回的是添加数组的长度
-            // console.log(arr);//[1, 2, 3, 4, 5, 10] 改变后的数组
-        //push的另外一种写法
-            // arr[arr.length]=0;//[1, 2, 3, 4, 5, 10, 0]
-            // console.log(arr);
+			//push 向数组的末尾添加一个元素
+			//console.log(arr.push(10));//6,返回的是添加数组的长度
+			// console.log(arr);//[1, 2, 3, 4, 5, 10] 改变后的数组
+			//push的另外一种写法
+			// arr[arr.length]=0;//[1, 2, 3, 4, 5, 10, 0]
+			// console.log(arr);
+      
 
-        //unshift 向数组的开始添加元素
-            //console.log(arr.unshift(-1)); //6 返回的是修改数组的长度
-            //console.log(arr);//[-1, 1, 2, 3, 4, 5] 原有数组发生改变
-        
-        //pop 删除数组最后一位
-            //console.log(arr.pop());//返回的是删除项
-            // console.log(arr);// 原先数组的改变,[1, 2, 3, 4] 返回的是删除后的数组
-        ////删除数组最后一位的另一个写法
-            // arr.length=arr.length-1
-            // console.log(arr)[1, 2, 3, 4]
+			//unshift 向数组的开始添加元素
+			//console.log(arr.unshift(-1)); //6 返回的是修改数组的长度
+			//console.log(arr);//[-1, 1, 2, 3, 4, 5] 原有数组发生改变
 
-        //shift 删除数组的第一个
-            // console.log(arr.shift());//返回的是删除项
-            // console.log(arr);//原有数组发生改变，返回的是删除的后的数组
+			//pop 删除数组最后一位
+			//console.log(arr.pop());//返回的是删除项
+			// console.log(arr);// 原先数组的改变,[1, 2, 3, 4] 返回的是删除后的数组
+			////删除数组最后一位的另一个写法
+			// arr.length=arr.length-1
+			// console.log(arr)[1, 2, 3, 4]
 
-        //splice();字符串的截取
-        //splice(n) 从n截取到最后
-            // console.log(arr.splice(0));//返回的是从头截取到尾[1, 2, 3, 4, 5]
-            // console.log(arr);//原有数组发生改变 []
-        //splice(n,m);//从索引n开始删除m个元素
-            // console.log(arr.splice(0,1));//1 返回的是截取
-            // console.log(arr);//删除后的数组，原有数组发生改变[2, 3, 4, 5]
-        //splice(n,m,x);//从索引n开始删除m个元素，用x替代x的位置
-            // console.log(arr.splice(0,2,-1,-2));//返回的是删除的元素
-            // console.log(arr);//原有数组发生改变，改编成了替代后的数组
+			//shift 删除数组的第一个
+			// console.log(arr.shift());//返回的是删除项
+			// console.log(arr);//原有数组发生改变，返回的是删除的后的数组
 
+      //最快清空数组的方法
+      // console.log(arr)
+      // arr.length = 0;
+      // console.log(arr)
 
-        //slice(); 字符串的截取
-            // console.log(arr.slice());//从头截取到最后
-            // console.log(arr.slice(""));//从头截取到最后
-            // console.log(arr.slice(0,3));//从索引0开始，到索引3，不包括3
-            // console.log(arr);//原有数组不变
+			//splice();数组的截取
+			//splice(n) 从n截取到最后
+			// console.log(arr.splice(0));//返回的是从头截取到尾[1, 2, 3, 4, 5]
+			// console.log(arr);//原有数组发生改变 []
+			//splice(n,m);//从索引n开始删除m个元素
+			// console.log(arr.splice(0,1));//1 返回的是截取
+			// console.log(arr);//删除后的数组，原有数组发生改变[2, 3, 4, 5]
+			//splice(n,m,x);//从索引n开始删除m个元素，用x替代x的位置
+			// console.log(arr.splice(0,2,-1,-2));//返回的是删除的元素
+			// console.log(arr);//原有数组发生改变，改编成了替代后的数组
 
-        //concat 数组的拼接
-            // var arr2=[-1,-2];
-            // console.log(arr.concat(arr2));//拼接后的数组
-            // console.log(arr);//原有数组不发生改变
-            // console.log(arr.concat())//数组复制
-            // console.log(arr);//原有数组不变
+			//slice(); 数组的截取
+			// console.log(arr.slice());//从头截取到最后
+			// console.log(arr.slice(""));//从头截取到最后
+			// console.log(arr.slice(0,3));//从索引0开始，到索引3，不包括3
+			// console.log(arr);//原有数组不变
 
-        //reverse() 数组倒过来排序
-            // console.log(arr.reverse());//[5, 4, 3, 2, 1]
-            // console.log(arr);//原有数组发生改变
+			//concat 数组的拼接
+			// var arr2=[-1,-2];
+			// console.log(arr.concat(arr2));//拼接后的数组
+			// console.log(arr);//原有数组不发生改变
+			// console.log(arr.concat())//数组复制
+			// console.log(arr);//原有数组不变
 
-        //sort() 排序
-            // console.log(arr.sort());//只能排序10以内的
-            // console.log(arr);//原有数组发生改变
-            // function sortNumber(a,b){return a-b};
-            // console.log(arr.sort(sortNumber));//这样就可以了；
+			//reverse() 数组倒过来排序
+			// console.log(arr.reverse());//[5, 4, 3, 2, 1]
+			// console.log(arr);//原有数组发生改变
 
-        //join(分隔符) 把数组中的每一项按照指定的分隔符，拼接成字符串；
-            
-            console.log(arr.join());//'1,2,3,4,5,0,11,22,33,10'
-            console.log(arr.join(""));//12345011223310
-            console.log(arr.join(","));//'1,2,3,4,5,0,11,22,33,10'
-            // var str = arr.join(" ")
-            // console.log(str);//返回的是改变后的字符串
-            // console.log(arr);//原有的数组不发生改变
+			//sort() 排序
+      //如果return 回的数字小于0,那么sort(n1,n2)交换位置。如果return的数值大于0，那么位置不变
+			// console.log(arr.sort());//只能排序10以内的
+			// console.log(arr);//原有数组发生改变
+			// function sortNumber(a,b){return a-b};
+			// console.log(arr.sort(sortNumber));//这样就可以了；
+      var arr = [4,56,1,5,6,0,8,11]
+        // arr.sort(function(a,b){
+        //   if(a > b){//a 代表的是后一个，b代表的第一个
+        //     console.log(a,b)
+        //     return -1 ;//这个意思就是a和b要交换位置
+        //   }
+        // })
+        // console.log(arr)
+        arr.sort(function(a,b){
+         return Math.random() - .5
+        })
+        console.log(arr)
 
-        //////////////////////////////有兼容性问题
+			//join(分隔符) 把数组中的每一项按照指定的分隔符，拼接成字符串；
 
-        //indexof/lastIndexOf---》此方法在ie8及其以下不兼容
-        //1)注意，此处的返回结果和string一样的，如果有返回的是索引，没有返回的是负一
-        // console.log(arr.indexOf(1));//0 
-        // console.log(arr.indexOf(12));//-1 
-        //2)indexof会进行隐式的转换，因为他用的是=== 所以要注意格式
-        var arr1 = ['1','2016'];
-        //console.log(arr.indexOf(1));//0
-        //3) indexof 只会按照每一个小组去获取，不会单个获取
-        // console.log(arr1.indexOf("2"));//-1
-        // console.log(arr1.indexOf("2016"));//1
+			// console.log(arr.join()); //'1,2,3,4,5,0,11,22,33,10'
+			// console.log(arr.join('')); //12345011223310
+			// console.log(arr.join(',')); //'1,2,3,4,5,0,11,22,33,10'
+			// var str = arr.join(" ")
+			// console.log(str);//返回的是改变后的字符串
+			// console.log(arr);//原有的数组不发生改变
 
-        //4)在ie8及其以下的兼容性的解决
-            //1、我们重新书写indexof方法
-            if (!Array.indexof){// 判断浏览器是否支持indexof的方法
-                Array.prototype.indexOf=function(el){//在原型上重新定义了indexof方法
-                    for (var i = 0; i < this.length;i++){//我们去循环，Array的一个实例
-                        if(this[i] === el){// 如果这个实例中有和我们indexof中的参数一样的那么返回索引
-                            return i
-                        }
-                    }
-                    return -1;// 如果没有返回 -1
-                }
-            }
-            //2、我们利用jq自带的工具去解决这个问题$.inArrary(i,ary);
-        //     console.log($.inArray(2,[1,2,3,4]));//1
-        //     console.log($.inArray("2",[1,2,3,4]));//-1
-        // //forEach---循环数组中的每一个选项
-        //使用 arr.forEach(callback(当前项的值，索引，操作的数组),callback的this)
-            //callback的this 默认的是undefined
-                //例如：打印一个一个数组的值
-                // function fn(ele,index,arr){
-                //     console.log(index+" "+ele)
-                // }
-                // arr.forEach(fn)
-        // 兼容性，只兼容ie9及其以上；
-            //手写的解决方式
-                Array.prototype.forEach=function(callback,context){
-                    //仅仅是为了支持写的一个判断
-                    // if(context==="undefined"){
-                    //     context=window
-                    // }
-                    context == 'undefined'?context=window:null;
-                    if("forEach" in Array.prototype){//如果在原型上有这个方法
-                        this.forEach(callback,context)//那么就用这个
-                        return;
-                    }
-                    
-                    //如果不支持
-                    for(var i=0;i<this.length;i++){//for循环的作用，只是为了提供i，和this[i].value
-                        if(typeof callback == "function"){
-                            callback.call(context,this[i],i,this)//改变callback的关键字，并且让其执行
-                        }
-                    }
-                }
-            //利用jq中$.each()方法来替代
-            //1.这个方法操作数组，或者对象比较方便
-            $.each(arr,function (index,value) {//index--索引值   value--值
-                   console.log(index)
-              })
-            //2.这个方法操作dom元素比较方便
-            $().each(function () {  })
-    
-    </script>
-</body>
+			//////////////////////////////有兼容性问题
+
+			//indexof/lastIndexOf---》此方法在ie8及其以下不兼容
+			//1)注意，此处的返回结果和string一样的，如果有返回的是索引，没有返回的是负一
+			// console.log(arr.indexOf(1));//0
+			// console.log(arr.indexOf(12));//-1
+			//2)indexof会进行隐式的转换，因为他用的是=== 所以要注意格式
+			// var arr1 = ['1', '2016'];
+			//console.log(arr.indexOf(1));//0
+			//3) indexof 只会按照每一个小组去获取，不会单个获取
+			// console.log(arr1.indexOf("2"));//-1
+			// console.log(arr1.indexOf("2016"));//1
+
+			//4)在ie8及其以下的兼容性的解决
+			//1、我们重新书写indexof方法
+			// if (!Array.indexof) {
+				// 判断浏览器是否支持indexof的方法
+			// 	Array.prototype.indexOf = function(el) {
+			// 		//在原型上重新定义了indexof方法
+			// 		for (var i = 0; i < this.length; i++) {
+			// 			//我们去循环，Array的一个实例
+			// 			if (this[i] === el) {
+			// 				// 如果这个实例中有和我们indexof中的参数一样的那么返回索引
+			// 				return i;
+			// 			}
+			// 		}
+			// 		return -1; // 如果没有返回 -1
+			// 	};
+			// }
+			//2、我们利用jq自带的工具去解决这个问题$.inArrary(i,ary);
+			//     console.log($.inArray(2,[1,2,3,4]));//1
+			//     console.log($.inArray("2",[1,2,3,4]));//-1
+			// //forEach---循环数组中的每一个选项
+			//使用 arr.forEach(callback(当前项的值，索引，操作的数组),callback的this)
+			//callback的this 默认的是undefined
+			//例如：打印一个一个数组的值
+			// function fn(ele,index,arr){
+			//     console.log(index+" "+ele)
+			// }
+			// arr.forEach(fn)
+			// 兼容性，只兼容ie9及其以上；
+			//手写的解决方式
+			// Array.prototype.forEach = function(callback, context) {
+			// 	//仅仅是为了支持写的一个判断
+			// 	// if(context==="undefined"){
+			// 	//     context=window
+			// 	// }
+			// 	context == 'undefined' ? (context = window) : null;
+			// 	if ('forEach' in Array.prototype) {
+			// 		//如果在原型上有这个方法
+			// 		this.forEach(callback, context); //那么就用这个
+			// 		return;
+			// 	}
+
+			// 	//如果不支持
+			// 	for (var i = 0; i < this.length; i++) {
+			// 		//for循环的作用，只是为了提供i，和this[i].value
+			// 		if (typeof callback == 'function') {
+			// 			callback.call(context, this[i], i, this); //改变callback的关键字，并且让其执行
+			// 		}
+			// 	}
+			// };
+			// //利用jq中$.each()方法来替代
+			// //1.这个方法操作数组，或者对象比较方便
+			// $.each(arr, function(index, value) {
+			// 	//index--索引值   value--值
+			// 	console.log(index);
+			// });
+			// //2.这个方法操作dom元素比较方便
+			// $().each(function() {});
+		</script>
+	</body>
 </html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    ul,li{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .bts{
+      display: flex;
+      -webkit-display: flex;
+    }
+    .bts button{
+      justify-content: space-around;
+      -webkit-justify-content: space-around;
+    }
+    .box-wrap{
+      height: 150px;
+    }
+    .box-wrap li{
+      margin-top: 26px;
+      width: 100px;
+      height: 100px;
+      float: left;
+      text-align: center;
+      line-height: 100px;
+      margin-left: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="btns">
+    <button class="random">随机排序</button>
+    <button class="nomal">顺序排序</button>
+  </div>
+  <ul class="box-wrap">
+    <li>11</li>
+    <li>32</li>
+    <li>33</li>
+    <li>4</li>
+    <li>5</li>
+    <li>64</li>
+    <li>7</li>
+    <li>8</li>
+  </ul>
+</body>
+</html>
+
+<script>
+(function(){
+  var btns = document.querySelector(".btns")
+  var random = document.querySelector(".random")
+  var nomal = document.querySelector(".nomal")
+  var boxWrap = document.querySelector(".box-wrap")
+  var list = boxWrap.querySelectorAll("li")
+  var arrList = Array.from(list)
+  // var arrList = Array.prototype.slice.apply(list)
+  /*
+  // 1. 我们是要类数组转换为数组
+  // 2. 点击的时候排序是根据每个li内容来排序
+  // 3. 根据appendChild的特性，然后直接添加到ul里面
+  */
+
+  nomal.onclick =function(){
+    //正常排序
+    arrList.sort(function(n1,n2){
+      return n1.innerHTML - n2.innerHTML
+    })
+    write(arrList,boxWrap)
+  }
+  random.onclick = function(){
+    arrList.sort(function(n1,n2){
+      return Math.random()-.5
+    })
+    write(arrList,boxWrap)
+  }
+
+  function write(arr,par){
+    arr.forEach(function(item){
+      par.appendChild(item)
+    })
+  }
+
+
+})()
+</script>

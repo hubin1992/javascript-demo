@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			div,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+			}
+			.fl {
+				float: left;
+			}
+			.left,
+			.right {
+				width: 200px;
+				height: 600px;
+				border: 1px dashed #ccc;
+			}
+			.btn {
+				width: 132px;
+				height: 60px;
+			}
+			.box li {
+				float: left;
+				list-style: none;
+				width: 20px;
+				height: 20px;
+				border: 1px solid orange;
+			}
+			.box li.active {
+				background: orangered;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="handling">
+			<div class="left fl">
+				这个情景给了中国社会一个极其深刻的印象，那就是，原来美国的言论自由真的是假招子，它必须要以政治正确为基础。
+			</div>
+			<div class="fl">
+				<button class="btn">
+					点击搬运<br />
+					------&gt
+				</button>
+				<ul class="box">
+					<li class="active"></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+			<div class="right fl"></div>
+
+			<script>
+				(function() {
+					var handling = document.querySelector('.handling'),
+						btn = handling.querySelector('.btn'),
+						left = handling.querySelector('.left'),
+						right = handling.querySelector('.right');
+					box = handling.querySelector('.box');
+					boxs = box.querySelectorAll('li');
+					//1. 我们就是需要一个个获取到字符
+					//2. 然后我们复制到承接里面
+					btn.timer = null;
+					var text = left.innerHTML.trim();
+					btn.onclick = function() {
+						var num = 0;
+						clearInterval(btn.timer);
+						btn.timer = setInterval(function() {
+							for (var i = 0; i < boxs.length; i++) {
+								boxs[i].classList.remove('active');
+							}
+							boxs[num % boxs.length].className = 'active';
+							//  思路不够开阔，api不够熟练
+							left.innerHTML = text.substring(num);
+							right.innerHTML = text.slice(0);
+							num++;
+							if (num > text.length) {
+								clearInterval(btn.timer);
+							}
+						}, 20);
+					};
+				})();
+			</script>
+		</div>
+	</body>
+</html>

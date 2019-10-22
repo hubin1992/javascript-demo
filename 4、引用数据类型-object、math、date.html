@@ -28,7 +28,7 @@
                 //例如：
                     var num = [1,2,3,4]
                     Math.max(num);//NaN
-                    Math.max(null,num);//4
+                    Math.max.apply(null,num);//4
             // console.log(Math.min(12,12,2,0,1));//取最小值
             // console.log(Math.abs(-1));//取绝对值
             // console.log(Math.round(1.1));//四舍五入
