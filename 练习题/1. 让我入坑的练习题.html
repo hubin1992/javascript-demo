@@ -10,7 +10,7 @@
 		<script>
 			var length = 10;
 			function fn() {
-				console.log(this.length);
+				// console.log(this.length);
 			}
 			var obj = {
 				length: 5,
@@ -30,7 +30,7 @@
 						   */
 
 			var i = 0;
-			alert(++i == i++);
+			// alert(++i == i++);
 			// A： true
 			// B，false
 			// C，undefined
@@ -45,10 +45,10 @@
 			          最终结果 为 true
 			       */
 
-			console.log(1 + '2' + '2');
-			console.log(1 + +'2' + '2');
-			console.log('A' - 'B' + '2');
-			console.log('A' - 'B' + 2);
+			// console.log(1 + '2' + '2');
+			// console.log(1 + +'2' + '2');
+			// console.log('A' - 'B' + '2');
+			// console.log('A' - 'B' + 2);
 
 			//  A.122 122 NaN NaN
 			//  B.122 32 NaN NaN2
@@ -87,6 +87,39 @@
             B. 100 undefined 100
             C. 100  101
             D. 100  100 */
+
+
+            // for(var i = 0;i<5;i++){
+            //   setTimeout(function(i){
+            //     return function(){
+            //       console.log(i)
+            //     }
+            //   }(i),i*1000)
+            // }
+            // 0,1,2,3,4
+            //入坑解析： 这是个闭包的题目，干扰项就是定时器，我们自执行的函数不会等定期器，会先执行，定时器执行的return的内容。这就是我为什么会以为不输出的原因
+
+            // var arr = [1,2];
+            // var arr1 = arr.concat();// arr1 [1,2]
+            // arr1.push(arr.splice(1,0))
+            // console.log(arr) //[1,2]
+            // console.log(arr1) //[1,2,[]]
+            //这个就是需要注意的是：arr.concat()这样是不拼接
+
+            // var n = 'gome haha heihei'.indexOf("hx")
+            //索引查询  如果有就是索引值，没有就是-1,
+            //入坑：是一个个查找匹配的，如果所有的都匹配到了，只会返回第一个字母的索引值。如果有其中的一个字母没有匹配上返回的是-1
+            // console.log(n)
+
+           
+           //如何删除数组的第二项和第三项()并且得到新数组的第二项为2
+           var arr = ['a','b',2,'e']
+           var arr1  = arr.splice(2,2,2);// 从索引为2开始删掉两个，并把2加入到删除的位置
+          
+
+            //数组中原有数组不发生的改变的就只有两个
+            // slice  concat
+            
 		</script>
 	</body>
 </html>

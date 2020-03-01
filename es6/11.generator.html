@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// generator的原理
+			// 协程
+			// 传统的编程语言，早有异步编程的解决方案（其实是多任务的解决方案）。其中有一种叫做"协程"（coroutine），意思是多个线程互相协作，完成异步任务。
+
+			// 协程有点像函数，又有点像线程。它的运行流程大致如下。
+
+			// 第一步，协程A开始执行。
+			// 第二步，协程A执行到一半，进入暂停，执行权转移到协程B。
+			// 第三步，（一段时间后）协程B交还执行权。
+			// 第四步，协程A恢复执行。
+			// 上面流程的协程A，就是异步任务，因为它分成两段（或多段）执行。
+      //yield
+      //他就是一个暂停符合，如果协程中遇到yid就暂停协程a跳到协程b中。等到b中事情执行完成，然后在回到协程a中继续执行以此来执行
+			//逻辑性的问题
+			function* foo(x) {
+				let a = yield x + 1;
+				console.log(a); //3
+				let b = yield a + 2;
+				console.log(b); //10
+				let c = yield b + a;
+				console.log(c); //4
+				return x + 3;
+			}
+			const result = foo(2);
+			console.log(result.next()); // 启动默认用的传递进来的值  3
+			console.log(result.next(3)); // 这个设置的第一个yie的变量a 5
+			console.log(result.next(10)); // 这个设置的第二个yie的变量b 13
+			console.log(result.next(4)); // 这个设置的第二个yie的变量c，但是return 的返回值用的是传递的值 5
+
+			//他的本质还是为了改变promise的书写
+		</script>
+	</body>
+</html>

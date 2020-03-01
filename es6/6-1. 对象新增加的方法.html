@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			//Object.is()用来比较
+
+			//Object.assign()-->浅拷贝
+			//   如果第一个不是对象，那么他会自动转换。
+			//   由于undefined和null无法转为对象，所以如果第一个参数是undefined或null，就会报错。
+
+      
+			//Object.create(proto,[propertiesObject])创建一个新对象，使用现有的对象来提供新创建的对象的__proto__
+
+			//Object.setPrototypeOf(obj,proto) 设置obj的prototype为proto
+
+			//Object.getPrototypeOf()
+
+			//Object.key() 返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键名。
+			//Object.values方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值。
+			//Object.entries()方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值对数组。
+
+			//====================================
+			//Object.is()  这个用来比较两个是否相等的跟 === 几乎一样，不会进行隐士转换。返回的是布尔值
+			//注意： +0 和 - 0  是不相等的     NaN 和 NaN 是相等的
+
+			console.log(Object.is({}, {}));
+			console.log(Object.is([], []));
+			console.log(Object.is('', ''));
+			console.log(Object.is(+0, -0));
+			console.log(Object.is(NaN, NaN));
+			console.log(Object.is('', 0));
+
+			//====================================
+			//Object.assign(target,obj1,obj2)  用于对象的合并，类似于jq中 extend
+			//注意0: 浅拷贝:拷贝的对象里面如果还嵌套着对象，那么他只能拷贝第二层对象的地址，如果源改变，拷贝的也会改变
+			//注意1: 拷贝的机制是只拷贝可枚举的，不可枚举的和继承的都不会去拷贝
+			//注意2: 如果对象名相同，后者会覆盖前者
+			//注意3: 如果参数不是对象，则会转换成对象，
+			//注意4: 因为null和undefined没法转换为对象，所以会报错，前提是null和undefined是target参数
+			//注意5: 测试了数字，布尔和字符串，只有字符串可以转换为可枚举的，其他转换成都成了不可枚举的
+
+			//Object.assign的基本使用
+			let obj = { a: 1, c: { name: 'haha' } };
+			let obj1 = { b: 2 };
+			let obj3 = Object.assign({}, obj, obj1);
+			console.log(obj3);
+
+			//浅拷贝测试
+			obj.c.name = 'hehe';
+			console.log(obj3);
+			console.log(obj);
+
+			//数字的测试
+			console.log(Object.assign(2)); //Number {2}
+
+			//数组测试以及同名数组的测试，后者覆盖了前者
+			console.log(Object.assign({}, [1, 2, 3], [4, 5, 6]));//{0: 4, 1: 5, 2: 6}
+
+			//null和undefined 测试
+      //放在首位
+			// console.log(Object.assign(null));//undefined or null to object
+			// console.log(Object.assign(undefined));//undefined or null to object
+      //不放在首位
+      console.log(Object.assign({},null));//这样返回的是空对象
+      console.log(Object.assign({},undefined));//这样返回的是空对象
+      //多个基本数据类型组合测试
+			let num = 10;
+			let a = 'abc';
+			let state = true;
+			console.log(Object.assign({}, num, a, state)); //{0: "a", 1: "b", 2: "c"}
+
+      //=======================================
+      
+
+		</script>
+	</body>
+</html>

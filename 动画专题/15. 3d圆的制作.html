@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			div,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.wrap {
+				margin: 0 auto;
+				width: 500px;
+				height: 500px;
+				perspective: 500px;
+				position: relative;
+				/* overflow: hidden; */
+			}
+			.content {
+				/* 设置这个宽度没有影响 */
+				position: absolute;
+				left: 50%;
+				top: 100px;
+				transform: translateX(-50%);
+				width: 129px;
+				height: 1170px;
+				transform-style: preserve-3d;
+			}
+			.content li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 129px;
+				height: 1170px;
+				background: url('./bg/1.png') no-repeat;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+        var outDeg = 360 / 20
+        var innerDeg = (180 - outDeg)/2
+        var w = 129
+
+				var content = document.querySelector('.content');
+				var str = '';
+				for (var i = 0; i < outDeg; i++) {
+					str += `<li style="background:url('bg/${i + 1}.png') no-repeat;"></li>`;
+				}
+
+				content.innerHTML = str;
+			};
+		</script>
+	</head>
+	<body>
+		<div class="wrap">
+      <ul class="content"></ul>
+      
+      <!-- 
+        初中数学没学好，计算不出角度来，暂时放一下吧
+
+       -->
+		</div>
+	</body>
+</html>

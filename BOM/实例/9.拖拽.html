@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			body {
+				margin: 0;
+			}
+			.box {
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script>
+			{
+				let box = document.querySelector('.box');
+				box.addEventListener('mousedown', function(e) {
+					//获取原始的top,left值
+					let startX = getOffset(box, 'offsetLeft');
+					let startY = getOffset(box, 'offsetTop');
+					//获取开始的鼠标位置
+					let x = e.clientX;
+					let y = e.clientY;
+
+					document.addEventListener('mousemove', move);
+					function move(e) {
+						// 获取的边界值
+						let winW = document.documentElement.clientWidth;
+						let winH = document.documentElement.clientHeight;
+						let boxW = box.offsetWidth;
+						let boxH = box.offsetHeight;
+						let maxX = winW - boxW;
+						let maxY = winH - boxH;
+						//获取现在距离开始的鼠标位置
+						let nowX = e.clientX - x;
+						let nowY = e.clientY - y;
+						let t = startY + nowY;
+						let l = startX + nowX;
+						t = t <= 0 ? 0 : t;
+						t = t >= maxY ? maxY : t;
+						l = l >= maxX ? maxX : l;
+						l = l <= 0 ? 0 : l;
+						box.style.top = t + 'px';
+						box.style.left = l + 'px';
+					}
+
+					document.addEventListener('mouseup', function() {
+						document.removeEventListener('mousemove', move);
+					});
+				});
+
+				function getOffset(ele, attr) {
+					let par = ele.parentNode;
+					let val = ele[attr];
+					while (par && par.tagName.toLowerCase() != 'body') {
+						val += par[attr];
+						par = par.parentNode;
+					}
+					return val;
+				}
+			}
+		</script>
+	</body>
+</html>
+
+<!-- 
+  // 拖拽的思路
+  鼠标按下的时候加上事件
+  鼠标抬起的时候移除事件
+  鼠标移动的时候计算位置
+  计算位置：初始位置+鼠标位置的差值
+  防止拖拽失去焦点，我们移动的时候最好是给docuemnt
+
+  //碰到的问题
+  1. client的差值问题  
+    移动的时候，我们会获取到最新的，而我们需要减去按下的时候值
+  2. 移除事件的基本语法
+    ele.removeEventListener(type,listen)
+
+  3. 我们移除的是移动事件，不让其移动就可以了，不需要去移除按下的事件，那样容易有bug
+
+
+
+
+ -->

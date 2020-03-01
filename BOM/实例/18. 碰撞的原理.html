@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>碰撞监测</title>
+		<style>
+			div {
+				margin: 0;
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				background: red;
+			}
+			.box1 {
+				top: 10px;
+				left: 10px;
+			}
+			.box2 {
+				top: 50%;
+				left: 50%;
+				background: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<script>
+			{
+				// 拖拽其实就是做边界判断
+				let box1 = document.querySelector('.box1');
+				let box2 = document.querySelector('.box2');
+
+				box1.addEventListener('mousedown', function(e) {
+					let start = {
+						x: css(box1, 'left'),
+						y: css(box1, 'top'),
+					};
+					let page = {
+						l: e.clientX,
+						t: e.clientY,
+					};
+					document.addEventListener('mousemove', move);
+					function move(e) {
+						let pos = {
+							l: e.clientX,
+							t: e.clientY,
+						};
+						box1.style.left = pos.l - page.l + start.x + 'px';
+						box1.style.top = pos.t - page.t + start.y + 'px';
+            let state = collision(box1, box2);
+            if(state){
+              box2.style.background = "yellow"
+            }else{
+              box2.style.background = "blue"
+            }
+					}
+					document.addEventListener(
+						'mouseup',
+						function(e) {
+							document.removeEventListener('mousemove', move);
+						},
+						{
+							once: true,
+						}
+					);
+				});
+
+				//碰撞监测(这个位置我们 理解错了，所谓的碰撞，不是接触，碰撞是四个方向都有交集才可以)
+				function collision(ele1, ele2) {
+					let ele1Size = ele1.getBoundingClientRect();
+					let ele2Size = ele2.getBoundingClientRect();
+					if (ele1Size.right > ele2Size.left & ele1Size.bottom > ele2Size.top & ele1Size.left < ele2Size.right && ele1Size.top < ele2Size.bottom) {
+						return true;
+					}
+				}
+
+				//css函数
+				function css(ele, attr, val) {
+					if (arguments.length === 3) {
+						ele[attr] = value;
+					} else {
+						return parseInt(getComputedStyle(ele)[attr]);
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
+<!-- 
+  //  遇到的问题，我们要明白，碰撞和接触是两个概念，接触只需要有一个条件满足就可以，而碰撞则需要四个条件
+
+
+
+ -->

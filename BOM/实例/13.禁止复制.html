@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				height: 100px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">我不让你复制</div>
+		<script>
+			{
+				let box = document.querySelector('.box');
+				document.addEventListener('keydown', function(e) {
+					if ((e.metaKey || e.ctrlKey) && e.keyCode == 67) {
+            //组织浏览器默认事件
+						e.preventDefault();
+					}
+				});
+        //组织文字的默认选中
+        box.addEventListener('selectstart', function(e) {
+					e.preventDefault()
+				});
+
+        //组织右键弹出
+        document.addEventListener("contextmenu",function(e){
+          e.preventDefault()
+        })
+
+			}
+		</script>
+	</body>
+</html>

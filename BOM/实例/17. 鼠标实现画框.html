@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box{
+      border: 1px solid #ccc;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <script>
+  {
+    document.addEventListener("mousedown",function(e){
+      //鼠标按下的时候，我们需要获取到当前位置
+      let start = {
+        l: e.clientX,
+        t: e.clientY
+      }
+        let div = document.createElement("div");
+        div.classList.add("box")
+        document.body.appendChild(div)/*  */
+      function move(e){
+        //当我们鼠标移动的时候我们去创建一个box并且把他添加到页面中去
+        
+        let pos = {
+          l:e.clientX,
+          t:e.clientY
+        }
+        //这个地方我们需要做一个比较因为有可能我们是倒着拖的
+        let curL = Math.min(start.l,pos.l)
+        let curT = Math.min(start.t,pos.t)
+        div.style.left = curL+"px"
+        div.style.top = curT+"px"
+        //有可能会出现负数
+        div.style.width = Math.abs(pos.l - start.l)+"px"
+        div.style.height = Math.abs(pos.l - start.l)+"px"
+
+      }
+      document.addEventListener("mousemove",move)
+      document.addEventListener("mouseup",function(e){
+        document.removeEventListener("mousemove",move)
+        div.remove()
+      },{
+        once:true
+      })
+    })
+    
+  }
+  </script>
+</body>
+</html>

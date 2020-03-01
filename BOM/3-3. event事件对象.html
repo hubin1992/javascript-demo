@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.btn {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				left: 10px;
+				top: 20px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="btn">点击测试</div>
+		<script>
+			// 只有事件才有event事件对象，他里面存方了一些详细的信息，今天来看一下
+			// let btn  = document.querySelector(".btn")
+			// btn.onclick= function(ev){
+			//   console.log(ev)
+			// }
+
+			// 1. e.clintX[Y]  鼠标距离当前可视区的距离
+
+			// document.onclick = function(e) {
+			// 	alert(e.clientX);
+			// };
+
+			// //利用这个我们可以制作模块跟着鼠标移动
+			// let btn = document.querySelector('.btn');
+			// document.onmousemove = function(e) {
+			// 	btn.style.left = e.clientX + 'px';
+			// 	btn.style.top = e.clientY + 'px';
+			// };
+
+			//2. e.pageX[Y]  ==  e.pageY在如果没有滚动条那么pageY = clientY,如果有滚动条那么pageX = clintY+scrollTop
+
+			//3. e.target 就是我们触发的元素
+			// document.onclick = function(e) {
+			// 	console.log(e.target);//html
+			// };
+
+			//4. e.ctrlKey , e.shiftKey, e.altKey  对应的是布尔值，当我们使用这些键的时候，他们使用的true，如果不是使用默认就是false
+
+			// document.onclick = function(e){
+			//   console.log(e.ctrlKey,e.shiftKey,e.altKey)
+			// }
+
+			//5. 阻止事件的冒泡机制
+			// e.stopPropagation() || e.cancelBubble = true(兼容ie浏览器的)
+
+			//6. 阻止默认事件
+			// e.preventDefault() || return false;
+		</script>
+	</body>
+</html>

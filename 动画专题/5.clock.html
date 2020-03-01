@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			div,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.time {
+				width: 300px;
+				height: 300px;
+				border: 4px solid red;
+				margin: 100px auto;
+				border-radius: 50%;
+				position: relative;
+			}
+			.time li {
+				position: absolute;
+				top: 0;
+				left: 148px;
+				width: 4px;
+				height: 6px;
+				background: #000;
+				transform-origin: 2px 150px; /*画个坐标轴就看出来了*/
+			}
+			.time li:nth-of-type(5n + 1) {
+				/*nth 索引从1开始*/
+				width: 6px;
+				height: 10px;
+				background: red;
+			}
+			/* .time span {
+				transform-origin: center 150px;
+			} */
+			.hours,
+			.secound,
+			.minute {
+				position: absolute;
+        transform-origin:center bottom ;
+			}
+			.hours {
+				top: 110px;
+				left: 145px;
+				width: 10px;
+				height: 40px;
+				background: chocolate;
+       
+			}
+			.minute {
+				top: 90px;
+				left: 147px;
+				width: 6px;
+				height: 60px;
+				background: aquamarine;
+			}
+			.secound {
+				top: 70px;
+				left: 149px;
+				width: 2px;
+				height: 80px;
+				background: blueviolet;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 
+    clcok 
+    1. 刻度的旋转以及旋转点变化
+    2. 获取时间的时候，分针也是有循环渐进的
+   -->
+
+		<div class="time">
+			<span class="hours"></span>
+			<span class="minute"></span>
+      <span class="secound"></span>
+      <span class="icon"></span>
+			<ul class="clock"></ul>
+		</div>
+
+		<script>
+			(function() {
+				//创造li
+				var clock = document.querySelector('.clock');
+				var str = '';
+				for (var i = 0; i < 60; i++) {
+					str += '<li></li>';
+				}
+				clock.innerHTML = str;
+			})();
+
+			(function() {
+				//刻度旋转布局
+				var aLi = document.querySelectorAll('.clock li');
+				var eleHour = document.querySelector('.hours');
+				var eleMinute = document.querySelector('.minute');
+				var eleSecond = document.querySelector('.secound');
+				aLi.forEach(function(item, index) {
+					item.style.transform = 'rotate(' + index * 6 + 'deg)';
+				});
+				// 修改指针的方向
+				getTime(eleHour,eleMinute,eleSecond);
+        setInterval(function(){
+          getTime(eleHour,eleMinute,eleSecond);
+        },1000)
+				function getTime(eleHour, eleSecondeleMinute, eleSecond) {
+					var date = new Date();
+					var hours = date.getHours();
+					var Minutes = date.getMinutes();
+					var Seconds = date.getSeconds();
+          eleHour.style.transform = "rotate("+30*(hours+Minutes/60)+"deg)"
+          eleMinute.style.transform = "rotate("+6*(Minutes+Seconds/60)+"deg)"
+          eleSecond.style.transform = "rotate("+6*Seconds+"deg)"
+				}
+			})();
+		</script>
+	</body>
+</html>

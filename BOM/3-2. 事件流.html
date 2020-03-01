@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			body {
+				margin: 0;
+			}
+			div {
+				margin: 0;
+				padding: 0;
+			}
+			.box1 {
+				height: 100px;
+				width: 100px;
+				background: red;
+				overflow: hidden;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1"></div>
+		<script>
+			//事件流包含两个部分
+			//1. 事件冒泡-->  如果父元素绑定了事件，通过子元素也会触发，就是泡泡一样上去浮动
+      //2. 事件流的执行顺序是先执行捕获，然后在执行冒泡
+			
+			box.addEventListener('click', function() {
+				console.log('box冒泡');
+			});
+			document.body.addEventListener('click', function() {
+				console.log('body冒泡');
+			});	
+      // document.body.addEventListener('click', function() {
+			// 	console.log('body冒泡');
+			// },true);
+			document.documentElement.addEventListener('click', function() {
+				console.log('html冒泡');
+			});
+
+			//这就是冒泡机制，点击子级，父级也会触发
+			//addEventListener 默认的是false就是使用冒泡
+
+			//2. 事件捕获 --> 输出的顺序正好与冒泡相反
+      let box = document.querySelector('.box1');
+      box.addEventListener('click', function() {
+				console.log('box捕获');
+			},true);
+			document.body.addEventListener('click', function() {
+				console.log('body捕获');
+			},true);
+			document.documentElement.addEventListener('click', function() {
+				console.log('html捕获');
+			},true);
+			
+		 </script>
+	</body>
+</html>

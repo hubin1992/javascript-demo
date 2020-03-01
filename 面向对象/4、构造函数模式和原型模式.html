@@ -13,6 +13,7 @@
             this.name = name;
             this.age = age;
         }
+        Fn.prototype.index = 12
         var f2= new Fn();//当new的时候，他就是一个类了；
         var f1 = new Fn();//当new的时候，他就是一个类了；
 
@@ -28,6 +29,7 @@
         console.log('age' in f2);//true;
         //7、hasownpropertype 检查是不是私有的属性
         console.log(f2.hasOwnProperty("name"));//true;
+        console.log(f2.hasOwnProperty("index"));//false;
 
         //获取公有属性，我感觉没什么用；
         function getPublicAttr(attr,obj){
@@ -52,7 +54,7 @@
         //方式1
         function Fn(){};
         var obj = Fn.prototype
-        pro.getx=function(){
+        obj.getx=function(){
 
         }
 

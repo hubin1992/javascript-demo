@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>数据结构</title>
+	</head>
+
+	<body>
+		<div class="main"></div>
+		<script>
+			//Set  本身是一个构造函数，类似于数组，但是成员都是唯一的，没有重复的值,而且返回的是一个对象
+			//add(value)：添加某个值，返回 Set 结构本身。
+			//delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+			//has(value)：返回一个布尔值，表示该值是否为Set的成员。
+			//clear()：清除所有成员，没有返回值。
+			//本身还有一个size的属性
+			//============================================
+			//Set--->可以用来去重复
+			//set里面去重的用的是Object.is()的思想 5!==="5"
+
+			let s = new Set([1, 2, 3, 5, 5, 5, 6, 2, 23]);
+			console.log(s); //
+			console.log([...s]);
+
+			// object is not iterable
+			// // let o = new Set({a:1,b:2})
+			// console.log(o)
+
+			//Set的实例属性和方法
+			//add()
+			s.add(0);
+			console.log(s); //Set( {1,2,3,5,6,23,0}）
+			console.log(s.has(0)); //true
+			console.log(s.size); //7 s.size == length
+			console.log(s.clear()); //清除所有成员，没有返回值。
+
+			//Set遍历操作
+			// keys()： 返回键名的遍历器
+			// values()： 返回键值的遍历器
+			// entries()： 返回键值对的遍历器
+			// forEach()： 使用回调函数遍历每个成员
+
+			//============================================
+
+			//Weakset 也是不重复的值的集合
+			//1. Weakset 的参数只能是对象
+			//2. WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存
+			//3. Weakset没有size属性
+			//4. Weakset的方法
+			//1) add
+			//2) has
+			//3) delete
+			//4. WeakSet 的一个用处，是储存 DOM 节点，而不用担心这些节点从文档移除时，会引发内存泄漏
+
+			const foos = new WeakSet();
+			class Foo {
+				constructor() {
+					foos.add(this);
+				}
+				method() {
+					if (!foos.has(this)) {
+						throw new TypeError('Foo.prototype.method 只能在Foo的实例上调用！');
+					}
+				}
+			}
+			//上面代码保证了Foo的实例方法，只能在Foo的实例上调用。这里使用 WeakSet 的好处是，foos对实例的引用，不会被计入内存回收机制，所以删除实例的时候，不用考虑foos，也不会出现内存泄漏。
+			//内存泄漏（Memory Leak）是指程序中己动态分配的堆内存由于某种原因程序未释放或无法释放，造成系统内存的浪费，导致程序运行速度减慢甚至系统崩溃等严重后果。比如说，全局属性，比如说闭包
+
+			//============================================
+
+			//map --》 解决object键名只能是字符串的弊端，在map中键名可以是任何形式的数据
+			const m = new Map();
+			const o = { p: 'Hello World' };
+			m.set(o, 'content'); // 将对象设置为m的键名
+			console.log(m.get(o)); //content
+			console.log(m.has(o)); //true
+			console.log(m.delete(o)); //true
+			console.log(m.has(o)); //false
+
+			//如果读取一个为止的键名那么返回的是undefined
+			console.log(new Map().get('asfddfsasadf')); //undefined
+
+			// 关于引用数据类型作为键名要注意的地方
+			const map = new Map();
+			map.set([1], 'o');
+			console.log(map.get([1])); //undefined 因为对应的是内存地址，内存地址不一样
+
+			//map的属性
+			//size
+			let size = new Map();
+			console.log(size.set('a', { a: 1 }).size); //1
+
+			//Map.prototype.set(key, value)
+			//Map.prototype.get(key)
+			//Map.prototype.has(key)
+			//Map.prototype.delete(key)
+			//Map.prototype.clear(key)
+			//=================================
+			//WeakMap
+			//与map不同的地方
+			//1. 受对象作为键名（null除外），不接受其他类型的值作为键名。
+			//2. WeakMap的键名所指向的对象，不计入垃圾回收机制。
+			const e1 = document.getElementById('foo');
+			const e2 = document.getElementById('bar');
+			const arr = [
+				[e1, 'foo 元素'],
+				[e2, 'bar 元素'],
+			];
+
+			//如果我们引用了这两个数据，我们不去手动删除，垃圾回收机制是不去回收的如果我们用weakMap就可以，因为他是弱引用
+			const wm = new WeakMap();
+			const element = document.getElementById('example');
+			wm.set(element, 'some information');
+			wm.get(element); // "some information"
+		</script>
+	</body>
+</html>

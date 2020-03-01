@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+
+      //1. Promise的基本使用使用
+			var p = new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					resolve('success');
+				}, 1000);
+				console.log('创建一个新的promise');
+			});
+			p.then(function(x) {//success
+				console.log(x);
+      });
+      
+      //2. promise的链式调用
+      function ajax(url){
+        return new Promise((resolve,reject)=>{
+          $.ajax({
+            url:url,
+            success:function(data){
+              resolve(data)
+            },
+            error:function(err){
+              reject(err)
+            }
+          })
+        })
+      }
+      var a = ajax()
+      a.then(function(data){
+        return ajax(data)
+      },function(err){
+        console.log(err)
+      }).then(function(data){
+        return ajax(data)
+      },function(err){
+        console.log(err)
+      })
+
+      
+		</script>
+	</body>
+</html>

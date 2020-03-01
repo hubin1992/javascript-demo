@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>百度音乐榜单</title>
+		<style>
+			ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			h2 {
+				margin: 0;
+			}
+			#wrap {
+				margin: 30px auto;
+				width: 482px;
+				padding: 5px;
+				position: relative;
+				border: 1px solid #000;
+				background: #eee;
+			}
+			.title {
+				font: bold 18px/40px '宋体';
+				text-align: center;
+				border-bottom: 1px solid #000;
+			}
+			#list {
+				padding-left: 2px;
+			}
+			#list li {
+				opacity: 0.8;
+				font: 14px/36px '宋体';
+				border-bottom: 1px solid #000;
+			}
+			#list li:hover {
+				opacity: 1;
+			}
+			#list label input {
+				margin: 0 20px 0 30px;
+			}
+			input[type='chekbox'] {
+				width: 20px;
+				height: 20px;
+			}
+			.footer {
+				font: 16px/36px '宋体';
+			}
+		</style>
+	</head>
+	<body>
+		<section id="wrap">
+			<h2 class="title">百度音乐榜单</h2>
+			<ul id="list">
+				<!-- <li>
+              <input type="checkbox" />
+              <span>第一条信息</span>
+              <a href="javascript:;" class="collect">收藏</a>
+              <a href="javascript:;" class="cancelCollect">取消收藏</a>
+              <a href="javascript:;" class="remove">删除</a>
+            </li> -->
+			</ul>
+			<footer class="footer">
+				<label><input type="checkbox" id="checkAll" />全选/全不选</label>
+				<a href="javascript:;" id="remove">删除</a>
+				<input type="text" id="newInfo" />
+				<a href="javascript:;" id="add">添加</a>
+			</footer>
+		</section>
+		<script>
+			{
+				let data = [
+					{
+						id: 0,
+						title: '残酷月光 - 费启鸣',
+						checked: true,
+						collect: true,
+					},
+					{
+						id: 1,
+						title: '兄弟 - 艾热',
+						checked: false,
+						collect: false,
+					},
+					{
+						id: 2,
+						title: '毕生 - 夏增祥',
+						checked: false,
+						collect: true,
+					},
+					{
+						id: 3,
+						title: '公子向北去 - 李春花',
+						checked: false,
+						collect: false,
+					},
+					{
+						id: 4,
+						title: '战场 - 沙漠五子',
+						checked: true,
+						collect: false, //是否收藏 true 收藏 false 没有收藏
+					},
+				];
+				let list = document.querySelector('#list');
+				//获取全选按钮
+				let allSelect = document.querySelector('#checkAll');
+				let newInfo = document.querySelector('#newInfo');
+				let add = document.querySelector('#add');
+				let remove = document.querySelector('#remove');
+				let state = false;
+				//init 数据初始化
+				let render = () => {
+					let str = '';
+					data.forEach((item, index) => {
+						str += `<li>
+			           <input type="checkbox"  ${item.checked ? 'checked' : ''}/>
+			           <span>${item.title}</span>
+			           <a href="javascript:;" class="collect">${item.collect ? '收藏' : '取消收藏'}</a>
+			           <a href="javascript:;" class="remove">删除</a>
+			         </li>`;
+					});
+					list.innerHTML = str;
+					addEvn(); //因为是数据驱动，所以我们每次数据改变的时候是重新渲染，如果渲染，我们不去重新加事件，那么他以前绑定的事件会消失
+				};
+				render();
+
+				function addEvn() {
+					let lists = list.querySelectorAll('li');
+					lists.forEach(function(item, index) {
+						let check = item.querySelector('input');
+						let collect = item.querySelector('.collect');
+						let remove = item.querySelector('.remove');
+						check.onclick = function() {
+							//此处为什么会自己查找item--->这个应该牵扯到js运行的底层原理作用域的问题，因为foreach的原理，是每循环一次创建一个作用域，而我们点击的事件就是在当前作用域中执行的
+							data[index].checked = !data[index].checked;
+							// 所有的选项都是选中的时候全选按钮默认也是选中
+							state = data.every(item => {
+								return item.checked;
+							});
+							allSelect.checked = state;
+							render();
+						};
+						collect &&
+							(collect.onclick = function() {
+								data[index].collect = !data[index].collect;
+								render();
+							});
+
+						remove.onclick = () => {
+							data.splice(index, 1);
+							render();
+						};
+					});
+				}
+				//全选按钮
+				allSelect.onclick = () => {
+					allSelect.checked = !state;
+					data.forEach(item => {
+						item.checked = !state;
+					});
+					state = !state;
+					render();
+				};
+
+				//增加信息
+				add.onclick = function() {
+					if (newInfo.value) {
+						data.push({
+							id: data.length,
+							title: newInfo.value,
+							checked: false,
+							collect: true,
+						});
+						newInfo.value = '';
+					} else {
+						confirm('请输入内容');
+					}
+					render();
+				};
+
+				//删除信息
+				remove.onclick = function() {
+					if (newInfo.value) {
+						let state = data.filter(item => {
+							// filter 直接返回的是条件，返回新数组，原来的数组不变
+							return item.title.includes(newInfo.value);
+						});
+						state.length
+							? state.forEach(item => {
+									data.splice(item.id, 1);
+							  })
+							: window.confirm('查无此项，请重新输入');
+					} else {
+						window.confirm('请输入内容');
+					}
+
+					newInfo.value = '';
+					render();
+				};
+			}
+		</script>
+	</body>
+</html>
+<!-- 
+  遇到的问题
+  1. 模版字符串的内部元算，条件要记得加上引号
+  2. 收藏按钮，和取消收藏按钮，只能执行一次，执行一次后效果消失
+    解决的方式： 因为是数据驱动，所以我们每次数据改变的时候是重新渲染，如果渲染，我们不去重新加事件，那么他以前绑定的事件会消失,所以我们在渲染的时候需要重新绑定一下
+
+  3. 关于filter的用法，返回一个新数组，原有数组不变，return 后面直接填写条件就好，而不需要在去加什么判断的东西  
+ -->
+
+<!-- <script>
+	let arr = [1, 2, 3, 4];
+	arr.forEach(function(item, index) {
+		// console.log(item, index, this); //window
+	});
+
+	// js 实现forEach方法
+  // 帮助理解一下为什么item会自动去寻找呢
+	Array.prototype.myForEach = function(cb, ctx) {
+		if (ctx == 'undefined') {
+			ctx = 'window';
+		}
+		for (var i = 0; i < this.length; i++) {// 渲染一个去创建一个函数，然后去创建一个作用域
+      cb.call(ctx,this[i],i,ctx)
+    }
+	};
+  arr.myForEach(function (item,index) {
+    console.log(item,index,this)
+  })
+
+</script> -->

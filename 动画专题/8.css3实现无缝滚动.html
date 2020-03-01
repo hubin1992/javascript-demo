@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .wrap{
+      width: 400px;
+      height: 100px;
+      margin: 100px auto;
+      border: 2px solid #000;
+      overflow: hidden;
+    }
+    .wrap ul{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      /* font-size: 0; */
+      height: 100px;
+      display: flex;
+      /* width: 800px; */
+      animation: move linear 1s infinite;
+    }
+    .wrap li{
+      /* display: inline-block; */
+      flex: none;
+      border: 1px solid #fff;
+      width: 98px;
+      height: 98px;
+      text-align: center;
+      line-height: 98px;
+      font-size: 40px;
+      background: #000;
+      color: #fff;
+    }
+    @keyframes move {
+      0%{
+        transform: translateX(0);
+      }
+      100%{
+        transform: translateX(-400px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,18 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>symbol</title>
-</head>
-<body>
-  <script>
-    //  symbol 一个新的数据类型，表示独一无二的值；用来命名的，防止字符串命名的冲突
-    let s = symbol();
-    console.log(s)
-  
-    //----浏览器不支持暂时放一下
-  </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>symbol</title>
+	</head>
+	<body>
+		<script>
+			//  symbol 一个新的数据类型，表示独一无二的值；用来命名的，防止字符串命名的冲突
+			//  1.Symbol函数前不能使用new命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。
+			let s = Symbol('abc');
+			console.log(s); //Symbol(abc)
+			console.log(typeof s); //symbol 不是字符串了，而是一个symbol类型
+			//===================================
+			//  2.如果Symbol的值是一个对象，那么它会转换成为字符串，然后在生成一个symbol值(其实我感觉这个就是鸡肋)
+			let obj = { a: 'b' };
+			console.log(Symbol(obj)); //Symbol([object Object])
+			//===================================
+			// 3. 即使两个一样的symob()值，他们也不想等
+			console.log(Object.is(Symbol() == Symbol())); //false
+			//===================================
+			// 4. symbol不可以与其他类型的值，进行运算
+			let sym = Symbol('abc');
+			// console.log(`this is ${sym}`)//Cannot convert a Symbol value to a string
+			//===================================
+			//5. symbol 可以转换为字符串和布尔类型，其他的都不可以转换
+			// console.log(typeof String(sym)) //string
+			console.log(typeof !!sym); //boolean
+			//===================================
+      //6. Symbol.prototype.description //获取symbol定义在()里面的值,这个好像有点用
+      let valeSy = Symbol('ababa')
+      console.log(valeSy.description);//ababa
+
+      //7. 未完待继---这个现实的场景中几乎还没开始用
+		</script>
+	</body>
 </html>

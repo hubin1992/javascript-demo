@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			ul,
+			li,
+			div {
+				margin: 0;
+				padding: 0;
+			}
+			ul {
+				list-style: none;
+			}
+			.wrap {
+				width: 680px;
+				height: 334px;
+				margin: 100px auto;
+			}
+			.wrap ul {
+				position: relative;
+				height: 334px;
+			}
+			.wrap li {
+				position: absolute;
+				float: left;
+				transition: 1s all;
+			}
+			.wrap li.pos1 {
+				width: 676px;
+				z-index: 4;
+				left: 0;
+				opacity: 1;
+				top: 0;
+			}
+			.wrap li.pos1 {
+				width: 676px;
+				z-index: 4;
+				left: 0;
+				opacity: 1;
+				top: 0;
+			}
+			.wrap li.pos2 {
+				width: 510px;
+				z-index: 3;
+				left: -100px;
+				opacity: 0.8;
+				top: 43px;
+			}
+			.wrap li.pos3 {
+				width: 270px;
+				z-index: 2;
+				left: -160px;
+				opacity: 0.6;
+				top: 104px;
+			}
+			.wrap li.pos4 {
+				width: 100px;
+				z-index: 1;
+				left: -200px;
+				opacity: 0;
+				top: 144px;
+			}
+			.wrap li.pos7 {
+				width: 510px;
+				z-index: 3;
+				right: -100px;
+				opacity: 0.8;
+				top: 43px;
+			}
+			.wrap li.pos6 {
+				width: 270px;
+				z-index: 2;
+				right: -160px;
+				opacity: 0.6;
+				top: 104px;
+			}
+			.wrap li.pos5 {
+				width: 100px;
+				z-index: 1;
+				right: -200px;
+				opacity: 0;
+				top: 144px;
+			}
+			.wrap li img {
+				width: 100%;
+			}
+		</style>
+		<script src="./12. tween.js"></script>
+		<script>
+			window.onload = function() {
+				//init
+				var arr = [
+					//布局的时候对这个也有一定的讲究
+				];
+
+				var arrSrc = [
+					'img/6.jpg',
+					'img/7.jpg',
+					'img/8.jpg',
+					'img/9.jpg',
+					'img/6.jpg',
+					'img/10.jpg',
+					'img/11.jpg',
+				];
+				var str = '';
+				var wrap = document.querySelector('.wrap');
+				var aUl = wrap.querySelector('ul');
+				var timer = null;
+				//获取数据
+				function init() {
+					for (var i = 0; i < arrSrc.length; i++) {
+						str += `<li class="pos${i + 1}"><img src=${arrSrc[i]}></li>`;
+					}
+					aUl.innerHTML = str;
+				}
+				init();
+				// 在这个位置获取，是因为query的特性所导致
+				var items = wrap.querySelectorAll('li');
+				// setItem();
+				//设置固定样式
+				getItem();
+				// 这样做的目的为了避免第一次设置样式的时候动画有误
+				setItem();
+				//自动切换
+				auto();
+				// 点击切换
+				wrap.onclick = function() {
+					clearInterval(timer);
+					arr.push(arr.shift());
+					setItem();
+				};
+
+				wrap.onmouseover = function() {
+					clearInterval(timer);
+				};
+				wrap.onmouseout = function() {
+					auto();
+				};
+
+				//自动切换
+				function auto() {
+					timer = setInterval(() => {
+						arr.push(arr.shift());
+						setItem();
+					}, 2000);
+				}
+
+				//获取样式
+				function getItem() {
+					items.forEach((item, index) => {
+						arr.push({
+							width: css(item, 'width'),
+							zIndex: css(item, 'z-index'),
+							left: css(item, 'left'),
+							top: css(item, 'top'),
+							opacity: css(item, 'opacity'),
+						});
+					});
+				}
+				//设置样式
+				function setItem() {
+					items.forEach((item, index) => {
+						css(item, {
+							width: arr[index].width,
+							zIndex: arr[index].zIndex,
+							left: arr[index].left,
+							top: arr[index].top,
+							right: arr[index].right,
+							opacity: arr[index].opacity,
+						});
+					});
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div class="wrap">
+			<ul></ul>
+		</div>
+	</body>
+</html>
+
+<!-- 
+  //思路
+  1. 注意布局的样式，我们这个样式至关重要
+  2. 利用了数组的 push 和 shift 的方法，配合这动画来做的
+
+  //遇到的问题
+  1. 就是我们在用js设置动画的时候，没有层次感，而且顺序混乱
+  2. 第一个切换的动画，过度效果没有出来
+
+  //解决的方法
+  //1. 我们这个原因，是因为我们在设置li的样式的有用left来定位，有用right来定位的。我们要解决层次感的问题就是仅仅用left或者right一种来解决的,其实这个位置我们可以封住一个css的方法来用最合适
+  //2. 原因：就是第一个默认的是用css设置的样式，而我们用js做切换的时候上来就设置了第二个为最高阶，所以在这个地方失去了动画，
+       解决的方式： 当我们用css方法设置一下，在去执行就没问题了
+
+
+
+
+ -->

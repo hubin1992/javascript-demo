@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.wrap {
+				height: 300px;
+				margin-bottom: 10px;
+				border: 1px solid #ccc;
+			}
+		.wrap li,	.list li {
+				float: left;
+				width: 100px;
+				height: 100px;
+				background: yellowgreen;
+				margin-right: 10px;
+			}
+			.box {
+				position: absolute;
+				border: 1px solid #666;
+				background: rgba(0, 0, 255, 0.4);
+			}
+			.list li.active {
+				background: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="wrap"></ul>
+		<ul class="list">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+		</ul>
+		<script>
+			{
+				let wrap = document.querySelector('.wrap');
+				let list = document.querySelector('.list');
+				let lis = document.querySelectorAll('.list li');
+
+				document.addEventListener('mousedown', function(e) {
+					let loc = {
+						l: e.clientX,
+						t: e.clientY,
+					};
+					let box = document.createElement('div');
+					box.className = 'box';
+					document.body.appendChild(box);
+					function move(e) {
+						let pos = {
+							l: e.clientX,
+							t: e.clientY,
+						};
+						//这个地方来设置宽度
+						let l = Math.min(loc.l, pos.l);
+						let t = Math.min(loc.t, pos.t);
+						box.style.left = l + 'px';
+						box.style.top = t + 'px';
+						box.style.width = Math.abs(pos.l - loc.l) + 'px';
+						box.style.height = Math.abs(pos.t - loc.t) + 'px';
+						//碰撞监测
+						lis.forEach((item, index) => {
+							let state = collision(box,item);
+							if (state) {
+								item.classList.add('active');
+							}
+						});
+						e.preventDefault();
+					}
+					document.addEventListener('mousemove', move);
+					document.addEventListener('mouseup', function(e) {
+						document.removeEventListener('mousemove', move);
+						box.remove();
+
+            let active = document.querySelectorAll(".list .active")
+            active.forEach((item)=>{
+              wrap.appendChild(item)
+            })
+            
+					});
+				});
+				function collision(ele1, ele2) {
+					let ele1Size = ele1.getBoundingClientRect();
+					let ele2Size = ele2.getBoundingClientRect();
+					if (
+						(ele1Size.right > ele2Size.left) &
+							(ele1Size.bottom > ele2Size.top) &
+							(ele1Size.left < ele2Size.right) &&
+						ele1Size.top < ele2Size.bottom
+					) {
+						return true;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

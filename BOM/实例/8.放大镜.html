@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.zoom {
+				width: 800px;
+				margin: 0 auto;
+				position: relative;
+			}
+			.left {
+				width: 400px;
+				height: 400px;
+				position: relative;
+				float: left;
+				border: 1px solid red;
+			}
+			.left .mask {
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				background: rgba(255, 0, 0, 0.3);
+				top: 0;
+				left: 0;
+				z-index: 1;
+				/* border-radius: 50%; */
+				display: none;
+			}
+			.right {
+				border: 1px solid #ccc;
+				float: left;
+				width: 400px;
+				height: 400px;
+				position: absolute;
+				left: 420px;
+				top: 0;
+				overflow: hidden;
+				display: none;
+			}
+			.right img {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="zoom">
+			<div class="left">
+				<img src="./img/samll.jpg" alt="" />
+				<div class="mask"></div>
+			</div>
+			<div class="right">
+				<img src="./img/big.jpg" alt="" />
+			</div>
+		</div>
+		<script>
+			{
+				let mask = document.querySelector('.mask');
+				let left = document.querySelector('.left');
+				let right = document.querySelector('.right');
+				let rPic = document.querySelector('.right img');
+				left.addEventListener('mouseover', function(e) {
+					mask.style.display = 'block';
+					right.style.display = 'block';
+					mask.style.cursor = 'move';
+					let multiple = 800 / right.clientWidth;
+					let maskW = left.clientWidth / multiple;
+					mask.style.width = maskW + 'px';
+					mask.style.height = maskW + 'px';
+
+					left.addEventListener('mousemove', function(e) {
+						let l = e.clientX - getOffset(left, 'offsetLeft');
+						let t = e.clientY - getOffset(left, 'offsetTop');
+						mask.style.left = l / 2 + 'px';
+						mask.style.top = t / 2 + 'px';
+						rPic.style.left = -(l) + 'px';
+						rPic.style.top = -(t) + 'px';
+					});
+
+					left.addEventListener('mouseout', function() {
+						mask.style.display = 'none';
+						right.style.display = 'none';
+					});
+				});
+
+				//获取offsetParent
+
+				function getOffset(ele, attr) {
+					let par = ele.parentNode;
+					let val = ele[attr];
+					while (par && par.tagName.toLowerCase() != 'body') {
+						val += par[attr];
+						par = par.parentNode;
+					}
+					return val;
+				}
+			}
+		</script>
+	</body>
+</html>
+
+<!-- 
+  //思路：关于放大镜，我们就是要计算一个比例的问题,这个比例，仅仅牵扯到放大镜的镜片上，其他的没有什么关系
+ -->

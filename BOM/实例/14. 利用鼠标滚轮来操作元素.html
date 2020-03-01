@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				height: 100px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script>
+			{
+				let box = document.querySelector('.box');
+				let boxH = box.offsetHeight;
+				mouseScroll(
+					document,
+					function() {
+						let curH = getCss(box, 'height') + 10;
+						curH = Math.max(boxH, curH);
+						box.style.height = curH + 'px';
+					},
+					function() {
+						let curH = getCss(box, 'height') - 10;
+						curH = Math.max(boxH, curH);
+						box.style.height = curH + 'px';
+					}
+				);
+
+				function getCss(ele, attr, val) {
+					if (arguments.length == 3) {
+						ele.style[attr] = val + 'px';
+					} else {
+						return parseInt(getComputedStyle(ele)[attr]);
+					}
+				}
+
+				function mouseScroll(el, upFn, downFn) {
+					el.addEventListener('DOMMouseScroll', function(e) {
+						if (e.detail > 0) {
+							upFn && upFn();
+						} else {
+							downFn && downFn();
+						}
+					});
+          
+					el.addEventListener('mousewheel', function(e) {
+						if (e.wheelDelta > 0) {
+							upFn && upFn();
+						} else {
+							downFn && downFn();
+						}
+					});
+				}
+			}
+		</script>
+	</body>
+</html>

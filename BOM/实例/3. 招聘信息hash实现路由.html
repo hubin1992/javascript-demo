@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>招聘信息</title>
+		<link href="bootstrap.css" rel="stylesheet" />
+		<style>
+			#root,
+			#view {
+				padding-top: 10px;
+			}
+			.list-group-item-text {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="root" class="container">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#/sh">社会招聘</a></li>
+				<li><a href="#/xy">校园招聘</a></li>
+			</ul>
+			<div id="view">
+				<ul class="list-group">
+					<!-- <li class="list-group-item">
+                <a href="#/sh/details/1">
+                    <h4 class="list-group-item-heading">职位需求：前端开发工程师需求人数：2名</h4>
+                    <p class="list-group-item-text">岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3</p>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#/sh/details/1">
+                    <h4 class="list-group-item-heading">职位需求：前端开发工程师需求人数：2名</h4>
+                    <p class="list-group-item-text">岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3</p>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#/sh/details/1">
+                    <h4 class="list-group-item-heading">职位需求：前端开发工程师需求人数：2名</h4>
+                    <p class="list-group-item-text">岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3</p>
+                </a>
+            </li>
+            <li class="list-group-item">
+
+            </li>
+            <li class="list-group-item">
+
+            </li> -->
+				</ul>
+				<ul class="pagination">
+					<!-- <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li> -->
+				</ul>
+
+				<!-- <div class="panel panel-default">
+            <div class="panel-heading">招聘岗位：${nowData.job}</div>
+            <div class="panel-body">
+                <p>${nowData.ask}</p>
+                <p>招聘人数：${nowData.nub}人</p>
+                <p>发布时间：${nowData.data}</p>
+            </div>
+        </div> -->
+			</div>
+		</div>
+		<script src="data.js"></script>
+		<script>
+			{
+				let listGroup = document.querySelector('.list-group');
+				let lis = document.querySelectorAll('.nav>li');
+				let pagination = document.querySelector('.pagination');
+				let pages = document.querySelectorAll('.pagination>li');
+				let view = document.querySelector('#view');
+
+				dataShow({
+					title: data.society,
+					page: 0,
+				});
+
+				//实现静态路由的切换
+				window.onhashchange = function() {
+					hashchange();
+				};
+				// 解决了我们点击的时候数据不刷新
+				hashchange();
+				function hashchange() {
+					let hash = location.hash.slice(2).split('/'); // #/xy/   xy
+					let page = parseInt(hash[1]) || 0;
+					let id = parseInt(hash[2]);
+					//获取是否为详情页
+					let state = detailState(hash);
+					clearClass(lis, 'active');
+					if (hash[0] == 'xy') {
+						// 这个处理的是tab切换
+						lis[1].classList.add('active');
+						if (state) {
+							detailData({
+								title: data.campus,
+								id,
+							});
+						} else {
+							dataShow({
+								title: data.campus,
+								page,
+							});
+						}
+					} else if (hash[0] == 'sh') {
+						lis[0].classList.add('active');
+						if (state) {
+							detailData({
+								title: data.society,
+								id,
+							});
+						} else {
+							dataShow({
+								title: data.society,
+								page,
+							});
+						}
+					}
+				}
+
+				// 一行五个的数据的的显示
+				function dataShow(props) {
+					//默认是一行5个
+					let inner = ``;
+					let { title, page } = props;
+					let start = page * 5; // 0 1 2
+					let end = (page + 1) * 5; //4 9
+					let nowData = title.filter((item, index) => start <= index && end > index);
+					nowData.forEach((item, index) => {
+						inner += `<li class="list-group-item">
+			             <a href="#/${item.type}/details/${item.id}">
+			                 <h4 class="list-group-item-heading">职位需求：${item.job}需求人数：${item.nub}名</h4>
+			                 <p class="list-group-item-text">岗位要求：${item.ask}</p>
+			             </a>
+			         </li>`;
+					});
+					listGroup.innerHTML = inner;
+					pageBtn(props);
+				}
+
+				//分页的的按钮
+				function pageBtn(props) {
+					let { title, page } = props;
+					let len = Math.ceil(title.length / 5);
+					let inner = '';
+					for (var i = 0; i < len; i++) {
+						inner += `<li><a href="#/${title[0].type}/${i}">${i + 1}</a></li>`;
+					}
+					pagination.innerHTML = inner;
+					let pages = document.querySelectorAll('.pagination>li');
+
+					//处理按钮的样式，其实这个地方的思路很绕
+					clearClass(pages, 'active');
+					pages[page].classList.add('active');
+				}
+
+				//判断是否为详情页
+				function detailState(hash) {
+					return hash.indexOf('details') > 0;
+				}
+
+				//获取详情页的数据
+				function detailData(props) {
+					let { id, title } = props;
+					let data = title.filter(item => {
+						return item.id == id;
+					})[0];
+					let inner = `
+			       <div class="panel panel-default">
+			         <div class="panel-heading">招聘岗位：${data.job}</div>
+			         <p class="panel-body">
+			             <p>${data.ask}</p>
+			             <p>招聘人数：${data.nub}人</p>
+			             <p>发布时间：${data.date}</p>
+			         </p>`;
+					listGroup.innerHTML = inner;
+					pagination.innerHTML = '';
+				}
+
+				//清除所有的class
+				function clearClass(ele, className) {
+					ele.forEach(item => {
+						item.classList.remove(className);
+					});
+				}
+			}
+		</script>
+	</body>
+</html>
+
+<!-- 
+  // 思路解析
+  1. 单页应该的思路，所有的数据跟句不同的路由hash值，去渲染不同的数据
+  2. 主要应该就是hashchange事件
+  3. location.hash 获取浏览器的数据
+  4. 以及es6 方法的熟练应用
+ -->
+
+<!-- 遇到的问题
+  1. 我们拆分的hash值，是一个字串，我们要注意转换为数字后在使用
+
+  2. 未解决的问题
+    1. 我们进来直接点击详情也的时候，回退按钮失效
+
+-->

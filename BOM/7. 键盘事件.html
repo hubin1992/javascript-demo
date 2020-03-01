@@ -9,26 +9,15 @@
 	<body>
 		<script>
 			// onkeydown  键盘按下
-			// onkeyup  键盘抬起
-			// 所有的键盘事件都对应一个number他是对应ascll码  e.keycode
-      // 注意并不是所有的元素都可以触发键盘事件，只有可以与用户交互的才可以发生
-
-
-			// document.onkeydown = function(ev){
-
-			//    console.log(ev.keyCode)
-			//   //  console.log("键盘按下")
-			// }
-			// document.onkeyup = function(){
-			//   console.log("键盘抬起")
-			// }
-
-			//所有的事件都有一个ctrkkey，shiftkey，altkey 他们对应的是布尔值
-			// document.onclick = function(ev){
-			//   console.log(ev)
-			// }
-
-      
+			// onkeyup    键盘抬起
+			document.addEventListener('keydown', function(e) {
+				console.log(e);
+        // key: "A"  我们的按键
+				// ctrlKey: false  //是否用了ctrl键
+				// shiftKey: false; // 是否用了shift键
+				// altKey: false; 是否用了alt
+        // keyCode: 68 // 字母对应的ascall编码值
+			});
 		</script>
 	</body>
 </html>

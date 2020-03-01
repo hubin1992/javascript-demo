@@ -22,6 +22,7 @@
     //（2）箭头函数没有this所以我们也不能通过bind，call和apply来改变this指向
     //5. 增加来rest来替代arguments,从伪数组变成来数组
     // (1) 这个...rest必须放在最后
+    //6. 不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
 
 
     //默认参数的增加
@@ -51,8 +52,9 @@
     //箭头函数的this指向 
 
     let getPhone = {
+      ID:1,
       say() {
-        console.log(this)
+        console.log(this.ID)
       }
     }
     getPhone.say()
@@ -85,6 +87,8 @@
     btn.onclick=()=>{
       console.log(this);//window
     }
+    //=================================
+    //尾调用，尾递归都是在safrai中才支持，所以暂时放一下
   </script>
 </body>
 

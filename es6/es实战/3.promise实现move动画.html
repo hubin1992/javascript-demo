@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script>
+			{
+				let box = document.querySelector('.box');
+				let timer = null;
+				//运动框架需要的东西
+				//1.target目标 200
+				//2.time 时间 1s
+				//3.开始的位置
+				//4.方向
+				//5.速度
+				box.onclick = async function() {
+					cancelAnimationFrame(timer);
+					// move(box, 200, 'left', function() {
+					// 	move(box, 200, 'top', function() {
+					// 		move(box, 0, 'left', function() {
+					// 			move(box, 0, 'top');
+					// 		});
+					// 	});
+					// });
+
+          //promise版本
+          // move(box,200,'left').then((data)=>{
+          //   return move(box,200,'top')
+          // }).then(()=>{
+
+          // }).catch((err)=>{
+          //   console.log(err)
+          // })
+          // async await 
+          await move(box,200,'left')
+          await move(box,200,'top')
+          await move(box,0,'left')
+          await move(box,0,'top')
+
+				};
+
+				function move(ele, target, attr) {
+					let start = parseFloat(getComputedStyle(box)[attr]);
+					let dir = (target - start) / Math.abs(target - start);
+					let speend = dir * 5;
+					//修改成为promise
+					return new Promise((resolve, reject) => {
+            // throw new Error("测试catch")
+						timer = requestAnimationFrame(fn);
+						function fn() {
+							start = parseFloat(getComputedStyle(box)[attr]);
+							if (start == target) {
+								cancelAnimationFrame(timer);
+								resolve()
+							} else {
+								ele.style[attr] = start + speend + 'px';
+								timer = requestAnimationFrame(fn);
+							}
+						}
+					});
+				}
+			}
+
+			/* 
+        //move方法碰到的问题
+        //1. 方向的问题
+        //解决的方法
+          let dir = (target - start) / Math.abs(target - start);
+
+        //2. 回调函数没有执行
+        注意回调函数和callback执行的顺序
+
+        //关于promise的改装不熟悉
+        //1. promise解决的是回调的问题
+        //2. awit后面必须的跟一个异步，如果是值，就直接返回了
+      
+       */
+		</script>
+	</body>
+</html>

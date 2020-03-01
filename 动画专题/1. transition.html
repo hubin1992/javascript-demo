@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			#box {
+				width: 100px;
+				height: 100px;
+				background: red;
+				transition: 1s width;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="btn">显示</button>
+		<div id="box"></div>
+		<script>
+			//  transition 需要注意的几个地啊安
+			//1. 执行和渲染时间的间隔问题---> 如果我们是一个隐藏的元素要显示，然后显示后要执行transition动画，则需要加一个延迟。见例子
+			btn.onclick = function() {
+				//我们直接点击后，没有动画，就是我们上面所说的那个问题
+				box.style.display = 'block';
+				// box.style.width="500px"
+				setTimeout(function() {
+					//这样就好了，为什么要大于20呢，因为我们渲染的间隔时间20ms
+					box.style.width = '500px';
+				}, 20);
+			};
+			//2. transitionEnd 绑定的问题，直接用on绑定没效果，需要addEventListener
+
+			// box.onTransitionEnd = function(){//这样我们没有任何的作用
+			//   console.log("transition结束了")
+			// }
+			var box = document.querySelector('#box');
+			box.addEventListener('transitionend', function() {
+				console.log('transition结束了');
+			});
+		</script>
+	</body>
+</html>

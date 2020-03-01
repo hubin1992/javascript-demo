@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			div {
+				margin: 0;
+			}
+			.meau {
+				width: 160px;
+				background: #333;
+				display: none;
+				position: absolute;
+			}
+			.meau a {
+				display: block;
+				padding: 0 10px;
+				text-decoration: none;
+				height: 36px;
+				line-height: 36px;
+				color: #fff;
+				border-bottom: 1px solid #ccc;
+			}
+			.meau a:hover {
+				background: rgba(0, 0, 0, 0.4);
+			}
+			.meau a:last-child {
+				border-bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="meau">
+			<a href="#">新建文件夹</a>
+			<a href="#">排列</a>
+			<a href="#">刷新</a>
+			<a href="#">删除</a>
+			<a href="#">重命名</a>
+		</div>
+		<script>
+			{
+				let meau = document.querySelector('.meau');
+				// 首先我们需要禁止掉右键默认事件
+				document.oncontextmenu = function(e) {
+					//然后在去自定右键菜单
+					meau.style.display = 'block';
+					//仅仅是这样还不行，我们需要加一个边界判断
+					let maxT =
+						(document.documentElement.clientHeight || document.body.clientHeight) - meau.offsetHeight;
+					let maxL = (document.documentElement.clientWidth || document.body.clientWidth) - meau.offsetWidth;
+
+					// 我们取巧去一个最合适的值
+					let top = Math.min(maxT, e.clientY);
+					let left = Math.min(maxL, e.clientX);
+					//我们只需要去确定他的位置
+					meau.style.top = top + 'px';
+					meau.style.left = left + 'px';
+
+					// e.preventDefault()
+					return false;
+				};
+			}
+		</script>
+	</body>
+</html>
+<!-- 
+  //实现思路
+  1. 事件：oncontextmeau
+  2. 阻止默认的弹窗
+  3. 自定弹窗
+  4. 设置界限
+ -->

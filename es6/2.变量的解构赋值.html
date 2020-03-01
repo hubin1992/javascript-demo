@@ -17,25 +17,49 @@
     //4. 可以存在默认值
 
     //数组的解构赋值
-    var [a, b, c] = [1, 2, 3]
-    console.log(a, b, c); //1,2,3
+    // var [a, b, c] = [1, 2, 3]
+    // console.log(a, b, c); //1,2,3
 
-    var [d] = [4, 5, 6]
-    console.log(d)
+    // var [d] = [4, 5, 6]
+    // console.log(d)
 
-    var [e, f] = [7]
-    console.log(e, f); //7  , undefiend
+    // var [e, f] = [7]
+    // console.log(e, f); //7  , undefiend
 
-    var [h, i = 8] = [9] //可以有默认值
-    console.log(h, i) //9,8
-
+    // var [h, i = 8] = [9] //可以有默认值
+    // console.log(h, i) //9,8
+    //如果等号右边的不是数组，那么会报错
+    // let [aa] = 1
+    // let [aa] = null
+    // let [aa] = undefined
+    //==================================================
     //对象的解构赋值
     //注意：对象的解构赋值存在个一个属性名不匹配的情况
     //let { foo, bar } = { foo: "aaa", bar: "bbb" };
     //属性名不匹配的情况(必须这样写)
     let { foo: baz } = { foo: 'aaa', bar: 'bbb' };
     console.log(baz); //aaa
-
+    //可以很方便的将现有方法赋值到某个变量上
+    let {log} = console
+    log("hello")
+    //注意点：如果是已经声明的变量名称，我们必须要谨慎使用
+    let x ;
+    //{x} = {x:1} //报错，我们这样他会把{x}解析成代码块就是两个不同的地址
+    ({x} = {x:1}) //这样就解决掉这个问题
+    //对象还存在一个匹配模式
+    let obj = {
+      p:[
+        'hello',
+        {y:"world"}
+      ]
+    }
+    // let {p:[_x,{y}]} = obj
+    // console.log(p,_x,y)// p is not undefiend 这个时候p就是一个匹配的模式
+    let {p,p:[_x,{y}]} = obj //这样就解决掉了
+    console.log(p)
+    console.log(_x)
+    console.log(y)
+    //=========================================
     //字符串的解构赋值
     var [a, b] = 'abc'
     console.log(a, b); //a,b
@@ -69,6 +93,22 @@
     to({ x: 3 }); // [3, undefined]
     to({}); // [undefined, undefined]
     to(); // [0, 0]
+
+    //============================================
+    //关于()的使用情况
+    //1. 变量的声明不能使用括号
+    //let [(a)] //语法已经报错了
+    //2. 函数的参数不能使用括号
+    // function f([(a)]) {//语法已经报错了
+      
+    // }
+    //3. 赋值语句不能使用括号
+    
+
+    //只有一种可能可以使用()赋值语句的非模式部分
+
+    
+    
   </script>
 </body>
 

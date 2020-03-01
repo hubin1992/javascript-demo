@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>自定义滚动条</title>
+		<style>
+			body {
+				margin: 0;
+				width: 100vw;
+				height: 100vh;
+				background: url('./img/bg.jpg') no-repeat;
+				background-size: 100% 100%;
+			}
+
+			ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				position: absolute;
+			}
+
+			.wrap {
+				width: 100px;
+				height: 360px;
+				background-color: #fdfdfd;
+				position: relative;
+				border-radius: 10px;
+				margin: 200px auto;
+				padding-top: 11px;
+				padding-bottom: 16px;
+				overflow: hidden;
+			}
+
+			.scroll-wrap {
+				width: 13px;
+				height: 363px;
+				background-color: #dedede;
+				position: absolute;
+				border: 1px solid #dedede;
+				top: 11px;
+				right: 7px;
+				border-radius: 10px;
+			}
+
+			.scroll {
+				width: 13px;
+				height: 30px;
+				background-color: #fcfcfc;
+				border-radius: 10px;
+				position: absolute;
+			}
+
+			li {
+				line-height: 36px;
+				text-indent: 21px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<!-- list 是存放数据的 -->
+			<ul class="list"></ul>
+			<!-- 这就是自定的滚动条 -->
+			<div class="scroll-wrap">
+				<div class="scroll"></div>
+			</div>
+		</div>
+
+		<script>
+			{
+				let arr = [
+					'河北',
+					'山西',
+					'辽宁',
+					'吉林',
+					'黑龙江',
+					'江苏',
+					'浙江',
+					'安徽',
+					'福建',
+					'江西',
+					'山东',
+					'河南',
+					'湖北',
+					'湖南',
+					'广东',
+					'海南',
+					'四川',
+					'贵州',
+					'云南',
+					'陕西',
+					'甘肃',
+					'青海',
+					'台湾',
+					'北京',
+					'天津',
+					'上海',
+					'重庆',
+				];
+
+				//第一步我们获取元素
+
+				let list = document.querySelector('.list');
+				let scrollWrap = document.querySelector('.scroll-wrap');
+				let scroll = document.querySelector('.scroll');
+				let wrap = document.querySelector('.wrap');
+				let inner = '';
+				arr.forEach((item, index) => {
+					inner += `<li>${item}</li>`;
+				});
+				list.innerHTML = inner;
+
+				//scrollWrap/scroll = list/warp
+				// 更正划块的大小
+				let scrollH = scrollWrap.offsetHeight / (list.offsetHeight / wrap.offsetHeight);
+				//设置划块需要滑动的高度
+				css(scroll, 'height', scrollH);
+				let maxT = css(scrollWrap, 'height') - css(scroll, 'height');
+				//实现划块的拖拽，并且限制范围
+				scroll.addEventListener('mousedown', function(e) {
+					let startY = css(scroll, 'top');
+					let mouseY = e.clientY;
+					document.addEventListener('mousemove', move);
+					function move(e) {
+						//限制范围
+						let posY = e.clientY - mouseY + startY;
+						posY = Math.max(0, posY);
+						posY = Math.min(posY, maxT);
+						//设置滚动条的位置
+						css(scroll, 'top', posY);
+						// 设置list内容的位置
+						//滚动条的最大高度/当前滚动条的高度 = 内容top的最大值/当前内容的top值
+						//maxT/posY = (css(wrap,"heigth")-list.offsetHeight)/css(list,"top")
+						let listTop = (list.offsetHeight - css(wrap, 'height')) / (maxT / css(scroll, 'top'));
+						css(list, 'top', -listTop);
+						//默认会有选中文字的样式，影响我们拖拽
+						e.preventDefault();
+					}
+					document.addEventListener('mouseup', function() {
+						document.removeEventListener('mousemove', move, {
+							once: true,
+						});
+					});
+				});
+				//  增加鼠标滚轮事件
+				scrollMouse(
+					wrap,
+					function(state) {
+						//下滑动函数
+						setPos(state);
+					},
+					function(state) {
+						// //下滑动函数
+						setPos(state);
+					}
+				);
+        
+				//鼠标滑动的时候设置
+				function setPos(state) {
+					let scrollT = css(scroll, 'top');
+					if (state == 'up') {
+						scrollT -= 10;
+						scrollT = Math.max(0, scrollT);
+					} else {
+						scrollT += 10;
+						scrollT = Math.min(maxT, scrollT);
+					}
+					let scale = scrollT / maxT;
+					let listT = (list.offsetHeight - css(wrap, 'height')) * scale;
+					css(list, 'top', -listT);
+					css(scroll, 'top', scrollT);
+				}
+
+				//封装鼠标滚轮事件
+				function scrollMouse(ele, dwonFn, upFn) {
+					//仅仅是个标识符
+					let down = 'down';
+					let up = 'up';
+					//firefix
+					ele.addEventListener('DOMMouseScroll', function(e) {
+						if (e.deatail > 0) {
+							dwonFn && dwonFn(down);
+						} else {
+							upFn && upFn(up);
+						}
+						e.preventDefault();
+					});
+
+					//ie || chrome
+					ele.addEventListener('mousewheel', function(e) {
+						if (e.wheelDelta > 0) {
+							dwonFn && dwonFn(down);
+						} else {
+							upFn && upFn(up);
+						}
+						e.preventDefault();
+					});
+				}
+
+				// 封装css方法
+				function css(el, attr, val) {
+					// 设置
+					if (arguments.length == 3) {
+						el.style[attr] = val + 'px';
+					} else {
+						return parseInt(getComputedStyle(el)[attr]);
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

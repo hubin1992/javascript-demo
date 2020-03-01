@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// async function async1() {
+			// 	console.log(1);
+			// 	const result = await async2();
+			// 	console.log(3);
+			// }
+
+			// async function async2() {
+			// 	console.log(2);
+			// }
+
+			// Promise.resolve().then(() => {
+			// 	console.log(4);
+			// });
+
+			// setTimeout(() => {
+			// 	console.log(5);
+			// });
+
+			// async1()
+			// console.log(6);
+			//1 6 2 3 4 5
+			async function async1() {
+				console.log('async1 start');
+				await async2(); //async2 返回的是一个promise，而await 相当于yieid，yieid的机制是当next指针到他的时候在去执行，然后yid后面的代码，在yieid执行之后才会去执行，这逻辑就可以说的通，为什么
+				console.log('async1 end');
+			}
+			async function async2() {
+				console.log('async2');
+				return new Promise();
+			}
+			console.log('script start');
+			setTimeout(function() {
+				console.log('settimeout');
+			}, 0);
+			async1();
+			new Promise(function(resolve) {
+				console.log('promise1');
+				resolve();
+			}).then(function() {
+				console.log('promise2');
+			});
+			console.log('script end');
+			//async1 start 
+
+			// setTimeout(function() {
+			// 	console.log('1');
+			// });
+
+			// new Promise(function(resolve) {
+			//   console.log('2');
+			// }).then(function() {
+			// 	console.log('3');
+			// });
+
+			// console.log('4');
+
+			//2,4,3,1
+		</script>
+	</body>
+</html>

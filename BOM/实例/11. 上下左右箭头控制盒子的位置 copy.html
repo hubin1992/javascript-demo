@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left: 100px;
+				top: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script>
+			let box = document.querySelector('.box');
+			let l = getCss(box, 'left');
+			let t = getCss(box, 'top');
+			document.addEventListener('keydown', function(e) {
+				let l = getCss(box, 'left');
+				let t = getCss(box, 'top');
+				// 左上右下  37，38，39，40
+				switch (e.keyCode) {
+					case 37:
+						getCss(box, 'left', l - 10);
+						break;
+					case 38:
+						getCss(box, 'top', t - 10);
+						break;
+					case 39:
+						getCss(box, 'left', l + 10);
+						break;
+					case 40:
+						getCss(box, 'top', t + 10);
+						break;
+				}
+			});
+
+			function getCss(ele, attr, val) {
+				if (arguments.length == 3) {
+					ele.style[attr] = val + 'px';
+				} else {
+					return parseInt(getComputedStyle(ele)[attr]);
+				}
+			}
+		</script>
+	</body>
+</html>

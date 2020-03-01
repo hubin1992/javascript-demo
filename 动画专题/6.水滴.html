@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>水滴按钮</title>
+		<style>
+			.box {
+				width: 50px;
+				height: 50px;
+				background: #ccc;
+				border-radius: 50%;
+				margin: 100px auto;
+			}
+			/* .box:hover{
+      animation: move 1s linear;
+    } */
+
+			.hover {
+				animation: move 1s linear;
+			}
+
+			@keyframes move {
+				0% {
+					-webkit-transform: scale(0.8, 1.2);
+					transform: scale(0.8, 1.2);
+				}
+				20% {
+					-webkit-transform: scale(1.3, 0.7);
+					transform: scale(1.3, 0.7);
+				}
+				40% {
+					-webkit-transform: scale(0.6, 1.4);
+					transform: scale(0.6, 1.4);
+				}
+				60% {
+					-webkit-transform: scale(1.3, 0.7);
+					transform: scale(1.3, 0.7);
+				}
+				80% {
+					-webkit-transform: scale(0.8, 1.2);
+					transform: scale(0.8, 1.2);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<!-- 
+    //hover 来做明显有一个弊端,就是我们鼠标离开的时候，动画会立即停止，从用户体验上来说的话，我们在移开的时候动画应该继续，到结束为止。
+   -->
+
+		<script>
+			var box = document.querySelector('.box');
+			box.addEventListener('mouseover', function() {
+				box.classList.add('hover');
+			});
+			box.addEventListener('animationend', function() {
+				if (box.classList.contains('hover')) {
+					box.classList.remove('hover');
+				}
+			});
+		</script>
+	</body>
+</html>

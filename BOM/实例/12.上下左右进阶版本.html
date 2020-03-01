@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left: 100px;
+				top: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script>
+			let box = document.querySelector('.box');
+			let dir = {
+				left: false,
+				top: false,
+				bottom: false,
+				right: false,
+			};
+
+			setInterval(() => {
+				let l = getCss(box, 'left');
+				let t = getCss(box, 'top');
+				if (dir.left) {
+					getCss(box, 'left', l - 10);
+				}
+				if (dir.top) {
+					getCss(box, 'top', t - 10);
+				}
+				if (dir.bottom) {
+					getCss(box, 'top', t + 10);
+				}
+				if (dir.right) {
+					getCss(box, 'left', l + 10);
+				}
+			}, 20);
+
+			document.addEventListener('keydown', function(e) {
+				switch (e.keyCode) {
+					case 37:
+						dir.left = true;
+						break;
+					case 38:
+						dir.top = true;
+						break;
+					case 39:
+						dir.right = true;
+						break;
+					case 40:
+						dir.bottom = true;
+						break;
+				}
+			});
+
+			document.addEventListener('keyup', function(e) {
+				switch (e.keyCode) {
+					case 37:
+						dir.left = false;
+						break;
+					case 38:
+						dir.top = false;
+						break;
+					case 39:
+						dir.right = false;
+						break;
+					case 40:
+						dir.bottom = false;
+						break;
+				}
+			});
+
+			function getCss(ele, attr, val) {
+				if (arguments.length == 3) {
+					ele.style[attr] = val + 'px';
+				} else {
+					return parseInt(getComputedStyle(ele)[attr]);
+				}
+			}
+		</script>
+	</body>
+</html>
+
+<!-- 
+  //其实思路很简单，就是我们需要去设置一个定时器，去设置一个标识符，定时器不去清楚，每时每刻去查看标识符的状态，然后根据状态我们去
+
+  //其中还有一个取巧的成分在里面，我们定时器判断的时候，需要每一个都用if来判断，不要用else if ，那样就只能执行其中的一个
+ -->

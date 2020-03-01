@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<nav class="nav">
+			<a href="/index">首页</a>
+			<a href="/about">关于我们</a>
+			<a href="/learn">课程页面</a>
+		</nav>
+		<div class="view"></div>
+		<script>
+			// 注意：histoty 我们要在服务器环境中进行配置，不然没有任何作用
+			//histoty 出现的条件，其实更多的是用于单页面，因为如果新打开一个窗口，他就不会出现history
+			//==================================================================
+			//history常用的方法
+			//1. go(num)  相当于浏览器的前进按钮
+			//2. back(num) 相当与浏览器的后退按钮
+			//3. forward(num) 相当于go 但是他是异步的
+
+			//==================================================================
+			//histoty 属性
+			//1. length
+
+			//==================================================================
+			//添加和修改历史记录中的条目
+			//1.  history.pushState(obj,title,url) 添加历史记录的条目
+			//obj: 状态对象
+			//title: 这个无用参数
+			//url: 该参数定义了新的历史URL记录。注意，调用 pushState() 后浏览器并不会立即加载这个URL，但可能会在稍后某些情况下加载这个URL，比如在用户重新打开浏览器时。新URL不必须为绝对路径。如果新URL是相对路径，那么它将被作为相对于当前URL处理。新URL必须与当前URL同源，否则 pushState() 会抛出一个异常。该参数是可选的，缺省为当前URL。
+
+			//2.  history.replaceState() 是修改了当前的历史记录项而不是新建一个。 注意这并不会阻止其在全局浏览器历史记录中创建一个新的历史记录项。
+
+			//==================================================================
+			//histoty中的事件
+			//onpopstate:  每当活动的历史记录项发生变化时， popstate 事件都会被传递给window对象。如果当前活动的历史记录项是被 pushState 创建的，或者是由 replaceState 改变的，那么 popstate 事件的状态属性 state 会包含一个当前历史记录状态对象的拷贝
+
+			//==================================================================
+			//获取当前的状态
+			//histoty.state
+			//页面加载时，或许会有个非null的状态对象。这是有可能发生的，举个例子，假如页面（通过pushState() 或 replaceState() 方法）设置了状态对象而后用户重启了浏览器。那么当页面重新加载时，页面会接收一个onload事件，但没有 popstate 事件。然而，假如你读取了history.state属性，你将会得到如同popstate 被触发时能得到的状态对象。
+			//==================================================================
+
+			//实例利用history实现spa路由
+
+			//1.我们需要的时候在点击实现当前页面的数据的改变
+			{
+				let nav = document.querySelector('.nav');
+				let navItem = nav.querySelectorAll('a');
+				let view = document.querySelector('.view');
+				navItem.forEach((item, index) => {
+					item.onclick = function() {
+						history.pushState({}, '', item.href);
+						// console.log(item.href); //这样我们获取的是本地
+						//我们点击的时候默认会跳转页面，我们需要阻止一下元素的 默认事件
+						//我们需要获取到url里面的值
+						// console.log(location.pathname) ;///BOM/12.history.html
+						//这不是我们想要的所以，所以我们需要pushState一下，并且把我们的东西写进历史记录里面，这样才是我们想要的
+						historyRecord();
+						return false; //这个不要封装到函数里面
+					};
+				});
+				//上面效果实现后，地址栏实现了变化，但是页面浏览器前进或者后退按钮没有触发，所以我们在点击的时候手动触发一下
+				window.onpopstate = function() {
+					historyRecord();
+				};
+        //这个是我们进入页面的时候需要默认显示首页
+        historyRecord();
+				function historyRecord() {
+					let path = location.pathname;
+					// console.log(location.pathname); //这样我们就获取到了我们想要的了
+					switch (path) {
+						case '/index':
+						case '/BOM/12.history.html':   //这个我们可以通过localtion.pathname来获取到
+							view.innerHTML = randerIndex();
+							break;
+						case '/about':
+							console.log('about');
+							view.innerHTML = randerAbout();
+							break;
+						case '/learn':
+							console.log('learn');
+							view.innerHTML = renderLearn();
+							break;
+					}
+				}
+				function randerIndex() {
+					return `hello world`;
+				}
+				function randerAbout() {
+					return `这是关于页面，关于整个世界的`;
+				}
+				function renderLearn() {
+					return `汉语，英文，法语，德语`;
+				}
+			}
+		</script>
+	</body>
+</html>
+
+<!-- 
+  //  history和hash的对比
+  //1. history 需要通过history.pushState的去写入历史数据，然后在去通过localtion.pathname去获取地址然后进行判断
+  //1. hash则是不要，这样来做，他可以直接通过hashchange事件，通过localtion.hash来进行分解，然后进行判断
+
+  //2. history 点击浏览器上的前进后退按钮的时候只会改变，浏览器的地址，但是内容需要通过window.onpopState来进行比较
+  //2. hash还是通过hashchange来触发的
+ -->
+
+ <!-- 
+  //history实例总结
+
+  //1. 我们需要写入history然后在去获取
+  //2. 需要触发前进后退的一个事件，来实现浏览器的前进后退的事件
+  -->

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body a {
+				text-decoration: none;
+				color: #0d3a4b;
+			}
+			.active {
+				color: #ffffff;
+			}
+
+			.wrap {
+				width: 700px;
+				height: 500px;
+				background-image: url('./img/bg.png');
+				background-repeat: no-repeat;
+				margin: 0 auto;
+				position: relative;
+			}
+
+			.wrap #table {
+				width: 460px;
+				border-radius: 12px;
+				position: absolute;
+				left: 50%;
+				top: 160px;
+				transform: translateX(-50%);
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+
+			.wrap #table thead {
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				border-top-left-radius: 12px;
+				border-top-right-radius: 12px;
+				color: #fff;
+				background: #4cbfe5;
+			}
+
+			.wrap #table thead a {
+				color: #fff;
+			}
+
+			.wrap #table tbody {
+				color: #19c2ff;
+			}
+
+			.wrap #table tbody a {
+				color: #19c2ff;
+			}
+
+			.wrap #table tbody tr {
+				background: #fff;
+			}
+
+			.ctrl {
+				position: absolute;
+				left: 200px;
+				top: 100px;
+			}
+
+			.ctrl div {
+				width: 300px;
+				line-height: 30px;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="ctrl">
+				<div class="age_sort nu">
+					<a href="javascript:;">年龄从小到大</a>
+					<a href="javascript:;">年龄从大到小</a>
+					<a href="javascript:;" class="active">默认排序</a>
+				</div>
+				<div class="gender_show">
+					<a href="javascript:;">只显示男性</a>
+					<a href="javascript:;">只显示女性</a>
+					<a href="javascript:;" class="active">默认</a>
+				</div>
+			</div>
+			<table id="table">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>姓名</th>
+						<th>年龄</th>
+						<th>性别</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- <tr>
+                <th>0</th>
+                <th>小明</th>
+                <th>24</th>
+                <th>男</th>
+            </tr>      -->
+				</tbody>
+			</table>
+		</div>
+		<script>
+			let data = [
+				{
+					id: 0,
+					name: '小明',
+					age: 24,
+					gender: '男',
+				},
+				{
+					id: 1,
+					name: '小芳',
+					age: 30,
+					gender: '女',
+				},
+				{
+					id: 2,
+					name: '小美',
+					age: 31,
+					gender: '女',
+				},
+				{
+					id: 3,
+					name: '小刚',
+					age: 21,
+					gender: '男',
+				},
+				{
+					id: 4,
+					name: '小琪',
+					age: 18,
+					gender: '女',
+				},
+			];
+
+			{
+				let table = document.querySelector('#table');
+				let oldData = null;
+				let status = true;
+				let tbody = table.querySelector('tbody');
+				let ageBts = document.querySelectorAll('.age_sort a');
+				let genderShows = document.querySelectorAll('.gender_show a');
+				//排序的集合
+				let sortFn = [
+					data => {
+						data.sort((n1, n2) => {
+							return n1.age - n2.age;
+						});
+					},
+					data => {
+						data.sort((n1, n2) => {
+							return n2.age - n1.age;
+						});
+					},
+					data => {
+						data.sort((n1, n2) => {
+							return n1.id - n2.id;
+						});
+					},
+				];
+        //显示隐藏的集合
+				let showFn = [
+					() => {
+						oldData = data.filter(item => {
+							return item.gender == '男';
+						});
+						render(oldData);
+					},
+					() => {
+						oldData = data.filter(item => {
+							return item.gender == '女';
+						});
+						render(oldData);
+					},
+					() => {
+						render(data);
+					},
+				];
+				//初始化页面
+				render(data);
+
+				//排序
+				ageBts.forEach((item, index) => {
+					item.onclick = () => {
+						clearClass(ageBts, 'active');
+						item.classList.add('active');
+						if (status) {
+							sortFn[index](data);
+							render(data);
+						} else {
+							sortFn[index](oldData);
+							render(oldData);
+						}
+					};
+				});
+
+				//显示
+				genderShows.forEach((item, index) => {
+					item.onclick = function() {
+						if (item.innerHTML == '默认') {
+							status = true;
+						} else {
+							status = false;
+						}
+            clearClass(genderShows,"active")
+            item.classList.add("active")
+						showFn[index]();
+					};
+				});
+				// genderShows[0].onclick = function() {
+				// 	status = false;
+				// 	oldData = render(oldData);
+				// };
+				// genderShows[1].onclick = function() {
+				// 	status = false;
+				// 	oldData = data.filter(item => {
+				// 		return item.gender == '女';
+				// 	});
+				// 	render(oldData);
+				// };
+				// genderShows[2].onclick = function() {
+				// 	status = true;
+				// 	render(data);
+				// };
+
+				// genderShows[0].onclick = function() {
+				// 	data.forEach(function(item, index) {
+				//     if(item.gender == "女"){ 此处逻辑有问题，因为我们直接操作了数据，所以数据是跟着改变的，但是index的值是不变的。导致我们筛选错误
+				//     data.splice(index,1)
+				//     }
+				// 	});
+				//   console.log(data)
+				// };
+
+				//渲染函数
+				function render(data) {
+					let str = '';
+					data.forEach(item => {
+						str += `<tr>
+                <th>${item.id}</th>
+                <th>${item.name}</th>
+                <th>${item.age}</th>
+                <th>${item.gender}</th>`;
+					});
+					tbody.innerHTML = str;
+				}
+				// 清除class
+				function clearClass(ele, cls) {
+					ele.forEach(item => {
+						item.classList.remove(cls);
+					});
+				}
+			}
+		</script>
+	</body>
+</html>
+
+<!-- 
+  //思路总结
+  //1. 排序的思路---排序代码优化
+  //2. 显示隐藏的思路 --- 利用filter过滤，返回的一个新函数的
+  //3. 遇到的主要的问题:最后排序和显示隐藏合并的时候，我们会遇到显示隐藏后，排序出现的问题
+  //解决的方法
+  //我们设置了一个标志，然后把原先的数据克隆一份，当我们操作显示隐藏的时候，我就就用克隆的数据来操作，否则就都用默认的数据来操作。
+ -->

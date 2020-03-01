@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				height: 100px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script>
+			//鼠标按下
+			// document.addEventListener("mousedown",function(e){
+			//   console.log(e.button)
+			//   // 0 左键
+			//   // 1 中间滚轮
+			//   // 2 右键
+			// })
+
+			//============================
+
+			//鼠标滚轮事件--->这几个事件貌似是在
+			//1. 火花 鼠标滚轮事件 DOMMouseScroll
+			document.addEventListener('DOMMouseScroll', function(e) {
+				if (e.deatail > 0) {
+					console.log('向上');
+				} else {
+					console.log('向下');
+				}
+			});
+
+			//2. ie,chrome mouseWheel
+			document.addEventListener('mousewheel', function(e) {
+				if (e.wheelDelta > 0) {
+					console.log('向上');
+				} else {
+					console.log('向下');
+				}
+			});
+		</script>
+	</body>
+</html>

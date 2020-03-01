@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			body {
+				background: #ccc;
+			}
+			div,
+			h3 {
+				margin: 0;
+				padding: 0;
+			}
+			.meau {
+				width: 134px;
+				margin: 0 auto;
+				position: relative;
+				transform-style: preserve-3d;
+				perspective: 600px;
+			}
+			.fixed_title {
+				width: 134px;
+				height: 36px;
+				line-height: 36px;
+				text-align: center;
+				background: pink;
+				font-size: 20px;
+				font-style: normal;
+				position: absolute;
+			}
+			.meau div {
+				width: 134px;
+				height: 36px;
+				text-align: center;
+				position: absolute;
+				top: 36px;
+				transform-origin: top;
+				transform-style: preserve-3d;
+				transform: rotateX(-120deg);
+				/* border: 1px solid #000; */
+			}
+			.meau div span {
+				display: block;
+				height: 36px;
+				line-height: 36px;
+				background: #fff;
+				box-shadow: inset 0 0 0 20px #000;
+			}
+			/* .meau > div:nth-of-type(1){
+        transform: rotateX(-60deg);
+      } */
+			@keyframes show {
+				0% {
+					transform: rotateX(-120deg);
+				}
+				25% {
+					transform: rotateX(30deg);
+				}
+				50% {
+					transform: rotateX(-15deg);
+				}
+				75% {
+					transform: rotateX(8deg);
+				}
+				100% {
+					transform: rotateX(0deg);
+				}
+			}
+			@keyframes hide {
+				0% {
+					transform: rotateX(0deg);
+				}
+
+				100% {
+					transform: rotateX(-120deg);
+				}
+			}
+			.show {
+				animation: show 2s linear both;
+			}
+			.hide {
+				animation: hide 1s linear both;
+			}
+			.meau .show > span {
+				box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0);
+				transition: 0.5s all linear;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var onOff = true,
+					index = 0,
+					timer = null;
+				var btn = document.querySelector('.btn');
+				var meau = document.querySelector('.meau');
+				var item = meau.querySelectorAll('div');
+				btn.onclick = function() {
+					if (onOff) {
+						btn.innerHTML = '隐藏';
+						timer = setInterval(() => {
+							item[index].classList.remove('hide');
+							item[index].classList.add('show');
+							index++;
+							if (index > item.length - 1) {
+								clearInterval(timer);
+							}
+						}, 150);
+					} else {
+						btn.innerHTML = '显示';
+						timer = setInterval(() => {
+							index--;
+							if (index == 0) {
+								clearInterval(timer);
+							}
+							item[index].classList.add('hide');
+						}, 150);
+					}
+					onOff = !onOff;
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<button class="btn">显示</button>
+		<nav class="meau">
+			<h3 class="fixed_title">试听&咨询</h3>
+			<div>
+				<span>新浪微博</span>
+				<div>
+					<span>视频教程</span>
+					<div>
+						<span>音乐教程</span>
+						<div>
+							<span>语文教程</span>
+							<div>
+								<span>数学教程</span>
+								<div>
+									<span>英语教程</span>
+									<div>
+										<span>物理教程</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</body>
+</html>
+
+<!-- 总结
+此效果关键是在布局上，布局需要好好的想一下
+-->

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>getBoundingClientrect</title>
+		<style>
+			.box {
+				margin: 0;
+				padding: 0;
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left: 100px;
+				top: 1000px;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				let box = document.querySelector('.box');
+        window.onscroll=function(){
+          console.log(box.getBoundingClientRect());
+          console.log(document.documentElement.scrollTop || document.body.scrollTop)
+        }
+				/* 
+          x: 100
+          y: 100
+          width: 100
+          height: 100
+          top: 100
+          right: 200
+          bottom: 200
+          left: 100
+       */
+			};
+      /* 
+        //总结，获取的是当前元素距离最顶部的距离，或者元素本身的宽和高
+        //1. DOMRect 对象包含了一组用于描述边框的只读属性——left、top、right和bottom，单位为像素。除了 width 和 height 外的属性都是相对于视口的左上角位置而言的。
+
+        //2. 当滚动位置发生了改变，top和left属性值就会随之立即发生变化（因此，它们的值是相对于视口的，而不是绝对的）
+        
+        3.如果你需要获得相对于整个网页左上角定位的属性值，那么只要给top、left属性值加上当前的滚动位置（通过window.scrollX和window.scrollY），这样就可以获取与当前的滚动位置无关的值。
+
+        4. getBoundingClientRect更适合用在一屏之内合适
+      
+       */
+		</script>
+	</head>
+	<body>
+		<div class="box"></div>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			//requestAnimationFrame 浏览器的兼容性不太好。但是他性能比settimeout好很多
+			// window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
+
+      //注意：若你想在浏览器下次重绘之前继续更新下一帧动画，那么回调函数自身必须再次调用
+      
+      //同时候他也会返回一个id 
+
+      //同时他也有一个结束函数cancelAnimationFrame(index)
+			var i = 0;
+			var timer = window.requestAnimationFrame(function() {
+				console.log(i++);
+				if (i >= 20) {
+					console.log('停止');
+					cancelAnimationFrame(timer);
+				} else {
+					arguments.callee();
+				}
+			});
+		</script>
+	</body>
+</html>

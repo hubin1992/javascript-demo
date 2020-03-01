@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				height: 100px;
+				background: red;
+				animation: move 1s linear both 6 alternate;
+			}
+
+			@keyframes move {
+				0% {
+					width: 100px;
+					height: 100px;
+				}
+				50% {
+					width: 400px;
+					height: 400px;
+				}
+				100% {
+					/*默认不写也是计算后样式*/
+					width: 600px;
+					height: 600px;
+				}
+			}
+			/* .box:hover {
+				animation-play-state: paused;
+			} */
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script>
+			/* 
+    animation 这里只会总结几个不常用的自己记不住的
+    animation-iteration-count:num || infinite(无限次)  动画播放的次数
+    animation-direction: alternate(倒叙执行) || normal(顺序执行) 这个可以做动画的完美循环，如果顺序执行有点丑
+    animation-fill-mode: both || backwords（开始在开始的位置） || forwards(结束在结束的位置)
+    
+    //animation 动画暂停
+    //animation-play-state:paused  || running
+
+    //animation 几个常用的事件
+    //1. animationstart (动画开始)
+    //2. animationend （动画结束）
+    //3. animationiteration（动画从第二次到倒数第二次的循环次数的事件）
+
+   */
+
+   (function(){
+    var box = document.querySelector(".box")
+    box.addEventListener("animationstart",function(){
+      console.log("动画开始了")
+    })
+    box.addEventListener("animationend",function(){
+      console.log("动画结束了")
+    })
+    box.addEventListener("animationiteration",function(){
+      console.log("第二次到倒数第二次")
+    })
+
+
+   })()
+		</script>
+	</body>
+</html>
