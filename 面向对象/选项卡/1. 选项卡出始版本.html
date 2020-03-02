@@ -1,12 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="mydiv1">
+			<div class="btn">
+				<button style="background-color: red;">按钮1</button>
+				<button>按钮2</button>
+				<button>按钮3</button>
+			</div>
+			<p style="display:block">内容1</p>
+			<p style="display:none">内容2</p>
+			<p style="display:none">内容3</p>
+		</div>
+		<div class="mydiv2">
+			<div class="btn">
+				<button style="background-color: red;">按钮1</button>
+				<button>按钮2</button>
+				<button>按钮3</button>
+			</div>
+			<p style="display:block">内容1</p>
+			<p style="display:none">内容2</p>
+			<p style="display:none">内容3</p>
+		</div>
+		<button class="nextEle">点击下一个</button>
+		<button class="autoplay">点击自动播放</button>
+		<script>
+			{
+				// 需求1 实现一个选项卡
+				// let bts = document.querySelectorAll('.mydiv1 button');
+				// let ps = document.querySelectorAll('.mydiv1 p');
+				let nextEle = document.querySelector('.nextEle');
+				let autoplay = document.querySelector('.autoplay');
+				function Tab(bts, ps) {
+         //工厂模式的运用
+        //  let obj = {} 原材料
+        //加工
+					bts.forEach((e, k) => {
+						e.onclick = function() {
+							show(k);
+						};
+					});
+
+					function show(num) {
+						ps.forEach((item, key) => {
+							if (key == num) {
+								bts[key].style.background = 'red';
+								ps[key].style.display = 'block';
+							} else {
+								bts[key].style.background = '';
+								ps[key].style.display = 'none';
+							}
+						});
+					}
+          //obj.show = show
+          //obj.len = bts.length
+          //出厂
+					return {
+            show,
+            len:bts.length
+          }
+				}
+
+				// 需求2 实现多个选项卡
+				let bts = document.querySelectorAll('.mydiv1 button');
+				let ps = document.querySelectorAll('.mydiv1 p');
+
+				let tab1 = Tab(bts, ps, true);
+				let bts2 = document.querySelectorAll('.mydiv2 button');
+				let ps2 = document.querySelectorAll('.mydiv2 p');
+				let tab2 = Tab(bts2, ps2, false, true);
+				/* 
+            //我们只有共同需求的时候，我们才可以放在同一个函数中，如果，仅仅是一个单独的功能我们最好是单独封装拿出来用   
+         */
+				//需求3  给第一个需要点击实现下一个
+				let num = 0;
+				nextEle.onclick = function() {
+					num++;
+					num = num > tab1.len ? 0 : num;
+					tab1(num);
+				};
+
+				//需求4  给第二个选项卡实现一个自动轮播
+				let num2 = 0;
+				autoplay.onclick = function() {
+					setInterval(function() {
+						num2++;
+						num2 = num2 > tab2.len ? 0 : num2;
+						tab2(num2);
+					}, 1000);
+				};
+
+			}
+		</script>
+	</body>
 </html>
