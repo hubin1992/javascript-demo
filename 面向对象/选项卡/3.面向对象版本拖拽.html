@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			div {
+				margin: 0;
+				padding: 0;
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+			}
+			.box2 {
+				background-color: blue;
+				left: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<script>
+			{
+				//鼠标按下
+				// box1.addEventListener('mousedown', down);
+				// function down() {
+				// 	let startX = box1.offsetLeft;
+				// 	let startY = box1.offsetTop;
+				// 	let posX = e.clientX;
+				// 	let posY = e.clientX;
+				// 	document.addEventListener('mousemove', move);
+				// 	function move(e) {
+				// 		let curX = e.clientX - posX;
+				// 		let curY = e.clientY - posY;
+				// 		box1.style.top = startX + curY + 'px';
+				// 		box1.style.left = startX + curX + 'px';
+				// 	}
+				// 	box1.addEventListener(
+				// 		'mouseup',
+				// 		function() {
+				// 			document.removeEventListener('mousemove', move);
+				// 		},
+				// 		'once'
+				// 	);
+				// }
+
+				function Drag(ele) {
+					this.ele = ele;
+					this.posX;
+					this.posY;
+					this.startX;
+					this.startY;
+					this.down();
+				}
+
+				Drag.prototype.down = function() {
+					let _this = this;
+					_this.ele.addEventListener('mousedown', function(e) {
+						_this.startX = _this.ele.offsetLeft;
+						_this.startY = _this.ele.offsetTop;
+						_this.posX = e.clientX;
+						_this.posY = e.clientX;
+						_this.move();
+						_this.up();
+					});
+				};
+				Drag.prototype.move = function() {
+					let _this = this;
+					document.onmousemove = function(e) {
+						let curX = e.clientX - _this.posX;
+						let curY = e.clientY - _this.posY;
+						_this.ele.style.top = _this.startX + curY + 'px';
+						_this.ele.style.left = _this.startX + curX + 'px';
+					};
+				};
+
+				Drag.prototype.up = function() {
+					let _this = this;
+					_this.ele.addEventListener('mouseup', function(e) {
+						document.onmousemove = '';
+					});
+				};
+
+				let box1 = document.querySelector('.box1');
+				let box2 = document.querySelector('.box2');
+				let drag1 = new Drag(box1);
+				let drag2 = new Drag(box2);
+      }
+      
+      //此处入addeventListener 操作起来比较麻烦
+		</script>
+	</body>
+</html>
