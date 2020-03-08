@@ -1,131 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			//深拷贝和浅拷贝
+			//浅拷贝---> 赋值，公用一个空间的地址只是浅拷贝的一种，而更具体的来说是，
+			//深拷贝---> 新开辟一个内存空间，然后把我们要复制的数据拷贝过来
 
-<body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-    //深拷贝和浅拷贝
-    //浅拷贝---> 赋值，公用一个空间的地址只是浅拷贝的一种，而更具体的来说是，
-    //深拷贝---> 新开辟一个内存空间，然后把我们要复制的数据拷贝过来
+			//浅拷贝
 
+			// let a = 6;
+			// let b = a;
 
-    //浅拷贝
+			// let obj = {
+			//   "name": "哈哈"
+			// };
+			// let obj2 = obj;
+			// obj2.name = "嘿嘿";
+			// console.log(obj.name);
 
-    // let a = 6;
-    // let b = a;
-
-    // let obj = {
-    //   "name": "哈哈"
-    // };
-    // let obj2 = obj;
-    // obj2.name = "嘿嘿";
-    // console.log(obj.name);
-
-
-
-    //深拷贝的实现方法
-    function copyObj(obj) {
-      var str = ''
-      var newObj = obj.constractor == Array ? [] : {};
-      if (typeof obj != "object") {
-        return
-      } else if (window.JSON) { //利用了赋值的思想
-        str = JSON.stringify(obj);
-        newObj = JSON.parse(str)
-      } else {
-        for (var key in obj) { //这个方法有纰漏，因为正则也是object
-          newObj[kye] = typeof obj[key] == 'object' ? copyObj(obj[key]) : obj[key]
-        }
-      }
-    }
-
-   
-    //jq中的extend实现深浅拷贝
-    //$.extend([deep], target, obj1, objN)； 如果deep是true的话，可以直接实现递归是拷贝
-    //$.extend 定义的jq的静态属性  
-     //我们来看看jq的源码的实现方式
-     jQuery.extend = jQuery.fn.extend = function() {//挂在到jq对象上，同时还在jq原型上
-      var options, name, src, copy, copyIsArray, clone,
-        target = arguments[0] || {},//源，最后返回出的，到底是挂载还是拷贝到一个对象
-        i = 1,
-        length = arguments.length,
-        deep = false;//默认是用浅拷贝
-      if (typeof target === "boolean") {//我们获取的第一个参数，如果是布尔的类型，那么就是我们自定义拷贝类型
-        deep = target;//这个定义的类型，就是我们的第一个参数
-        target = arguments[i] || {};//i在上定义了，如果有了第一个参数，那么我们最后合成的对象就是第二个了
-        i++;
-      }
-      //这个其实更像是一个容错处理
-      if (typeof target !== "object" && !jQuery.isFunction(target)) {//堆target做了一个判断，如果不是对象，并且不是函数，那么target就是一个空
-        target = {};
-      }
-      if (i === length) {//判断是否为扩展工具的方法
-        target = this;
-        i--;
-      }
-      for (; i < length; i++) {//根据i来循环我们传递进来的参数
-        //判断扩展的对象和引用的对象是否一样
-        if ((options = arguments[i]) != null) {//这里其实就是给option赋值，然后如果我们定义了方法
-          for (name in options) {//然后去循环里面定义了几个函数
-            src = target[name];//src保存的是我们定义在{}的方法名字。
-            copy = options[name];//copy也是保存在{}名字
-            if (target === copy) {//如果这个我们获取的两个方法是一样那么我们要跳出这一轮，去进行下一轮循环了
-              continue;
-            }
-            //判断是否为深拷贝
-            if (deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) {//如果deep是true，并且copy也存在，并且是数组或者对象
-              if (copyIsArray) {//如果是数组
-                copyIsArray = false;
-                clone = src && jQuery.isArray(src) ? src : [];//判断src是否存在，如果存在判断是否有东西
-              } else {
-                clone = src && jQuery.isPlainObject(src) ? src : {};
-              }
-              //递归操作
-              target[name] = jQuery.extend(deep, clone, copy);
-            } else if (copy !== undefined) {//浅拷贝
-              target[name] = copy;
+			let obj = {
+				name: 'xixi',
+				age: 15,
+				a: undefined,
+				child: {},
+				test() {},
+			};
+			let obj1 = JSON.parse(JSON.stringify(obj));
+			// console.log(obj, obj1); //我们会发现这样写深拷贝过来的，会拷贝不全，特别是fn，我们这种比较中药的
+			//深拷贝的实现方法
+			function copyObj(obj) {
+				obj = Array.isArray(obj) ? [] : {};
+				if (Object.prototype.toString.call(obj) === '[Object Array]') {
+          obj = JSON.parse(JSON.stringify(obj))
+				}else{
+          for(var i in obj){//for in 循环会去循环我们prototype上的方法，我们这里值需要可枚举的属性
+          
+            if(obj.hasOwnPropety(i)){
+              console.log(i)
             }
           }
         }
-      }
-      return target;
-    };
+        return obj
+			}
+      copyObj(obj)
+      
 
-    //首先我们要理解一下extend的机制，取决于deep的属性，如果deep默认是false， 那么他会直接循环复制，把所有的属性和属性值放进我们要克隆的对象中，如果里面有引用数据类型，那么他直接拷贝的是地址。所以当我们改其中的引用数据类型的时候，他也会同样改变。如果是true，那就是重新开辟一个堆内存，然后利用递归的方法，全部放进新的内存中，那么两者没有任何关系了。
 
+			//jq中的extend实现深浅拷贝
+			//$.extend([deep], target, obj1, objN)； 如果deep是true的话，可以直接实现递归是拷贝
+			//$.extend 定义的jq的静态属性
+			//我们来看看jq的源码的实现方式
+			jQuery.extend = jQuery.fn.extend = function() {
+				//挂在到jq对象上，同时还在jq原型上
+				var options,
+					name,
+					src,
+					copy,
+					copyIsArray,
+					clone,
+					target = arguments[0] || {}, //源，最后返回出的，到底是挂载还是拷贝到一个对象
+					i = 1,
+					length = arguments.length,
+					deep = false; //默认是用浅拷贝
+				if (typeof target === 'boolean') {
+					//我们获取的第一个参数，如果是布尔的类型，那么就是我们自定义拷贝类型
+					deep = target; //这个定义的类型，就是我们的第一个参数
+					target = arguments[i] || {}; //i在上定义了，如果有了第一个参数，那么我们最后合成的对象就是第二个了
+					i++;
+				}
+				//这个其实更像是一个容错处理
+				if (typeof target !== 'object' && !jQuery.isFunction(target)) {
+					//堆target做了一个判断，如果不是对象，并且不是函数，那么target就是一个空
+					target = {};
+				}
+				if (i === length) {
+					//判断是否为扩展工具的方法
+					target = this;
+					i--;
+				}
+				for (; i < length; i++) {
+					//根据i来循环我们传递进来的参数
+					//判断扩展的对象和引用的对象是否一样
+					if ((options = arguments[i]) != null) {
+						//这里其实就是给option赋值，然后如果我们定义了方法
+						for (name in options) {
+							//然后去循环里面定义了几个函数
+							src = target[name]; //src保存的是我们定义在{}的方法名字。
+							copy = options[name]; //copy也是保存在{}名字
+							if (target === copy) {
+								//如果这个我们获取的两个方法是一样那么我们要跳出这一轮，去进行下一轮循环了
+								continue;
+							}
+							//判断是否为深拷贝
+							if (deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) {
+								//如果deep是true，并且copy也存在，并且是数组或者对象
+								if (copyIsArray) {
+									//如果是数组
+									copyIsArray = false;
+									clone = src && jQuery.isArray(src) ? src : []; //判断src是否存在，如果存在判断是否有东西
+								} else {
+									clone = src && jQuery.isPlainObject(src) ? src : {};
+								}
+								//递归操作
+								target[name] = jQuery.extend(deep, clone, copy);
+							} else if (copy !== undefined) {
+								//浅拷贝
+								target[name] = copy;
+							}
+						}
+					}
+				}
+				return target;
+			};
 
-    //浅拷贝测试
-    let o = {
-      name: "haha",
-      son: {
-        name: 'xiaohahah',
-      }
-    }
-    let o1 = {
-      name: "xixi",
-      son: {
-        name: '小xixi',
-        age: 17
-      }
-    }
-    // let o2 = $.extend({}, o, o1);
-    // console.log(o2);
-    // o1.son.name = 'change';
-    // console.log(o2)
-    //深拷贝测试
-    let o2 = $.extend(true,{}, o, o1);
-    console.log(o2);
-    o1.son.name = 'change';
-    console.log(o2)
-    
-  </script>
+			//首先我们要理解一下extend的机制，取决于deep的属性，如果deep默认是false， 那么他会直接循环复制，把所有的属性和属性值放进我们要克隆的对象中，如果里面有引用数据类型，那么他直接拷贝的是地址。所以当我们改其中的引用数据类型的时候，他也会同样改变。如果是true，那就是重新开辟一个堆内存，然后利用递归的方法，全部放进新的内存中，那么两者没有任何关系了。
 
-</body>
-
+			//浅拷贝测试
+			// let o = {
+			//   name: "haha",
+			//   son: {
+			//     name: 'xiaohahah',
+			//   }
+			// }
+			// let o1 = {
+			//   name: "xixi",
+			//   son: {
+			//     name: '小xixi',
+			//     age: 17
+			//   }
+			// }
+			// // let o2 = $.extend({}, o, o1);
+			// // console.log(o2);
+			// // o1.son.name = 'change';
+			// // console.log(o2)
+			// //深拷贝测试
+			// let o2 = $.extend(true,{}, o, o1);
+			// console.log(o2);
+			// o1.son.name = 'change';
+			// console.log(o2)
+		</script>
+	</body>
 </html>
