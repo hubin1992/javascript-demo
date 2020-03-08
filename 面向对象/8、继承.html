@@ -69,10 +69,12 @@
             this.age = age;
         }
         A.prototype.showName = function () {
-            console.log(this.name)
+            // console.log(this.name)
+            return this.name
         };
         A.prototype.showAge = function () {
-            console.log(this.age)
+            // console.log(this.age)
+            return this.age
         };
 
         function B(name, age, leaver) {
@@ -84,6 +86,14 @@
         B.prototype.leaver = function () {
             console.log(this.leaver)
         }
+        
+        let a = new A('hah','11')
+        // console.log(a.name)
+        let b = new B('xixi','12')
+        console.log(a.name)
+        console.log(b.name)
+
+        
 
     </script>
 </body>

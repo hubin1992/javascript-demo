@@ -62,7 +62,7 @@
 						_this.startX = _this.ele.offsetLeft;
 						_this.startY = _this.ele.offsetTop;
 						_this.posX = e.clientX;
-						_this.posY = e.clientX;
+						_this.posY = e.clientY;
 						_this.move();
 						_this.up();
 					});
@@ -72,9 +72,15 @@
 					document.onmousemove = function(e) {
 						let curX = e.clientX - _this.posX;
 						let curY = e.clientY - _this.posY;
-						_this.ele.style.top = _this.startX + curY + 'px';
-						_this.ele.style.left = _this.startX + curX + 'px';
+            let boxY = _this.startY + curY
+            let boxX = _this.startX + curX
+						_this.setStyle(boxY,boxX);
 					};
+				};
+
+				Drag.prototype.setStyle = function(boxY,boxX) {
+					this.ele.style.top =  boxY+ 'px';
+					this.ele.style.left = boxX + 'px';
 				};
 
 				Drag.prototype.up = function() {
@@ -83,14 +89,29 @@
 						document.onmousemove = '';
 					});
 				};
+			}
 
-				let box1 = document.querySelector('.box1');
-				let box2 = document.querySelector('.box2');
-				let drag1 = new Drag(box1);
-				let drag2 = new Drag(box2);
-      }
-      
-      //此处入addeventListener 操作起来比较麻烦
+			//此处入addeventListener 操作起来比较麻烦
+			let box1 = document.querySelector('.box1');
+			let box2 = document.querySelector('.box2');
+			//需求：利用继承给box2添加一个边界判断
+
+			function DragLink(ele) {
+				Drag.call(this, ele);
+			}
+			DragLink.prototype = new Drag(box1);
+			DragLink.prototype.constructor = DragLink;
+			// 边界限定
+      //重写了父亲的方法，但是对父亲没有任何影响
+			DragLink.prototype.setStyle = function(boxY,boxX) {
+				boxX = Math.min(Math.max(0, boxX), document.documentElement.clientWidth - this.ele.offsetWidth);
+				boxY = Math.min(Math.max(0, boxY), document.documentElement.clientHeight - this.ele.offsetHeight);
+				this.ele.style.top = boxY + 'px';
+				this.ele.style.left = boxX + 'px';
+			};
+
+			let drag1 = new Drag(box1);
+			let darg2 = new DragLink(box2);
 		</script>
 	</body>
 </html>
