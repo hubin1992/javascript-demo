@@ -27,7 +27,9 @@
         //6、in 检测某一个属性是否属于这个对象
         console.log('name' in f2);//true;
         console.log('age' in f2);//true;
-        //7、hasownpropertype 检查是不是私有的属性
+        //hasOwnProperty 检查是不是私有的属性
+        //1）他只有在实例中才有作用
+        //2）for in 循环中也有作用，当我们在for in循环的时候，因为他会去循环prototype上的，所以我们需要加一个，只去循环私有的
         console.log(f2.hasOwnProperty("name"));//true;
         console.log(f2.hasOwnProperty("index"));//false;
 
