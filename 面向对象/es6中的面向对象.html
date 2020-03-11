@@ -49,13 +49,14 @@
     /////////////////////ES6的面向对象的改写/////////////////////////////
 
     class User {
+      static myName = "user"
         constructor(name, age) {
             this.name = name;
             this.age = age;
         }
 
         showName(){
-            console.log(this.name)
+            console.log(this.name+"这是父类输出的")
         }
 
         showAge(){
@@ -67,7 +68,8 @@
     var person = new User("hah",17);
     person.showAge();//17
     person.showName();//haha
-
+    console.log(person.myName);//undefined
+    console.log(User.myName);//user
 
 
     ////类的继承
@@ -76,10 +78,17 @@
             super(name,age);//parent.prototype.constructor.call(this)
             this.leave = leave
         }
+        //重写父类的方法
+        showName(){
+          //继承父类的逻辑，然后添加新的逻辑
+          super.showName()
+          console.log(this.name+"这是子类输出的")
+        }
         showLeave  () {
             console.log(this.leave)
         }
     }
+    console.log(Vip.myName);//子类可以继承父类所有的方法和属性。但是实例就不可以继承父类的私有属性和方法
     var vip = new Vip("hu",23,1);
     vip.showName();
     vip.showAge();
