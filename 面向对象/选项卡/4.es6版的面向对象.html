@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			div {
+				margin: 0;
+				padding: 0;
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+			}
+			.box2 {
+				background-color: blue;
+				left: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<script>
+			{
+				class Drag {
+					constructor(ele) {
+						this.ele = ele;
+						this.posX;
+						this.posY;
+						this.startX;
+						this.startY;
+						this.down();
+					}
+					down() {
+						let _this = this;
+						_this.ele.addEventListener('mousedown', function(e) {
+							_this.startX = _this.ele.offsetLeft;
+							_this.startY = _this.ele.offsetTop;
+							_this.posX = e.clientX;
+							_this.posY = e.clientY;
+							_this.move();
+							_this.up();
+						});
+					}
+					move() {
+						let _this = this;
+						document.onmousemove = function(e) {
+							let curX = e.clientX - _this.posX;
+							let curY = e.clientY - _this.posY;
+							let boxY = _this.startY + curY;
+							let boxX = _this.startX + curX;
+							_this.setStyle(boxY, boxX);
+						};
+					}
+					setStyle(boxY, boxX) {
+						this.ele.style.top = boxY + 'px';
+						this.ele.style.left = boxX + 'px';
+					}
+					up() {
+						let _this = this;
+						_this.ele.addEventListener('mouseup', function(e) {
+							document.onmousemove = '';
+						});
+					}
+				}
+				//此处入addeventListener 操作起来比较麻烦
+				let box1 = document.querySelector('.box1');
+				let box2 = document.querySelector('.box2');
+				//需求：利用继承给box2添加一个边界判断
+
+				class DragLink extends Drag {
+					constructor(ele) {
+						super(ele)
+					}
+					setStyle(boxY, boxX) {
+						boxX = Math.min(Math.max(0, boxX), document.documentElement.clientWidth - this.ele.offsetWidth);
+						boxY = Math.min(
+							Math.max(0, boxY),
+							document.documentElement.clientHeight - this.ele.offsetHeight
+						);
+						this.ele.style.top = boxY + 'px';
+						this.ele.style.left = boxX + 'px';
+					}
+				}
+
+				// function DragLink(ele) {
+				// 	Drag.call(this, ele);
+				// }
+				// DragLink.prototype = new Drag(box1);
+				// DragLink.prototype.constructor = DragLink;
+				// 边界限定
+				//重写了父亲的方法，但是对父亲没有任何影响
+				// DragLink.prototype.setStyle = function(boxY, boxX) {};
+
+				let drag1 = new Drag(box1);
+				let darg2 = new DragLink(box2);
+			}
+		</script>
+	</body>
+</html>
