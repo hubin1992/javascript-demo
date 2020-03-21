@@ -72,14 +72,14 @@
 					document.onmousemove = function(e) {
 						let curX = e.clientX - _this.posX;
 						let curY = e.clientY - _this.posY;
-            let boxY = _this.startY + curY
-            let boxX = _this.startX + curX
-						_this.setStyle(boxY,boxX);
+						let boxY = _this.startY + curY;
+						let boxX = _this.startX + curX;
+						_this.setStyle(boxY, boxX);
 					};
 				};
 
-				Drag.prototype.setStyle = function(boxY,boxX) {
-					this.ele.style.top =  boxY+ 'px';
+				Drag.prototype.setStyle = function(boxY, boxX) {
+					this.ele.style.top = boxY + 'px';
 					this.ele.style.left = boxX + 'px';
 				};
 
@@ -102,8 +102,8 @@
 			DragLink.prototype = new Drag(box1);
 			DragLink.prototype.constructor = DragLink;
 			// 边界限定
-      //重写了父亲的方法，但是对父亲没有任何影响
-			DragLink.prototype.setStyle = function(boxY,boxX) {
+			//重写了父亲的方法，但是对父亲没有任何影响
+			DragLink.prototype.setStyle = function(boxY, boxX) {
 				boxX = Math.min(Math.max(0, boxX), document.documentElement.clientWidth - this.ele.offsetWidth);
 				boxY = Math.min(Math.max(0, boxY), document.documentElement.clientHeight - this.ele.offsetHeight);
 				this.ele.style.top = boxY + 'px';
@@ -112,6 +112,9 @@
 
 			let drag1 = new Drag(box1);
 			let darg2 = new DragLink(box2);
+			export default {
+				Drag
+			};
 		</script>
 	</body>
 </html>
