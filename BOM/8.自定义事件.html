@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 什么是自定义事件
+			// 说白了，就是我们一个开关控制多个灯的方法 写一下
+			//解决什么问题
+			//这个只有在大项目的时候，便于代码的维护，我们可以把每个方法分开来写，然后执行的时候，根据我们需要一组一组的执行
+
+			//例如
+
+			// function myEvent() {
+			// 	//  a 写的方法
+			// 	~function a() {
+			// 		console.log('我是a');
+			// 	}()
+
+			// 	// b  写的方法
+
+			// 	~function b() {
+			// 		console.log('我是b');
+			//   }()
+
+			//   ~function c() {
+			// 		console.log('我是c');
+			//   }()
+			//   ~function d() {
+			// 		console.log('我是d');
+			// 	}()
+			// }
+
+			//执行的时候这所有的都执行le
+			// myEvent()
+
+			//如果我们只想让其中的两个执行咋办，这时候我们就需要模仿事件的方法，把相同的，或者我们想要的放到一个数组里面，等我们需要的时候，直接其中的就好了
+
+			// let handle = {};
+			// //进行分类
+			// function addEvent(targetEvent, fn) {
+			// 	//这个地方空是undefind，他不会自己去转换布尔值
+			// 	if (typeof handle[targetEvent] === 'undefined') {
+			// 		handle[targetEvent] = [];
+			// 	}
+			// 	handle[targetEvent].push(fn);
+			// }
+
+			// //开始执行
+			// function useEvent(targetEvent) {
+			// 	if (!handle[targetEvent]) {
+			// 		console.log('无此数据');
+			// 		return;
+			// 	}
+
+			// 	handle[targetEvent].forEach(v => {
+			// 		v();
+			// 	});
+			// }
+
+			// function removeEvent(targetEvent, fn) {
+			// 	let arr = handle[targetEvent] || [];
+			// 	let index = arr.indexOf(fn);
+			// 	if (index < 0) return;
+			// 	arr.splice(index, 1);
+			// }
+
+			class MyEvent {
+				constructor() {
+					this.handle = {};
+				}
+				addEvent(targetEvent, fn) {
+					//这个地方空是undefind，他不会自己去转换布尔值
+					// typeof this.handle[targetEvent] === 'undefined'
+					if (!(targetEvent in this.handle)) {
+						this.handle[targetEvent] = [];
+					}
+					this.handle[targetEvent].push(fn);
+				}
+				useEvent(targetEvent) {
+					if (!this.handle[targetEvent]) {
+						console.log('无此数据');
+						return;
+					}
+
+					this.handle[targetEvent].forEach(v => {
+						v();
+					});
+				}
+				removeEvent(targetEvent, fn) {
+					let arr = this.handle[targetEvent] || [];
+					let index = arr.indexOf(fn);
+					if (index < 0) return;
+					arr.splice(index, 1);
+				}
+			}
+
+			//a 函数
+			function a() {
+				console.log('a');
+			}
+			function aa() {
+				console.log('aa');
+			}
+			//执行测试
+			let myEvent = new MyEvent();
+			myEvent.addEvent('A', a);
+			myEvent.addEvent('A', aa);
+
+			myEvent.useEvent('A');
+
+			myEvent.removeEvent('A', a);
+			myEvent.useEvent('A');
+		</script>
+	</body>
+</html>

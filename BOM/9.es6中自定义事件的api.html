@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<button class="btn"></button>
+	</head>
+	<body>
+		<script>
+			let box = document.querySelector('.btn');
+			//a 函数
+			function a() {
+				console.log('a');
+			}
+			function aa() {
+				console.log('aa');
+			}
+			function b() {
+				console.log('b');
+			}
+			//执行测试
+			//创建自定义事件的一个容器
+			let myEvent = new Event('A');
+			//往容器里面添加方法
+			box.addEventListener('A', a);
+			box.addEventListener('A', aa);
+			// 触发容器里的方法
+			box.dispatchEvent(myEvent);
+
+			// 删除容器里面的方法
+			box.removeEventListener('A', a);
+			box.dispatchEvent(myEvent);
+
+			//还有一个可以传递数据的自定义时间的放啊放
+
+			var event = new CustomEvent('cat', {
+				detail: {
+					example:'我是自定义的额数据'
+				},
+      });
+      
+      box.addEventListener('cat',function(e){
+        console.log(e.detail.example)
+      })
+
+      box.dispatchEvent(event)
+		</script>
+	</body>
+</html>

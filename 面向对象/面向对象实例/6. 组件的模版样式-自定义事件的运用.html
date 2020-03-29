@@ -128,8 +128,9 @@
 	</body>
 	<script type="module">
 		import Drag from './drag.js';
+    import MyEvent from './myEvent.js';
 		{
-			class Dialog {
+			class Dialog extends MyEvent {
 				constructor(opation) {
 					let newOp = Object.assign(
 						{},
@@ -150,39 +151,29 @@
 							},
 						},
 						opation
-					);
-					this.ops = newOp;
-					this.init();
+          );
+          super()
+          this.ops = newOp;
+          this.init();
 				}
 				init() {
 					this.renderView();
-					// this.ele.querySelector('.k-close').onclick = () => {
-					// 	//  onclick  如果用默认的会修改我们的this指向
-					// 	this.hide();
-					// };
-					// if (this.ops.isCancel) {
-					// 	this.ele.querySelector('.k-default').onclick = () => {
-					// 		this.hide();
-					// 	};
-					// }
-					// this.ele.querySelector('.k-primary').onclick = () => {
-					// 	this.hide();
-					// };
-
+          //用自定义事件的方法来整合
+					this.addEvent('cancel', this.ops.cancel);
+					this.addEvent('cancel', this.hide);
+					this.addEvent('confirm', this.ops.confirm);
+					this.addEvent('confirm', this.hide);
 					//修改成为事件委托
 					this.ele.querySelector('.k-dialog').onclick = e => {
 						switch (e.target.className) {
 							case 'k-close':
-								this.hide();
+								this.triggerEvent("cancel");
 								break;
 							case 'k-default':
-								//确定和取消的函数，我们还可以继续优化，考虑自定义事件，例如我们点击一次，可以执行多个方法那样
-								this.hide();
-								this.ops.cancel();
+								this.triggerEvent("cancel");
 								break;
 							case 'k-primary':
-								this.ops.confirm();
-								this.hide();
+								this.triggerEvent("confirm")
 						}
 					};
 				}

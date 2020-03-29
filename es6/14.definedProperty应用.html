@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></!--> 
+    <script src="./15.myVue.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{title}} 11111111
+    <div>
+     <span> {{exp}}</span>
+    </div>
+  </div>
+  <script>
+    // let vm = new Vue({
+    //   el:'#app',
+    //   data:{
+    //     title:"这是测试题目"
+    //   }
+    // })
+
+    let myV = new MyVue({
+      el:"#app",
+      data:{
+        title:'我们自己的写的替换数据',
+        exp:'这事我们的说明',
+        num:'这是text'
+      }
+    })
+  </script>
+</body>
+</html>

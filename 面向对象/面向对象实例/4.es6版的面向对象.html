@@ -80,8 +80,10 @@
 							Math.max(0, boxY),
 							document.documentElement.clientHeight - this.ele.offsetHeight
 						);
-						this.ele.style.top = boxY + 'px';
-						this.ele.style.left = boxX + 'px';
+						// this.ele.style.top = boxY + 'px';
+            // this.ele.style.left = boxX + 'px';
+            //在这个地方super是当作了一个对象，他指向的父类的原型
+            super.setStyle(boxY,boxX)
 					}
 				}
 

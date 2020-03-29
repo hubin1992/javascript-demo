@@ -18,7 +18,7 @@ class Drag {
       _this.posY = e.clientY;
       _this.move();
       _this.up();
-      e.preventDefault();
+      
     });
   }
   move() {
@@ -29,6 +29,7 @@ class Drag {
       let boxY = _this.startY + curY;
       let boxX = _this.startX + curX;
       _this.setStyle(boxY, boxX);
+      e.preventDefault();
     };
   }
   setStyle(boxY, boxX) {
