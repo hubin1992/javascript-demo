@@ -142,7 +142,7 @@ class Promise { //“promise” is an object or function with a then method whos
 
 
   }
-
+  // catch 方法
   catch(rejectCallback){
     this.then(null,rejectCallback)
   }
@@ -169,7 +169,7 @@ Promise.reject = function(reson){
   })
 }
 
-Promise.all1 = function (values) {
+Promise.all = function (values) {
   //all 之后直接可以then，说明返回的是一个promise
   return new Promise((resolve, reject) => {
     let result = []
@@ -199,6 +199,31 @@ Promise.all1 = function (values) {
     })
   })
 
+}
+
+Promise.race = function (values) {
+  return new Promise((resolve, reject) => {
+    values.forEach((val) => {
+      if (typeof val === 'function' || (typeof val == 'object' && typeof val != null)) {
+        let x = val.then
+        if (typeof x == 'function') {
+          x.then(val, (v) => {
+            resolve(v)
+            return
+          }, r => {
+            reject(r)
+            return
+          })
+        } else {
+          resolve(val)
+          return
+        }
+      } else {
+        resolve(val)
+        return
+      }
+    })
+  })
 }
 
 module.exports = Promise

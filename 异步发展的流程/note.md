@@ -23,10 +23,19 @@
 
 * 高阶函数
   * 参数是一个函数
+  
   * 返回一个函数
-  * 常用来预置参数
+  
+* 常用来预置参数
+  
   * [loadsh](https://www.lodashjs.com/)几乎全部是用高阶函数来写的，推荐研究一下源码
-
+  
+    ```js
+    
+    ```
+  
+    
+  
 * [Promise A+](https://promisesaplus.com/)
 
 * promise的测试(本次测试未通过)
