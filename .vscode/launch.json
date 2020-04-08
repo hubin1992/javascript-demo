@@ -18,7 +18,7 @@
       "program": "${file}", //这个配置成你要调试的文件、${file}当前打开的文件  
       "stopOnEntry": false,
       "args": [],
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspachRoot}",
       "runtimeExecutable": null,
       "runtimeArgs": [
         "--nolazy"
