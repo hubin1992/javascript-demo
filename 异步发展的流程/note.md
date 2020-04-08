@@ -47,4 +47,25 @@
 
   
 
+* Buldbird : promise化
+
+  ```js
+  npm i bluebird   
+  let bluebird = require('bluebird')
+  let read = bluebird.promisify(fs.readFile)//这样就转换成了promise
+  read('url','utf8').then()
+  ```
+
+  
+
+* Mz  ：重写了node中方法，使其变成promise模式
+
+  * 其实这个可以考虑替代了bulebird
+
+  ```js
+  npm i mz
+  let fs = require('mz/fs')
+  fs.readfile(url,'utf8').then()
+  ```
+
   
