@@ -30,10 +30,6 @@
   
   * [loadsh](https://www.lodashjs.com/)几乎全部是用高阶函数来写的，推荐研究一下源码
   
-    ```js
-    
-    ```
-  
     
   
 * [Promise A+](https://promisesaplus.com/)
