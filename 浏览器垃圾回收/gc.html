@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //意外的全局变量 
+
+        function golob(){
+          this.bar = '123'
+        }
+
+        //解决的方法
+        window.bar = null
+        delete window.bar
+
+
+        //闭包
+
+        function fn(){ //这样就不会被销毁
+          let a = 'xxx'
+          function fn1(){
+            a = 'yyyy'
+          }
+          //解决的方法
+          a = null
+        }
+        fn()
+
+    </script>
+</body>
+</html>
