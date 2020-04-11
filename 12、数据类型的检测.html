@@ -25,11 +25,13 @@
         // console.log(true instanceof Boolean);//false
         // console.log(null instanceof Object);//false
 
-        //constrctor --> 不能判断实例的数据类型
+
+        
+        //constrctor --> 不能判断自定义实例的数据类型
         function Fn(){
 
         }
-        var fn = new Fn()//实例是函数数据类型
+        var fn = new Fn()
         // console.log([].constructor === Array);//true
         // console.log([].constructor === Object);//false
         // console.log(''.constructor === String);//true
