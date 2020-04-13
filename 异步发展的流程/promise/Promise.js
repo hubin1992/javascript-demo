@@ -1,3 +1,10 @@
+/*
+ * @Author: hubin 
+ * @Date: 2020-04-13 11:44:56 
+ * @Last Modified by:   hubin 
+ * @Last Modified time: 2020-04-13 11:44:56 
+ */
+
 let resolvePromise = (promise2, x, resolve, reject) => {
   //这里来判断x的类型
   //If promise and x refer to the same object, reject promise with a TypeError as the reason. ru
